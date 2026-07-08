@@ -1,28 +1,33 @@
 package org.informatics.data;
 
 import org.informatics.data.enums.Gender;
-import org.informatics.data.enums.Position;
 import org.informatics.exceptions.AgeBoundaryException;
-import org.informatics.exceptions.InvalidSalaryException;
 
 import java.io.Serial;
 import java.io.Serializable;
-import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.Period;
 import java.util.Objects;
 import java.util.UUID;
+import java.util.regex.Pattern;
 
 /**
- * Represents a corporate employee within the enterprise.
- * Following Domain-Driven Design (DDD) principles, this rich domain model guards
- * its own invariants (internal structural rules), making it impossible for an employee
- * instance to ever exist in an invalid or corrupt state in memory.
+ * <p>Represents a corporate employee entity within the enterprise layout.</p>
+ * <p>Following pure Domain-Driven Design (DDD) principles, this rich domain model guards
+ * its own internal structural invariants, making it impossible for a human employee
+ * instance to ever be initialized or mutated into an invalid state in memory.</p>
  */
 public class Employee implements Serializable {
 
     @Serial
-    private static final long serialVersionUID = -6455762416962209192L;
+    private static final long serialVersionUID = 4829104719482910482L;
+
+    /**
+     * Strict RFC-compliant email validation pattern used to protect string structures.
+     */
+    private static final Pattern EMAIL_PATTERN = Pattern.compile(
+            "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$"
+    );
 
     /**
      * The unique, immutable identifier for this employee.
@@ -30,9 +35,20 @@ public class Employee implements Serializable {
     private final UUID id;
 
     /**
+     * The immutable chronological birth date of the employee.
+     * Enforces at construction that the worker is between 18 and 70 years old.
+     */
+    private final LocalDate birthDate;
+
+    /**
      * The full name of the employee. Length must be between 2 and 100 characters.
      */
     private String name;
+
+    /**
+     * The unique corporate communication email address of the employee.
+     */
+    private String email;
 
     /**
      * The gender of the employee.
@@ -40,43 +56,33 @@ public class Employee implements Serializable {
     private Gender gender;
 
     /**
-     * The birth date of the employee. Enforces that the worker is between 18 and 70 years old.
-     */
-    private LocalDate birthDate;
-
-    /**
-     * The current professional position assigned to this employee.
-     */
-    private Position position;
-
-    /**
-     * The custom monthly salary amount of the employee. Must be non-negative.
-     */
-    private BigDecimal salary;
-
-    /**
-     * Constructs a new Employee instance and executes self-validation guard checks.
-     * A unique {@link UUID} is automatically generated and assigned to the employee ID field.
+     * <p>Constructs a new Employee identity instance and executes self-validation guard checks.</p>
+     * <p>A unique {@link UUID} tracking token is automatically generated and assigned upon creation.</p>
      *
-     * @param name             the full name of the employee (2 to 100 characters)
-     * @param gender           the gender enumeration value of the employee
-     * @param birthDate        the birth date of the employee (enforcing ages 18 to 70 inclusive)
-     * @param position         the professional position of the employee
-     * @param salary           the negotiated monthly salary amount (must be non-negative)
-     * @throws IllegalArgumentException if the name length violates string boundary rules
+     * @param name      the full name of the employee (2 to 100 characters)
+     * @param email     the unique communication email address matching standard format rules
+     * @param gender    the biological gender enumeration value of the employee
+     * @param birthDate the unchangeable birth date of the employee (enforcing ages 18 to 70 inclusive)
+     * @throws IllegalArgumentException if the name length or email format violates layout bounds
      * @throws AgeBoundaryException    if the calculated chronological age is under 18 or over 70
-     * @throws InvalidSalaryException  if the initial salary value provided is negative
      * @throws NullPointerException     if any of the mandatory parameter references are null
      */
-    public Employee(String name, Gender gender, LocalDate birthDate, Position position, BigDecimal salary) {
+    public Employee(String name, String email, Gender gender, LocalDate birthDate) {
         this.id = UUID.randomUUID();
         this.gender = Objects.requireNonNull(gender, "Gender cannot be null.");
-        this.position = Objects.requireNonNull(position, "Position cannot be null.");
 
-        // Delegate core parameter validations entirely to the setters
+        // Validate immutable birth date directly at constructor entry point
+        Objects.requireNonNull(birthDate, "Birth date cannot be null.");
+        int age = Period.between(birthDate, LocalDate.now()).getYears();
+        if (age < 18 || age > 70) {
+            throw new AgeBoundaryException(String.format(
+                    "Hiring rejected. Age must be between 18 and 70. Provided birth date results in age: %d.", age));
+        }
+        this.birthDate = birthDate;
+
+        // Delegate remaining mutable parameter validations securely to the setters
         this.setName(name);
-        this.setBirthDate(birthDate);
-        this.setSalary(salary);
+        this.setEmail(email);
     }
 
     /**
@@ -89,6 +95,15 @@ public class Employee implements Serializable {
     }
 
     /**
+     * Gets the unchangeable birth date of the employee.
+     *
+     * @return the {@link LocalDate} instance representing the birth date
+     */
+    public LocalDate getBirthDate() {
+        return birthDate;
+    }
+
+    /**
      * Gets the full name of the employee.
      *
      * @return the name string
@@ -98,7 +113,7 @@ public class Employee implements Serializable {
     }
 
     /**
-     * Sets the full name of the employee after executing corporate string length reality checks.
+     * Sets the full name of the employee after executing corporate string length checks.
      *
      * @param name the new name string to assign (must be between 2 and 100 characters)
      * @throws IllegalArgumentException if the name length is shorter than 2 or longer than 100 characters
@@ -111,6 +126,31 @@ public class Employee implements Serializable {
             throw new IllegalArgumentException("Invalid name format. Employee names must be between 2 and 100 characters long.");
         }
         this.name = trimmedName;
+    }
+
+    /**
+     * Gets the unique corporate communication email address of the employee.
+     *
+     * @return the email string mapping parameter
+     */
+    public String getEmail() {
+        return email;
+    }
+
+    /**
+     * Sets the corporate communication email address after validating it against a strict regular expression rule.
+     *
+     * @param email the new email address to map (must conform to standard alphanumeric domain layout templates)
+     * @throws IllegalArgumentException if the email structure fails the structural regex match parameter
+     */
+    public void setEmail(String email) {
+        Objects.requireNonNull(email, "Email cannot be null.");
+        String processedEmail = email.trim().toLowerCase();
+
+        if (!EMAIL_PATTERN.matcher(processedEmail).matches()) {
+            throw new IllegalArgumentException("Invalid email format syntax. Please enter a valid corporate email structure (e.g., worker@company.com).");
+        }
+        this.email = processedEmail;
     }
 
     /**
@@ -131,80 +171,6 @@ public class Employee implements Serializable {
         this.gender = Objects.requireNonNull(gender, "Gender cannot be null.");
     }
 
-    /**
-     * Gets the birth date of the employee.
-     *
-     * @return the {@link LocalDate} instance representing the birth date
-     */
-    public LocalDate getBirthDate() {
-        return birthDate;
-    }
-
-    /**
-     * Sets the birth date of the employee after calculating chronological company age limits.
-     *
-     * @param birthDate the new {@link LocalDate} to assign (enforces age boundaries of 18 to 70)
-     * @throws AgeBoundaryException if the resulting calculated age falls below 18 or exceeds 70 years old
-     */
-    public void setBirthDate(LocalDate birthDate) {
-        Objects.requireNonNull(birthDate, "Birth date cannot be null.");
-
-        int age = Period.between(birthDate, LocalDate.now()).getYears();
-        if (age < 18 || age > 70) {
-            throw new AgeBoundaryException(String.format(
-                    "Hiring rejected. Age must be between 18 and 70. Provided birth date results in age: %d.", age));
-        }
-        this.birthDate = birthDate;
-    }
-
-    /**
-     * Gets the professional position of the employee.
-     *
-     * @return the {@link Position} enum value
-     */
-    public Position getPosition() {
-        return position;
-    }
-
-    /**
-     * Sets the professional position of the employee.
-     *
-     * @param position the new {@link Position} enum value to assign
-     */
-    public void setPosition(Position position) {
-        this.position = Objects.requireNonNull(position, "Position cannot be null.");
-    }
-
-    /**
-     * Gets the monthly salary amount of the employee.
-     *
-     * @return the {@link BigDecimal} numeric value representing the salary
-     */
-    public BigDecimal getSalary() {
-        return salary;
-    }
-
-    /**
-     * Sets the monthly salary amount of the employee after running non-negative financial baseline checks.
-     *
-     * @param salary the new {@link BigDecimal} numeric value to assign (must be non-negative)
-     * @throws InvalidSalaryException if the provided compensation scale input is negative
-     */
-    public void setSalary(BigDecimal salary) {
-        Objects.requireNonNull(salary, "Salary cannot be null.");
-
-        if (salary.compareTo(BigDecimal.ZERO) < 0) {
-            throw new InvalidSalaryException("Employee compensation adjustments cannot fall below zero.");
-        }
-        this.salary = salary;
-    }
-
-    /**
-     * Compares this employee with another object for equality based strictly on the unique ID.
-     *
-     * @param o the object to compare with
-     * @return {@code true} if the objects have the same ID; {@code false} otherwise
-     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -213,30 +179,19 @@ public class Employee implements Serializable {
         return Objects.equals(id, employee.id);
     }
 
-    /**
-     * Generates a hash code value for this employee based on their unique ID.
-     *
-     * @return the integer hash code value
-     */
     @Override
     public int hashCode() {
         return Objects.hash(id);
     }
 
-    /**
-     * Returns a string representation of the employee and their attributes.
-     *
-     * @return a text summary containing the values of all fields
-     */
     @Override
     public String toString() {
         return "Employee{" +
-                "id='" + id + '\'' +
+                "id=" + id +
                 ", name='" + name + '\'' +
+                ", email='" + email + '\'' +
                 ", gender=" + gender +
                 ", birthDate=" + birthDate +
-                ", position=" + position +
-                ", salary=" + salary +
                 '}';
     }
 }
