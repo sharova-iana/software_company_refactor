@@ -5,8 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4885edbb-1a37-4f8b-ba56-c90de5d50682" name="Changes" comment="updated settings for the javadocs website">
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/informatics_system.log.0.lck" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -29,24 +29,7 @@
             <expand>
               <path>
                 <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
-                <item name="SoftwareCompany" type="f1a62948:ProjectNode" />
-              </path>
-              <path>
-                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
-                <item name="SoftwareCompany" type="f1a62948:ProjectNode" />
-                <item name="Tasks" type="e4a08cd1:TasksNode" />
-              </path>
-              <path>
-                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
-                <item name="SoftwareCompany" type="f1a62948:ProjectNode" />
-                <item name="Tasks" type="e4a08cd1:TasksNode" />
-                <item name="build" type="c8890929:TasksNode$1" />
-              </path>
-              <path>
-                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
-                <item name="SoftwareCompany" type="f1a62948:ProjectNode" />
-                <item name="Tasks" type="e4a08cd1:TasksNode" />
-                <item name="documentation" type="c8890929:TasksNode$1" />
+                <item name="InformaticsEnterpriseSystem" type="f1a62948:ProjectNode" />
               </path>
             </expand>
             <select />
@@ -73,13 +56,13 @@
     &quot;assignee&quot;: &quot;sharova-iana&quot;
   }
 }</component>
-  <component name="GithubPullRequestsUISettings">{
-  &quot;selectedUrlAndAccountId&quot;: {
-    &quot;url&quot;: &quot;https://github.com/sharova-iana/software_company&quot;,
-    &quot;accountId&quot;: &quot;808db504-1c23-4921-a54d-819c0ee20749&quot;
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/sharova-iana/software_company_refactor",
+    "accountId": "808db504-1c23-4921-a54d-819c0ee20749"
   }
-}</component>
-  <component name="GradleScriptDefinitionsStorage" workingDir="$PROJECT_DIR$" gradleHome="C:\Users\User\.gradle\wrapper\dists\gradle-9.2.0-bin\11i5gvueggl8a5cioxuftxrik\gradle-9.2.0" javaHome="C:\Users\User\.jdks\openjdk-25.0.2" gradleVersion="9.2.0" />
+}]]></component>
+  <component name="GradleScriptDefinitionsStorage" workingDir="$PROJECT_DIR$" gradleHome="C:\Users\User\.gradle\wrapper\dists\gradle-9.0.0-bin\d6wjpkvcgsg3oed0qlfss3wgl\gradle-9.0.0" javaHome="C:\Users\User\.jdks\openjdk-25.0.2" gradleVersion="9.0.0" />
   <component name="ProjectColorInfo">{
   &quot;customColor&quot;: &quot;&quot;,
   &quot;associatedIndex&quot;: 7
@@ -88,97 +71,98 @@
   <component name="ProjectViewState">
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Gradle.BinarySerializationServiceImplementationIntegrationTest.shouldThrowRuntimeException_whenDeserializingFromCompletelyMissingFilePath.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.BinarySerializationServiceImplementationIntegrationTest.shouldWriteAndReadRichObjectStateCleanly_whenProcessedThroughPhysicalFileStreams.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.Build SoftwareCompany.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.CompanyPersistenceServiceImplementationIntegrationTest.shouldSerializeAndDeserializeCompleteCompanyAggregateObject_whenProcessedThroughBinaryStreams.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.ConsoleApplicationUnitTest.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.ConsoleApplicationUnitTest.testPromptSelectionIndex_shouldLoopAndRecover_whenFirstEntryIsCorruptTextFormat.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.ConsoleApplicationUnitTest.testPromptSelectionIndex_shouldLoopAndRecover_whenFirstEntryViolatesBoundaryLimits.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.ConsoleApplicationUnitTest.testPromptSelectionIndex_shouldReturnParsedInteger_whenValidIndexIsProvided.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.CsvPayrollServiceIntegrationTest.shouldExportAndImportPayrollDataPerfectly_whenStateIsProcessedThroughCSVTextStreams.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.CsvPayrollServiceIntegrationTest.shouldThrowSecurityViolationException_whenImportingAFileBelongingToADifferentCompany.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.CsvPayrollServiceUnitTest.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.DomainLookupServiceImplementationIntegrationTest.testFindContractByEmployeeId_shouldReturnCorrectContractWrapper_whenEmployeeIdIsActive.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.DomainLookupServiceImplementationIntegrationTest.testFindContractByEmployeeId_shouldThrowEntityNotFoundException_whenEmployeeIdIsMissing.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.DomainLookupServiceImplementationIntegrationTest.testFindEmployeeById_shouldReturnCorrectEmployee_whenIdIsActiveInCompany.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.DomainLookupServiceImplementationIntegrationTest.testFindEmployeeById_shouldThrowEntityNotFoundException_whenIdIsMissing.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.DomainLookupServiceImplementationIntegrationTest.testFindTeamById_shouldReturnCorrectTeam_whenTeamIdIsActiveInCompany.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.DomainLookupServiceImplementationIntegrationTest.testFindTeamById_shouldThrowEntityNotFoundException_whenTeamIdIsMissing.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.EmployeeServiceImplementationIntegrationTest.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.EmployeeServiceImplementationIntegrationTest.testFireEmployee_shouldPurgeContractAndDissolveTeam_whenTargetWorkerIsAManager.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.EmployeeServiceImplementationIntegrationTest.testFireEmployee_shouldPurgeContractAndEvictMember_whenTargetWorkerIsAContributor.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.EmployeeServiceImplementationIntegrationTest.testHireEmployee_shouldRegisterContractAndInitializeState_whenArgumentsAreValid.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.EmployeeServiceImplementationIntegrationTest.testHireEmployee_shouldThrowInvalidSalaryException_whenNegotiatedSalaryIsBelowMinimumFloor.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.EmployeeServiceImplementationIntegrationTest.testHireEmployee_shouldThrowSalaryConfigurationException_whenRoleHasNoSalaryFloor.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.EmployeeServiceImplementationUnitTest.testFireEmployee_shouldPurgeContractAndCallCompanyRemoveTeam_whenEmployeeIsAManager.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.EmployeeServiceImplementationUnitTest.testFireEmployee_shouldPurgeContractAndCallTeamRemoveMember_whenEmployeeIsARegularContributor.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.EmployeeServiceImplementationUnitTest.testHireEmployee_shouldInstantiateEmployeeAndAppendContract_whenArgumentsAreValid.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.EmployeeServiceImplementationUnitTest.testHireEmployee_shouldInstantiateEmployeeAndCallCompanyAddContract_whenArgumentsAreValid.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.EmployeeServiceImplementationUnitTest.testHireEmployee_shouldThrowInvalidSalaryException_whenSalaryIsBelowMinimumFloor.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.EmployeeServiceImplementationUnitTest.testHireEmployee_shouldThrowSalaryConfigurationException_whenPositionHasNoConfiguredFloor.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.FileRegistryServiceImplementationIntegrationTest.testFetchRawSavedFiles_shouldReturnOnlyValidSerializedDatabaseFiles.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.FileRegistryServiceImplementationIntegrationTest.testGenerateFilename_shouldSanitizeSpecialCharactersToUnderscoresAndAppendExtension.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.FileRegistryServiceImplementationIntegrationTest.testParseFilenameToCompanyName_shouldRebuildCapitalizedSpacedName_whenValidFormatProvided.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.FileRegistryServiceImplementationIntegrationTest.testParseFilenameToCompanyName_shouldThrowFileRegistryException_whenFilenameLayoutIsInvalid.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.FileRegistryServiceImplementationIntegrationTest.testScanAvailableSavedCompanies_shouldReturnMappedUniqueCleanCompanyNames.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.FileRegistryServiceUnitTest (1).executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.FileRegistryServiceUnitTest.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.FinanceServiceImplementationIntegrationTest.testCalculateAverageSalaryForPosition_shouldReturnPrecisionMean_whenMatchingContractsAreActive.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.FinanceServiceImplementationIntegrationTest.testCountEmployeesWithSalaryGreaterThan_shouldReturnCorrectCount_whenSalariesCrossThreshold.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.FinanceServiceImplementationIntegrationTest.testSetSalaryForPosition_shouldStoreFloorInConfigurationMap_whenValueIsValid.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.FinanceServiceImplementationUnitTest.testCalculateAverageSalaryForPosition_shouldReturnPrecisionMean_whenMatchingEmployeesExist.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.FinanceServiceImplementationUnitTest.testCalculateAverageSalaryForPosition_shouldReturnZero_whenNoEmployeesMatchPosition.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.FinanceServiceImplementationUnitTest.testCountEmployeesWithSalaryGreaterThan_shouldReturnCorrectCount_whenContractsExist.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.FinanceServiceImplementationUnitTest.testSetSalaryForPosition_shouldCallCompanySetSalaryForPosition_whenSalaryIsValid.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.FinanceServiceImplementationUnitTest.testSetSalaryForPosition_shouldThrowInvalidSalaryException_whenSalaryProvidedIsNegative.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.ReportingServiceImplementationIntegrationTest.testCompileBaseSalariesTableData_shouldReturnConfiguredEntries_whenMapIsPopulated.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.ReportingServiceImplementationIntegrationTest.testCompileEmployeeTableData_shouldReturnOrderedMatrixRows_whenContractsAreActive.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.ReportingServiceImplementationIntegrationTest.testCompileTeamTableData_shouldReturnGroupedRowsWithContributors_whenTeamsAreActive.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.ReportingServiceImplementationUnitTest.testCompileBaseSalariesTableData_shouldReturnFlatMatrixRows_whenConfigurationsExist.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.ReportingServiceImplementationUnitTest.testCompileEmployeeTableData_shouldReturnSortedStringMatrix_whenActiveContractsExist.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.ReportingServiceImplementationUnitTest.testCompileTeamTableData_shouldReturnStructuredNestedMatrixBlocks_whenTeamsExist.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.SoftwareCompany [:org.informatics.ui.ConsoleApplication.main()].executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.SoftwareCompany [clean].executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.SoftwareCompany [jar].executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.SoftwareCompany [javadoc].executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.TeamServiceImplementationIntegrationTest.testAddMemberToTeam_shouldAppendContributor_whenBusinessRulesPass.executor&quot;: &quot;Debug&quot;,
-    &quot;Gradle.TeamServiceImplementationIntegrationTest.testAddMemberToTeam_shouldThrowTeamAssignmentException_whenEmployeeIsAlreadyInAnotherTeam.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.TeamServiceImplementationIntegrationTest.testCreateTeam_shouldRegisterSuccessfully_whenManagerIsAvailable.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.TeamServiceImplementationIntegrationTest.testCreateTeam_shouldThrowTeamAssignmentException_whenManagerAlreadyLeadsAnotherTeam.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.TeamServiceImplementationIntegrationTest.testRemoveMemberFromTeam_shouldEvictContributor_whenActiveInPool.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.TeamServiceImplementationUnitTest.testAddMemberToTeam_shouldCallTeamAddMember_whenCandidatePassesAllBusinessRules.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.TeamServiceImplementationUnitTest.testAddMemberToTeam_shouldThrowTeamAssignmentException_whenCandidateHoldsManagerRole.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.TeamServiceImplementationUnitTest.testAddMemberToTeam_shouldThrowTeamAssignmentException_whenEmployeeIsAlreadyAssignedToAnotherTeam.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.TeamServiceImplementationUnitTest.testCreateTeam_shouldInstantiateTeamAndCallCompanyAddTeam_whenArgumentsAreValid.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.TeamServiceImplementationUnitTest.testCreateTeam_shouldThrowTeamAssignmentException_whenManagerIsAlreadyLeadingAnotherTeam.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.TeamServiceImplementationUnitTest.testDissolveTeam_shouldCallCompanyRemoveTeam_whenTeamIdIsValid.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.TeamServiceImplementationUnitTest.testRemoveMemberFromTeam_shouldCallTeamRemoveMember_whenEmployeeIsActiveInsideATeamPool.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.TeamServiceImplementationUnitTest.testRemoveMemberFromTeam_shouldThrowTeamAssignmentException_whenEmployeeIsNotActiveInAnyTeam.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.TeamServiceImplementationUnitTest.testRemoveMemberFromTeam_shouldThrowTeamAssignmentException_whenTargetIdBelongsToAManager.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.Tests in 'SoftwareCompany.test'.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.FinanceServiceImplementationIntegrationTest.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.FinanceServiceImplementationIntegrationTest.testSetSalaryForPosition_shouldStoreFloorInConfigurationMap_whenValueIsValid.executor&quot;: &quot;Run&quot;,
-    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/nbu/year2_spring_sem/java/code/SoftwareCompany/src/test/java/org/informatics&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;SDKs&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;project.propVCSSupport.DirectoryMappings&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Gradle.BinarySerializationServiceImplementationIntegrationTest.shouldThrowRuntimeException_whenDeserializingFromCompletelyMissingFilePath.executor": "Run",
+    "Gradle.BinarySerializationServiceImplementationIntegrationTest.shouldWriteAndReadRichObjectStateCleanly_whenProcessedThroughPhysicalFileStreams.executor": "Run",
+    "Gradle.Build SoftwareCompany.executor": "Run",
+    "Gradle.CompanyPersistenceServiceImplementationIntegrationTest.shouldSerializeAndDeserializeCompleteCompanyAggregateObject_whenProcessedThroughBinaryStreams.executor": "Run",
+    "Gradle.ConsoleApplicationUnitTest.executor": "Run",
+    "Gradle.ConsoleApplicationUnitTest.testPromptSelectionIndex_shouldLoopAndRecover_whenFirstEntryIsCorruptTextFormat.executor": "Run",
+    "Gradle.ConsoleApplicationUnitTest.testPromptSelectionIndex_shouldLoopAndRecover_whenFirstEntryViolatesBoundaryLimits.executor": "Run",
+    "Gradle.ConsoleApplicationUnitTest.testPromptSelectionIndex_shouldReturnParsedInteger_whenValidIndexIsProvided.executor": "Run",
+    "Gradle.CsvPayrollServiceIntegrationTest.shouldExportAndImportPayrollDataPerfectly_whenStateIsProcessedThroughCSVTextStreams.executor": "Run",
+    "Gradle.CsvPayrollServiceIntegrationTest.shouldThrowSecurityViolationException_whenImportingAFileBelongingToADifferentCompany.executor": "Run",
+    "Gradle.CsvPayrollServiceUnitTest.executor": "Run",
+    "Gradle.DomainLookupServiceImplementationIntegrationTest.testFindContractByEmployeeId_shouldReturnCorrectContractWrapper_whenEmployeeIdIsActive.executor": "Run",
+    "Gradle.DomainLookupServiceImplementationIntegrationTest.testFindContractByEmployeeId_shouldThrowEntityNotFoundException_whenEmployeeIdIsMissing.executor": "Run",
+    "Gradle.DomainLookupServiceImplementationIntegrationTest.testFindEmployeeById_shouldReturnCorrectEmployee_whenIdIsActiveInCompany.executor": "Run",
+    "Gradle.DomainLookupServiceImplementationIntegrationTest.testFindEmployeeById_shouldThrowEntityNotFoundException_whenIdIsMissing.executor": "Run",
+    "Gradle.DomainLookupServiceImplementationIntegrationTest.testFindTeamById_shouldReturnCorrectTeam_whenTeamIdIsActiveInCompany.executor": "Run",
+    "Gradle.DomainLookupServiceImplementationIntegrationTest.testFindTeamById_shouldThrowEntityNotFoundException_whenTeamIdIsMissing.executor": "Run",
+    "Gradle.EmployeeServiceImplementationIntegrationTest.executor": "Run",
+    "Gradle.EmployeeServiceImplementationIntegrationTest.testFireEmployee_shouldPurgeContractAndDissolveTeam_whenTargetWorkerIsAManager.executor": "Run",
+    "Gradle.EmployeeServiceImplementationIntegrationTest.testFireEmployee_shouldPurgeContractAndEvictMember_whenTargetWorkerIsAContributor.executor": "Run",
+    "Gradle.EmployeeServiceImplementationIntegrationTest.testHireEmployee_shouldRegisterContractAndInitializeState_whenArgumentsAreValid.executor": "Run",
+    "Gradle.EmployeeServiceImplementationIntegrationTest.testHireEmployee_shouldThrowInvalidSalaryException_whenNegotiatedSalaryIsBelowMinimumFloor.executor": "Run",
+    "Gradle.EmployeeServiceImplementationIntegrationTest.testHireEmployee_shouldThrowSalaryConfigurationException_whenRoleHasNoSalaryFloor.executor": "Run",
+    "Gradle.EmployeeServiceImplementationUnitTest.testFireEmployee_shouldPurgeContractAndCallCompanyRemoveTeam_whenEmployeeIsAManager.executor": "Run",
+    "Gradle.EmployeeServiceImplementationUnitTest.testFireEmployee_shouldPurgeContractAndCallTeamRemoveMember_whenEmployeeIsARegularContributor.executor": "Run",
+    "Gradle.EmployeeServiceImplementationUnitTest.testHireEmployee_shouldInstantiateEmployeeAndAppendContract_whenArgumentsAreValid.executor": "Run",
+    "Gradle.EmployeeServiceImplementationUnitTest.testHireEmployee_shouldInstantiateEmployeeAndCallCompanyAddContract_whenArgumentsAreValid.executor": "Run",
+    "Gradle.EmployeeServiceImplementationUnitTest.testHireEmployee_shouldThrowInvalidSalaryException_whenSalaryIsBelowMinimumFloor.executor": "Run",
+    "Gradle.EmployeeServiceImplementationUnitTest.testHireEmployee_shouldThrowSalaryConfigurationException_whenPositionHasNoConfiguredFloor.executor": "Run",
+    "Gradle.FileRegistryServiceImplementationIntegrationTest.testFetchRawSavedFiles_shouldReturnOnlyValidSerializedDatabaseFiles.executor": "Run",
+    "Gradle.FileRegistryServiceImplementationIntegrationTest.testGenerateFilename_shouldSanitizeSpecialCharactersToUnderscoresAndAppendExtension.executor": "Run",
+    "Gradle.FileRegistryServiceImplementationIntegrationTest.testParseFilenameToCompanyName_shouldRebuildCapitalizedSpacedName_whenValidFormatProvided.executor": "Run",
+    "Gradle.FileRegistryServiceImplementationIntegrationTest.testParseFilenameToCompanyName_shouldThrowFileRegistryException_whenFilenameLayoutIsInvalid.executor": "Run",
+    "Gradle.FileRegistryServiceImplementationIntegrationTest.testScanAvailableSavedCompanies_shouldReturnMappedUniqueCleanCompanyNames.executor": "Run",
+    "Gradle.FileRegistryServiceUnitTest (1).executor": "Run",
+    "Gradle.FileRegistryServiceUnitTest.executor": "Run",
+    "Gradle.FinanceServiceImplementationIntegrationTest.testCalculateAverageSalaryForPosition_shouldReturnPrecisionMean_whenMatchingContractsAreActive.executor": "Run",
+    "Gradle.FinanceServiceImplementationIntegrationTest.testCountEmployeesWithSalaryGreaterThan_shouldReturnCorrectCount_whenSalariesCrossThreshold.executor": "Run",
+    "Gradle.FinanceServiceImplementationIntegrationTest.testSetSalaryForPosition_shouldStoreFloorInConfigurationMap_whenValueIsValid.executor": "Run",
+    "Gradle.FinanceServiceImplementationUnitTest.testCalculateAverageSalaryForPosition_shouldReturnPrecisionMean_whenMatchingEmployeesExist.executor": "Run",
+    "Gradle.FinanceServiceImplementationUnitTest.testCalculateAverageSalaryForPosition_shouldReturnZero_whenNoEmployeesMatchPosition.executor": "Run",
+    "Gradle.FinanceServiceImplementationUnitTest.testCountEmployeesWithSalaryGreaterThan_shouldReturnCorrectCount_whenContractsExist.executor": "Run",
+    "Gradle.FinanceServiceImplementationUnitTest.testSetSalaryForPosition_shouldCallCompanySetSalaryForPosition_whenSalaryIsValid.executor": "Run",
+    "Gradle.FinanceServiceImplementationUnitTest.testSetSalaryForPosition_shouldThrowInvalidSalaryException_whenSalaryProvidedIsNegative.executor": "Run",
+    "Gradle.ReportingServiceImplementationIntegrationTest.testCompileBaseSalariesTableData_shouldReturnConfiguredEntries_whenMapIsPopulated.executor": "Run",
+    "Gradle.ReportingServiceImplementationIntegrationTest.testCompileEmployeeTableData_shouldReturnOrderedMatrixRows_whenContractsAreActive.executor": "Run",
+    "Gradle.ReportingServiceImplementationIntegrationTest.testCompileTeamTableData_shouldReturnGroupedRowsWithContributors_whenTeamsAreActive.executor": "Run",
+    "Gradle.ReportingServiceImplementationUnitTest.testCompileBaseSalariesTableData_shouldReturnFlatMatrixRows_whenConfigurationsExist.executor": "Run",
+    "Gradle.ReportingServiceImplementationUnitTest.testCompileEmployeeTableData_shouldReturnSortedStringMatrix_whenActiveContractsExist.executor": "Run",
+    "Gradle.ReportingServiceImplementationUnitTest.testCompileTeamTableData_shouldReturnStructuredNestedMatrixBlocks_whenTeamsExist.executor": "Run",
+    "Gradle.SoftwareCompany [:org.informatics.ui.ConsoleApplication.main()].executor": "Run",
+    "Gradle.SoftwareCompany [clean].executor": "Run",
+    "Gradle.SoftwareCompany [jar].executor": "Run",
+    "Gradle.SoftwareCompany [javadoc].executor": "Run",
+    "Gradle.TeamServiceImplementationIntegrationTest.testAddMemberToTeam_shouldAppendContributor_whenBusinessRulesPass.executor": "Debug",
+    "Gradle.TeamServiceImplementationIntegrationTest.testAddMemberToTeam_shouldThrowTeamAssignmentException_whenEmployeeIsAlreadyInAnotherTeam.executor": "Run",
+    "Gradle.TeamServiceImplementationIntegrationTest.testCreateTeam_shouldRegisterSuccessfully_whenManagerIsAvailable.executor": "Run",
+    "Gradle.TeamServiceImplementationIntegrationTest.testCreateTeam_shouldThrowTeamAssignmentException_whenManagerAlreadyLeadsAnotherTeam.executor": "Run",
+    "Gradle.TeamServiceImplementationIntegrationTest.testRemoveMemberFromTeam_shouldEvictContributor_whenActiveInPool.executor": "Run",
+    "Gradle.TeamServiceImplementationUnitTest.testAddMemberToTeam_shouldCallTeamAddMember_whenCandidatePassesAllBusinessRules.executor": "Run",
+    "Gradle.TeamServiceImplementationUnitTest.testAddMemberToTeam_shouldThrowTeamAssignmentException_whenCandidateHoldsManagerRole.executor": "Run",
+    "Gradle.TeamServiceImplementationUnitTest.testAddMemberToTeam_shouldThrowTeamAssignmentException_whenEmployeeIsAlreadyAssignedToAnotherTeam.executor": "Run",
+    "Gradle.TeamServiceImplementationUnitTest.testCreateTeam_shouldInstantiateTeamAndCallCompanyAddTeam_whenArgumentsAreValid.executor": "Run",
+    "Gradle.TeamServiceImplementationUnitTest.testCreateTeam_shouldThrowTeamAssignmentException_whenManagerIsAlreadyLeadingAnotherTeam.executor": "Run",
+    "Gradle.TeamServiceImplementationUnitTest.testDissolveTeam_shouldCallCompanyRemoveTeam_whenTeamIdIsValid.executor": "Run",
+    "Gradle.TeamServiceImplementationUnitTest.testRemoveMemberFromTeam_shouldCallTeamRemoveMember_whenEmployeeIsActiveInsideATeamPool.executor": "Run",
+    "Gradle.TeamServiceImplementationUnitTest.testRemoveMemberFromTeam_shouldThrowTeamAssignmentException_whenEmployeeIsNotActiveInAnyTeam.executor": "Run",
+    "Gradle.TeamServiceImplementationUnitTest.testRemoveMemberFromTeam_shouldThrowTeamAssignmentException_whenTargetIdBelongsToAManager.executor": "Run",
+    "Gradle.Tests in 'SoftwareCompany.test'.executor": "Run",
+    "JUnit.FinanceServiceImplementationIntegrationTest.executor": "Run",
+    "JUnit.FinanceServiceImplementationIntegrationTest.testSetSalaryForPosition_shouldStoreFloorInConfigurationMap_whenValueIsValid.executor": "Run",
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "main",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/nbu/year2_spring_sem/java/code/SoftwareCompany - refactor",
+    "project.structure.last.edited": "SDKs",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "project.propVCSSupport.DirectoryMappings"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\nbu\year2_spring_sem\java\code\SoftwareCompany\src\test\java\org\informatics" />
     </key>
   </component>
-  <component name="RunManager" selected="Gradle.SoftwareCompany [javadoc]">
+  <component name="RunManager" selected="Gradle.Tests in 'SoftwareCompany.test'">
     <configuration name="ConsoleApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="org.informatics.ui.ConsoleApplication" />
       <module name="SoftwareCompany.main" />
@@ -294,8 +278,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Gradle.SoftwareCompany [javadoc]" />
         <item itemvalue="Gradle.Tests in 'SoftwareCompany.test'" />
+        <item itemvalue="Gradle.SoftwareCompany [javadoc]" />
         <item itemvalue="Gradle.SoftwareCompany [jar]" />
         <item itemvalue="Gradle.SoftwareCompany [clean]" />
         <item itemvalue="Application.ConsoleApplication" />
