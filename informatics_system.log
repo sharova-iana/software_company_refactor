@@ -1,0 +1,20 @@
+Jul 02, 2026 3:59:02 PM org.informatics.service.impl.CompanyPersistenceServiceImplementation loadWorkspace
+INFO: Company workspace aggregate successfully deserialized. Restored Name: 'Apex Cybernetics', Source File: company_db_apex_cybernetics.ser
+Jul 02, 2026 3:59:25 PM org.informatics.service.impl.FinanceServiceImplementation setSalaryForPosition
+INFO: Salary threshold configuration successfully updated. Position: 'QA_ENGINEER', Minimum Floor Assigned: 3,000
+Jul 02, 2026 4:00:39 PM org.informatics.ui.ConsoleApplication start
+WARNING: Presentation operational exception caught during menu choice routing. Reason: Rejected: Proposed salary 3000 is below the minimum baseline entry bound of 3200.00 for a UI_UX_DESIGNER.
+Jul 02, 2026 5:06:06 PM org.informatics.service.impl.CompanyPersistenceServiceImplementation loadWorkspace
+INFO: Company workspace aggregate successfully deserialized. Restored Name: 'ModernTech LLC', Source File: company_db_moderntech_llc.ser
+Jul 02, 2026 5:06:25 PM org.informatics.service.impl.FinanceServiceImplementation setSalaryForPosition
+INFO: Salary threshold configuration successfully updated. Position: 'UI_UX_DESIGNER', Minimum Floor Assigned: 3,200
+Jul 02, 2026 5:07:15 PM org.informatics.ui.ConsoleApplication start
+WARNING: Presentation operational exception caught during menu choice routing. Reason: Rejected: Proposed salary 4000 is below the minimum baseline entry bound of 4500 for a MANAGER.
+Jul 02, 2026 5:08:03 PM org.informatics.ui.ConsoleApplication start
+WARNING: Presentation operational exception caught during menu choice routing. Reason: Manager 'Alice Vance' is already leading another team.
+Jul 02, 2026 5:09:22 PM org.informatics.service.impl.CompanyPersistenceServiceImplementation loadWorkspace
+INFO: Company workspace aggregate successfully deserialized. Restored Name: 'Apex Cybernetics', Source File: company_db_apex_cybernetics.ser
+Jul 02, 2026 5:11:37 PM org.informatics.service.impl.EmployeeServiceImplementation fireEmployee
+INFO: Personnel record successfully terminated. Name: 'David Taylor', Revoked Contract ID: 9
+Jul 02, 2026 5:12:07 PM org.informatics.service.impl.CompanyPersistenceServiceImplementation loadWorkspace
+INFO: Company workspace aggregate successfully deserialized. Restored Name: 'Apex Cybernetics', Source File: company_db_apex_cybernetics.ser

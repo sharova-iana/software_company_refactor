@@ -1,0 +1,527 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="4885edbb-1a37-4f8b-ba56-c90de5d50682" name="Changes" comment="updated settings for the javadocs website">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/informatics_system.log.0.lck" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ExternalProjectsData">
+    <projectState path="$PROJECT_DIR$">
+      <ProjectState />
+    </projectState>
+  </component>
+  <component name="ExternalProjectsManager">
+    <system id="GRADLE">
+      <state>
+        <task path="$PROJECT_DIR$">
+          <activation />
+        </task>
+        <projects_view>
+          <tree_state>
+            <expand>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="SoftwareCompany" type="f1a62948:ProjectNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="SoftwareCompany" type="f1a62948:ProjectNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="SoftwareCompany" type="f1a62948:ProjectNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+                <item name="build" type="c8890929:TasksNode$1" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="SoftwareCompany" type="f1a62948:ProjectNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+                <item name="documentation" type="c8890929:TasksNode$1" />
+              </path>
+            </expand>
+            <select />
+          </tree_state>
+        </projects_view>
+      </state>
+    </system>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Interface" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="PUSH_AUTO_UPDATE" value="true" />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;sharova-iana&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/sharova-iana/software_company&quot;,
+    &quot;accountId&quot;: &quot;808db504-1c23-4921-a54d-819c0ee20749&quot;
+  }
+}</component>
+  <component name="GradleScriptDefinitionsStorage" workingDir="$PROJECT_DIR$" gradleHome="C:\Users\User\.gradle\wrapper\dists\gradle-9.2.0-bin\11i5gvueggl8a5cioxuftxrik\gradle-9.2.0" javaHome="C:\Users\User\.jdks\openjdk-25.0.2" gradleVersion="9.2.0" />
+  <component name="ProjectColorInfo">{
+  &quot;customColor&quot;: &quot;&quot;,
+  &quot;associatedIndex&quot;: 7
+}</component>
+  <component name="ProjectId" id="3FoS4PXaVWXugboRlB72A1CnMBT" />
+  <component name="ProjectViewState">
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Gradle.BinarySerializationServiceImplementationIntegrationTest.shouldThrowRuntimeException_whenDeserializingFromCompletelyMissingFilePath.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.BinarySerializationServiceImplementationIntegrationTest.shouldWriteAndReadRichObjectStateCleanly_whenProcessedThroughPhysicalFileStreams.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.Build SoftwareCompany.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.CompanyPersistenceServiceImplementationIntegrationTest.shouldSerializeAndDeserializeCompleteCompanyAggregateObject_whenProcessedThroughBinaryStreams.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.ConsoleApplicationUnitTest.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.ConsoleApplicationUnitTest.testPromptSelectionIndex_shouldLoopAndRecover_whenFirstEntryIsCorruptTextFormat.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.ConsoleApplicationUnitTest.testPromptSelectionIndex_shouldLoopAndRecover_whenFirstEntryViolatesBoundaryLimits.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.ConsoleApplicationUnitTest.testPromptSelectionIndex_shouldReturnParsedInteger_whenValidIndexIsProvided.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.CsvPayrollServiceIntegrationTest.shouldExportAndImportPayrollDataPerfectly_whenStateIsProcessedThroughCSVTextStreams.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.CsvPayrollServiceIntegrationTest.shouldThrowSecurityViolationException_whenImportingAFileBelongingToADifferentCompany.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.CsvPayrollServiceUnitTest.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.DomainLookupServiceImplementationIntegrationTest.testFindContractByEmployeeId_shouldReturnCorrectContractWrapper_whenEmployeeIdIsActive.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.DomainLookupServiceImplementationIntegrationTest.testFindContractByEmployeeId_shouldThrowEntityNotFoundException_whenEmployeeIdIsMissing.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.DomainLookupServiceImplementationIntegrationTest.testFindEmployeeById_shouldReturnCorrectEmployee_whenIdIsActiveInCompany.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.DomainLookupServiceImplementationIntegrationTest.testFindEmployeeById_shouldThrowEntityNotFoundException_whenIdIsMissing.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.DomainLookupServiceImplementationIntegrationTest.testFindTeamById_shouldReturnCorrectTeam_whenTeamIdIsActiveInCompany.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.DomainLookupServiceImplementationIntegrationTest.testFindTeamById_shouldThrowEntityNotFoundException_whenTeamIdIsMissing.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.EmployeeServiceImplementationIntegrationTest.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.EmployeeServiceImplementationIntegrationTest.testFireEmployee_shouldPurgeContractAndDissolveTeam_whenTargetWorkerIsAManager.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.EmployeeServiceImplementationIntegrationTest.testFireEmployee_shouldPurgeContractAndEvictMember_whenTargetWorkerIsAContributor.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.EmployeeServiceImplementationIntegrationTest.testHireEmployee_shouldRegisterContractAndInitializeState_whenArgumentsAreValid.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.EmployeeServiceImplementationIntegrationTest.testHireEmployee_shouldThrowInvalidSalaryException_whenNegotiatedSalaryIsBelowMinimumFloor.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.EmployeeServiceImplementationIntegrationTest.testHireEmployee_shouldThrowSalaryConfigurationException_whenRoleHasNoSalaryFloor.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.EmployeeServiceImplementationUnitTest.testFireEmployee_shouldPurgeContractAndCallCompanyRemoveTeam_whenEmployeeIsAManager.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.EmployeeServiceImplementationUnitTest.testFireEmployee_shouldPurgeContractAndCallTeamRemoveMember_whenEmployeeIsARegularContributor.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.EmployeeServiceImplementationUnitTest.testHireEmployee_shouldInstantiateEmployeeAndAppendContract_whenArgumentsAreValid.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.EmployeeServiceImplementationUnitTest.testHireEmployee_shouldInstantiateEmployeeAndCallCompanyAddContract_whenArgumentsAreValid.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.EmployeeServiceImplementationUnitTest.testHireEmployee_shouldThrowInvalidSalaryException_whenSalaryIsBelowMinimumFloor.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.EmployeeServiceImplementationUnitTest.testHireEmployee_shouldThrowSalaryConfigurationException_whenPositionHasNoConfiguredFloor.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.FileRegistryServiceImplementationIntegrationTest.testFetchRawSavedFiles_shouldReturnOnlyValidSerializedDatabaseFiles.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.FileRegistryServiceImplementationIntegrationTest.testGenerateFilename_shouldSanitizeSpecialCharactersToUnderscoresAndAppendExtension.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.FileRegistryServiceImplementationIntegrationTest.testParseFilenameToCompanyName_shouldRebuildCapitalizedSpacedName_whenValidFormatProvided.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.FileRegistryServiceImplementationIntegrationTest.testParseFilenameToCompanyName_shouldThrowFileRegistryException_whenFilenameLayoutIsInvalid.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.FileRegistryServiceImplementationIntegrationTest.testScanAvailableSavedCompanies_shouldReturnMappedUniqueCleanCompanyNames.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.FileRegistryServiceUnitTest (1).executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.FileRegistryServiceUnitTest.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.FinanceServiceImplementationIntegrationTest.testCalculateAverageSalaryForPosition_shouldReturnPrecisionMean_whenMatchingContractsAreActive.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.FinanceServiceImplementationIntegrationTest.testCountEmployeesWithSalaryGreaterThan_shouldReturnCorrectCount_whenSalariesCrossThreshold.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.FinanceServiceImplementationIntegrationTest.testSetSalaryForPosition_shouldStoreFloorInConfigurationMap_whenValueIsValid.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.FinanceServiceImplementationUnitTest.testCalculateAverageSalaryForPosition_shouldReturnPrecisionMean_whenMatchingEmployeesExist.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.FinanceServiceImplementationUnitTest.testCalculateAverageSalaryForPosition_shouldReturnZero_whenNoEmployeesMatchPosition.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.FinanceServiceImplementationUnitTest.testCountEmployeesWithSalaryGreaterThan_shouldReturnCorrectCount_whenContractsExist.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.FinanceServiceImplementationUnitTest.testSetSalaryForPosition_shouldCallCompanySetSalaryForPosition_whenSalaryIsValid.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.FinanceServiceImplementationUnitTest.testSetSalaryForPosition_shouldThrowInvalidSalaryException_whenSalaryProvidedIsNegative.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.ReportingServiceImplementationIntegrationTest.testCompileBaseSalariesTableData_shouldReturnConfiguredEntries_whenMapIsPopulated.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.ReportingServiceImplementationIntegrationTest.testCompileEmployeeTableData_shouldReturnOrderedMatrixRows_whenContractsAreActive.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.ReportingServiceImplementationIntegrationTest.testCompileTeamTableData_shouldReturnGroupedRowsWithContributors_whenTeamsAreActive.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.ReportingServiceImplementationUnitTest.testCompileBaseSalariesTableData_shouldReturnFlatMatrixRows_whenConfigurationsExist.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.ReportingServiceImplementationUnitTest.testCompileEmployeeTableData_shouldReturnSortedStringMatrix_whenActiveContractsExist.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.ReportingServiceImplementationUnitTest.testCompileTeamTableData_shouldReturnStructuredNestedMatrixBlocks_whenTeamsExist.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.SoftwareCompany [:org.informatics.ui.ConsoleApplication.main()].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.SoftwareCompany [clean].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.SoftwareCompany [jar].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.SoftwareCompany [javadoc].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.TeamServiceImplementationIntegrationTest.testAddMemberToTeam_shouldAppendContributor_whenBusinessRulesPass.executor&quot;: &quot;Debug&quot;,
+    &quot;Gradle.TeamServiceImplementationIntegrationTest.testAddMemberToTeam_shouldThrowTeamAssignmentException_whenEmployeeIsAlreadyInAnotherTeam.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.TeamServiceImplementationIntegrationTest.testCreateTeam_shouldRegisterSuccessfully_whenManagerIsAvailable.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.TeamServiceImplementationIntegrationTest.testCreateTeam_shouldThrowTeamAssignmentException_whenManagerAlreadyLeadsAnotherTeam.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.TeamServiceImplementationIntegrationTest.testRemoveMemberFromTeam_shouldEvictContributor_whenActiveInPool.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.TeamServiceImplementationUnitTest.testAddMemberToTeam_shouldCallTeamAddMember_whenCandidatePassesAllBusinessRules.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.TeamServiceImplementationUnitTest.testAddMemberToTeam_shouldThrowTeamAssignmentException_whenCandidateHoldsManagerRole.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.TeamServiceImplementationUnitTest.testAddMemberToTeam_shouldThrowTeamAssignmentException_whenEmployeeIsAlreadyAssignedToAnotherTeam.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.TeamServiceImplementationUnitTest.testCreateTeam_shouldInstantiateTeamAndCallCompanyAddTeam_whenArgumentsAreValid.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.TeamServiceImplementationUnitTest.testCreateTeam_shouldThrowTeamAssignmentException_whenManagerIsAlreadyLeadingAnotherTeam.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.TeamServiceImplementationUnitTest.testDissolveTeam_shouldCallCompanyRemoveTeam_whenTeamIdIsValid.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.TeamServiceImplementationUnitTest.testRemoveMemberFromTeam_shouldCallTeamRemoveMember_whenEmployeeIsActiveInsideATeamPool.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.TeamServiceImplementationUnitTest.testRemoveMemberFromTeam_shouldThrowTeamAssignmentException_whenEmployeeIsNotActiveInAnyTeam.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.TeamServiceImplementationUnitTest.testRemoveMemberFromTeam_shouldThrowTeamAssignmentException_whenTargetIdBelongsToAManager.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.Tests in 'SoftwareCompany.test'.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.FinanceServiceImplementationIntegrationTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.FinanceServiceImplementationIntegrationTest.testSetSalaryForPosition_shouldStoreFloorInConfigurationMap_whenValueIsValid.executor&quot;: &quot;Run&quot;,
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/nbu/year2_spring_sem/java/code/SoftwareCompany/src/test/java/org/informatics&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;SDKs&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;project.propVCSSupport.DirectoryMappings&quot;
+  }
+}</component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\nbu\year2_spring_sem\java\code\SoftwareCompany\src\test\java\org\informatics" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Gradle.SoftwareCompany [javadoc]">
+    <configuration name="ConsoleApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="org.informatics.ui.ConsoleApplication" />
+      <module name="SoftwareCompany.main" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="org.informatics.ui.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="SoftwareCompany [clean]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="clean" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <ExternalSystemDebugDisabled>false</ExternalSystemDebugDisabled>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>false</RunAsTest>
+      <GradleProfilingDisabled>false</GradleProfilingDisabled>
+      <GradleCoverageDisabled>false</GradleCoverageDisabled>
+      <method v="2" />
+    </configuration>
+    <configuration name="SoftwareCompany [jar]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="jar" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <ExternalSystemDebugDisabled>false</ExternalSystemDebugDisabled>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>false</RunAsTest>
+      <GradleProfilingDisabled>false</GradleProfilingDisabled>
+      <GradleCoverageDisabled>false</GradleCoverageDisabled>
+      <method v="2" />
+    </configuration>
+    <configuration name="SoftwareCompany [javadoc]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="javadoc" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <ExternalSystemDebugDisabled>false</ExternalSystemDebugDisabled>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>false</RunAsTest>
+      <GradleProfilingDisabled>false</GradleProfilingDisabled>
+      <GradleCoverageDisabled>false</GradleCoverageDisabled>
+      <method v="2" />
+    </configuration>
+    <configuration name="Tests in 'SoftwareCompany.test'" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":test" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <ExternalSystemDebugDisabled>false</ExternalSystemDebugDisabled>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>true</RunAsTest>
+      <GradleProfilingDisabled>false</GradleProfilingDisabled>
+      <GradleCoverageDisabled>false</GradleCoverageDisabled>
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Gradle.SoftwareCompany [javadoc]" />
+        <item itemvalue="Gradle.Tests in 'SoftwareCompany.test'" />
+        <item itemvalue="Gradle.SoftwareCompany [jar]" />
+        <item itemvalue="Gradle.SoftwareCompany [clean]" />
+        <item itemvalue="Application.ConsoleApplication" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-30f59d01ecdd-2fc7cc6b9a17-intellij.indexing.shared.core-IU-253.31033.145" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="4885edbb-1a37-4f8b-ba56-c90de5d50682" name="Changes" comment="" />
+      <created>1782739737096</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1782739737096</updated>
+    </task>
+    <task id="LOCAL-00001" summary="wrote the unit tests for the core controller services">
+      <option name="closed" value="true" />
+      <created>1782751417760</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1782751417760</updated>
+    </task>
+    <task id="LOCAL-00002" summary="updated the reporting service: removed console output and only left the functionality of returning data matrixes">
+      <option name="closed" value="true" />
+      <created>1782752049636</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1782752049636</updated>
+    </task>
+    <task id="LOCAL-00003" summary="updated the csv handling service and the integration test for it to align with the self-protecting rich data models">
+      <option name="closed" value="true" />
+      <created>1782754947744</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1782754947744</updated>
+    </task>
+    <task id="LOCAL-00004" summary="added a separate persistence service to use the binary serialization utility and added the integration test for it">
+      <option name="closed" value="true" />
+      <created>1782756791023</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1782756791024</updated>
+    </task>
+    <task id="LOCAL-00005" summary="added java docs comments to csv service">
+      <option name="closed" value="true" />
+      <created>1782815266916</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1782815266916</updated>
+    </task>
+    <task id="LOCAL-00006" summary="added java docs comments to file registry service, tests for its impl, and a test for the bin serialization utility">
+      <option name="closed" value="true" />
+      <created>1782817341658</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1782817341658</updated>
+    </task>
+    <task id="LOCAL-00007" summary="added the integration tests for the lookup and the core business services">
+      <option name="closed" value="true" />
+      <created>1782838203657</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1782838203657</updated>
+    </task>
+    <task id="LOCAL-00008" summary="added the integration and unit tests for the reporting service">
+      <option name="closed" value="true" />
+      <created>1782839392602</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1782839392602</updated>
+    </task>
+    <task id="LOCAL-00009" summary="added a unit test for an index-parsing helper in the console app and updated the app itself, including java docs comments">
+      <option name="closed" value="true" />
+      <created>1782927435706</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1782927435706</updated>
+    </task>
+    <task id="LOCAL-00010" summary="added exception logging to the app">
+      <option name="closed" value="true" />
+      <created>1782927691131</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1782927691131</updated>
+    </task>
+    <task id="LOCAL-00011" summary="added jar manifest to build config">
+      <option name="closed" value="true" />
+      <created>1782929775249</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1782929775249</updated>
+    </task>
+    <task id="LOCAL-00012" summary="enhanced ux for prompt position input and rerouted the logging to a special file not to clutter the screen">
+      <option name="closed" value="true" />
+      <created>1782997376430</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1782997376430</updated>
+    </task>
+    <task id="LOCAL-00013" summary="enhanced ux for methods that required entering a uuid to use sequential indexing">
+      <option name="closed" value="true" />
+      <created>1782999057884</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1782999057884</updated>
+    </task>
+    <task id="LOCAL-00014" summary="added a limit to the weight of the logger file and 3 physical previous log files">
+      <option name="closed" value="true" />
+      <created>1783002280337</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1783002280337</updated>
+    </task>
+    <task id="LOCAL-00015" summary="added a limit to the weight of the logger file and 3 physical previous log files">
+      <option name="closed" value="true" />
+      <created>1783002323798</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1783002323798</updated>
+    </task>
+    <task id="LOCAL-00016" summary="refactored initialize workspace to use prompt position index for input">
+      <option name="closed" value="true" />
+      <created>1783086135943</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1783086135943</updated>
+    </task>
+    <task id="LOCAL-00017" summary="refactored start with a while and try catch to allow infinite chances to boot up the company">
+      <option name="closed" value="true" />
+      <created>1783087345503</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1783087345503</updated>
+    </task>
+    <task id="LOCAL-00018" summary="added input data validation helpers and used them in handle methods">
+      <option name="closed" value="true" />
+      <created>1783097267077</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1783097267077</updated>
+    </task>
+    <task id="LOCAL-00019" summary="added input data validation helpers and used them in handle methods">
+      <option name="closed" value="true" />
+      <created>1783097459011</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1783097459011</updated>
+    </task>
+    <task id="LOCAL-00020" summary="updated settings for the javadocs website">
+      <option name="closed" value="true" />
+      <created>1783100636409</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1783100636409</updated>
+    </task>
+    <task id="LOCAL-00021" summary="updated settings for the javadocs website">
+      <option name="closed" value="true" />
+      <created>1783100719389</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1783100719389</updated>
+    </task>
+    <option name="localTasksCounter" value="22" />
+    <servers />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="wrote the unit tests for the core controller services" />
+    <MESSAGE value="updated the reporting service: removed console output and only left the functionality of returning data matrixes" />
+    <MESSAGE value="updated the csv handling service and the integration test for it to align with the self-protecting rich data models" />
+    <MESSAGE value="added a separate persistence service to use the binary serialization utility and added the integration test for it" />
+    <MESSAGE value="added java docs comments to csv service" />
+    <MESSAGE value="added java docs comments to file registry service, tests for its impl, and a test for the bin serialization utility" />
+    <MESSAGE value="added the integration tests for the lookup and the core business services" />
+    <MESSAGE value="added the integration and unit tests for the reporting service" />
+    <MESSAGE value="added a unit test for an index-parsing helper in the console app and updated the app itself, including java docs comments" />
+    <MESSAGE value="added exception logging to the app" />
+    <MESSAGE value="added jar manifest to build config" />
+    <MESSAGE value="enhanced ux for prompt position input and rerouted the logging to a special file not to clutter the screen" />
+    <MESSAGE value="enhanced ux for methods that required entering a uuid to use sequential indexing" />
+    <MESSAGE value="added a limit to the weight of the logger file and 3 physical previous log files" />
+    <MESSAGE value="refactored initialize workspace to use prompt position index for input" />
+    <MESSAGE value="refactored start with a while and try catch to allow infinite chances to boot up the company" />
+    <MESSAGE value="added input data validation helpers and used them in handle methods" />
+    <MESSAGE value="updated settings for the javadocs website" />
+    <option name="LAST_COMMIT_MESSAGE" value="updated settings for the javadocs website" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-method">
+          <url>file://$PROJECT_DIR$/src/test/java/org/informatics/service/util/impl/CsvPayrollServiceIntegrationTest.java</url>
+          <line>49</line>
+          <properties class="org.informatics.service.util.impl.CsvPayrollServiceIntegrationTest" method="shouldExportAndImportPayrollDataPerfectly_whenStateIsProcessedThroughCSVTextStreams">
+            <option name="EMULATED" value="true" />
+            <option name="WATCH_EXIT" value="false" />
+          </properties>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+</project>
