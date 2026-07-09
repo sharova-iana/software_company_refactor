@@ -6,7 +6,6 @@ import org.informatics.data.Employee;
 import org.informatics.data.Team;
 import org.informatics.data.enums.Gender;
 import org.informatics.data.enums.Position;
-import org.informatics.exceptions.FileRegistryException;
 import org.informatics.service.util.BinarySerializationService;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -52,11 +51,13 @@ class BinarySerializationServiceImplementationIntegrationTest {
         originalCompany.setSalaryForPosition(Position.MANAGER, new BigDecimal("7500.00"));
         originalCompany.setContractCounter(400);
 
-        Employee manager = new Employee("Stephen Smith", Gender.MALE, LocalDate.of(1980, 8, 24), Position.MANAGER, new BigDecimal("8000.00"));
-        Contract originalContract = new Contract(401, manager);
+        // Updated initialization: Employee tracks human attributes; Contract tracks corporate attributes
+        Employee manager = new Employee("Stephen Smith", "stephen.smith@informatics.com", Gender.MALE, LocalDate.of(1980, 8, 24));
+        Contract originalContract = new Contract(401, manager, Position.MANAGER, new BigDecimal("8000.00"));
         originalCompany.addContract(originalContract);
 
-        Team team = new Team(manager);
+        // Team constructor now accepts the Contract wrapper holding the manager's state
+        Team team = new Team(originalContract);
         originalCompany.addTeam(team);
 
         // when: Execute physical serialization transaction write to local disk
@@ -74,10 +75,14 @@ class BinarySerializationServiceImplementationIntegrationTest {
         Contract loadedContract = restoredCompany.getContracts().iterator().next();
         assertEquals(401, loadedContract.getContractNumber());
         assertEquals("Stephen Smith", loadedContract.getEmployee().getName());
+        assertEquals("stephen.smith@informatics.com", loadedContract.getEmployee().getEmail());
+        assertEquals(Position.MANAGER, loadedContract.getPosition());
+        assertEquals(0, new BigDecimal("8000.00").compareTo(loadedContract.getSalary()));
 
         assertEquals(1, restoredCompany.getTeams().size());
         Team loadedTeam = restoredCompany.getTeams().iterator().next();
-        assertEquals(loadedContract.getEmployee(), loadedTeam.getManager(),
+
+        assertEquals(loadedContract.getEmployee(), loadedTeam.getManagerContract().getEmployee(),
                 "The deserialized team leader instance reference must preserve memory identity mapping with the deserialized contract worker");
     }
 

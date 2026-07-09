@@ -18,8 +18,9 @@ import java.util.UUID;
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
- * Executes domain-level sociable integration tests for the DomainLookupService module.
- * Verifies character streams and lookup paths against real, active domain objects in memory without mocking.
+ * <p>Executes domain-level sociable integration tests for the DomainLookupService module.</p>
+ * <p>Verifies object streams and lookup paths against real, active domain objects in memory
+ * without mocking, capturing true cross-entity integration behavior.</p>
  */
 class DomainLookupServiceImplementationIntegrationTest {
 
@@ -28,6 +29,7 @@ class DomainLookupServiceImplementationIntegrationTest {
     private Employee manager;
     private Employee developer;
     private Contract managerContract;
+    private Contract devContract;
     private Team team;
 
     @BeforeEach
@@ -35,15 +37,14 @@ class DomainLookupServiceImplementationIntegrationTest {
         lookupService = new DomainLookupServiceImplementation();
         company = new Company("Lookup Integration Labs");
 
-        // 1. Initialize real domain objects
-        manager = new Employee("Joe Smith", Gender.MALE, LocalDate.of(1984, 5, 15), Position.MANAGER, new BigDecimal("6000.00"));
-        developer = new Employee("Sarah Brown", Gender.FEMALE, LocalDate.of(1996, 11, 20), Position.JUNIOR_DEVELOPER, new BigDecimal("2800.00"));
+        manager = new Employee("Joe Smith", "joe.smith@informatics.com", Gender.MALE, LocalDate.of(1984, 5, 15));
+        developer = new Employee("Sarah Brown", "sarah.brown@informatics.com", Gender.FEMALE, LocalDate.of(1996, 11, 20));
 
-        managerContract = new Contract(101, manager);
-        Contract devContract = new Contract(102, developer);
+        managerContract = new Contract(101, manager, Position.MANAGER, new BigDecimal("6000.00"));
+        devContract = new Contract(102, developer, Position.JUNIOR_DEVELOPER, new BigDecimal("2800.00"));
 
-        team = new Team(manager);
-        team.addMember(developer);
+        team = new Team(managerContract);
+        team.addMemberContract(devContract);
 
         company.addContract(managerContract);
         company.addContract(devContract);
@@ -61,7 +62,7 @@ class DomainLookupServiceImplementationIntegrationTest {
 
         // then
         assertNotNull(result);
-        assertEquals(developer, result);
+        assertEquals(developer, result, "The lookup engine must traverse the contract list to discover the matching human identity reference.");
     }
 
     @Test
@@ -86,7 +87,7 @@ class DomainLookupServiceImplementationIntegrationTest {
 
         // then
         assertNotNull(resultContract);
-        assertEquals(managerContract, resultContract);
+        assertEquals(managerContract, resultContract, "The lookup engine must identify the correct active legal contract wrapping the human target ID.");
     }
 
     @Test
@@ -112,7 +113,8 @@ class DomainLookupServiceImplementationIntegrationTest {
         // then
         assertNotNull(resultTeam);
         assertEquals(team, resultTeam);
-        assertTrue(resultTeam.getMembers().contains(developer));
+
+        assertTrue(resultTeam.getMemberContracts().contains(devContract), "The retrieved team aggregate must preserve its nested legal contract member associations.");
     }
 
     @Test

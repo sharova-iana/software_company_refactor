@@ -4,16 +4,12 @@ import org.informatics.data.Company;
 import org.informatics.data.Contract;
 import org.informatics.data.Employee;
 import org.informatics.data.Team;
-import org.informatics.data.enums.Gender;
-import org.informatics.data.enums.Position;
 import org.informatics.exceptions.EntityNotFoundException;
 import org.informatics.service.util.DomainLookupService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
-import java.math.BigDecimal;
-import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
@@ -21,8 +17,9 @@ import java.util.UUID;
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
- * Executes isolated London-school unit tests targeting the DomainLookupService implementation module.
- * Verifies contract lookups, personnel discoveries, and exception throwing boundaries for unmapped records.
+ * <p>Executes pure London-school unit tests targeting the DomainLookupService implementation module.</p>
+ * <p>Mocks all collaborator entities to eliminate dependency cascades and analyze query streams
+ * in absolute architectural isolation.</p>
  */
 class DomainLookupServiceUnitTest {
 
@@ -43,17 +40,16 @@ class DomainLookupServiceUnitTest {
     void testFindEmployeeById_shouldReturnEmployee_whenIdIsRegisteredInContracts() {
         // given
         UUID targetId = UUID.randomUUID();
-        Employee employee = new Employee("John Brooks", Gender.MALE, LocalDate.of(1990, 5, 5), Position.SENIOR_DEVELOPER, new BigDecimal("6000.00"));
 
-        try {
-            java.lang.reflect.Field idField = Employee.class.getDeclaredField("id");
-            idField.setAccessible(true);
-            idField.set(employee, targetId);
-        } catch (Exception e) { throw new RuntimeException(e); }
+        Employee mockEmployee = Mockito.mock(Employee.class);
+        Mockito.when(mockEmployee.getId()).thenReturn(targetId);
+        Mockito.when(mockEmployee.getName()).thenReturn("John Brooks");
 
-        Contract contract = new Contract(1, employee);
+        Contract mockContract = Mockito.mock(Contract.class);
+        Mockito.when(mockContract.getEmployee()).thenReturn(mockEmployee);
+
         Set<Contract> contracts = new HashSet<>();
-        contracts.add(contract);
+        contracts.add(mockContract);
         Mockito.when(company.getContracts()).thenReturn(contracts);
 
         // when
@@ -86,17 +82,16 @@ class DomainLookupServiceUnitTest {
     void testFindContractByEmployeeId_shouldReturnContract_whenEmployeeIdIsRegistered() {
         // given
         UUID targetId = UUID.randomUUID();
-        Employee employee = new Employee("Jane Smith", Gender.FEMALE, LocalDate.of(1994, 2, 2), Position.QA_ENGINEER, new BigDecimal("4000.00"));
 
-        try {
-            java.lang.reflect.Field idField = Employee.class.getDeclaredField("id");
-            idField.setAccessible(true);
-            idField.set(employee, targetId);
-        } catch (Exception e) { throw new RuntimeException(e); }
+        Employee mockEmployee = Mockito.mock(Employee.class);
+        Mockito.when(mockEmployee.getId()).thenReturn(targetId);
 
-        Contract contract = new Contract(42, employee);
+        Contract mockContract = Mockito.mock(Contract.class);
+        Mockito.when(mockContract.getContractNumber()).thenReturn(42);
+        Mockito.when(mockContract.getEmployee()).thenReturn(mockEmployee);
+
         Set<Contract> contracts = new HashSet<>();
-        contracts.add(contract);
+        contracts.add(mockContract);
         Mockito.when(company.getContracts()).thenReturn(contracts);
 
         // when
@@ -105,7 +100,7 @@ class DomainLookupServiceUnitTest {
         // then
         assertNotNull(result, "Should successfully return a valid Contract object wrapper");
         assertEquals(42, result.getContractNumber(), "The returned contract wrapper number must match the recorded integer key");
-        assertEquals(employee, result.getEmployee(), "The nested employee profile inside the contract must match our target query employee");
+        assertEquals(mockEmployee, result.getEmployee(), "The nested employee profile inside the contract must match our target query employee");
     }
 
     @Test
@@ -129,17 +124,17 @@ class DomainLookupServiceUnitTest {
     void testFindTeamById_shouldReturnTeam_whenTeamIdIsRegistered() {
         // given
         UUID targetTeamId = UUID.randomUUID();
-        Employee manager = new Employee("Team Leader", Gender.MALE, LocalDate.of(1988, 12, 12), Position.MANAGER, new BigDecimal("5500.00"));
-        Team team = new Team(manager);
 
-        try {
-            java.lang.reflect.Field idField = Team.class.getDeclaredField("id");
-            idField.setAccessible(true);
-            idField.set(team, targetTeamId);
-        } catch (Exception e) { throw new RuntimeException(e); }
+        Employee mockManager = Mockito.mock(Employee.class);
+        Contract mockManagerContract = Mockito.mock(Contract.class);
+        Mockito.when(mockManagerContract.getEmployee()).thenReturn(mockManager);
+
+        Team mockTeam = Mockito.mock(Team.class);
+        Mockito.when(mockTeam.getId()).thenReturn(targetTeamId);
+        Mockito.when(mockTeam.getManagerContract()).thenReturn(mockManagerContract);
 
         Set<Team> teams = new HashSet<>();
-        teams.add(team);
+        teams.add(mockTeam);
         Mockito.when(company.getTeams()).thenReturn(teams);
 
         // when
@@ -148,7 +143,7 @@ class DomainLookupServiceUnitTest {
         // then
         assertNotNull(result, "Should successfully return a valid Team tracking block");
         assertEquals(targetTeamId, result.getId(), "The structural ID of the returned team must match the query parameter token");
-        assertEquals(manager, result.getManager(), "The manager object bound to the team must match the original group creator reference");
+        assertEquals(mockManager, result.getManagerContract().getEmployee(), "The manager object bound to the team must match the original reference");
     }
 
     @Test

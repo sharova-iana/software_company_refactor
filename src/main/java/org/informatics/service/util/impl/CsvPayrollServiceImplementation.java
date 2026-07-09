@@ -13,9 +13,15 @@ import java.time.LocalDate;
 import java.util.Objects;
 import java.util.UUID;
 
+/**
+ * <p>Provides the concrete infrastructure implementation for exporting and importing corporate payroll files.</p>
+ * <p>Following our contract-centric domain shift, this class manages a strict 8-column schema, separating human
+ * identity profiles from their legal agreement terms during plain text file parses.</p>
+ */
 public class CsvPayrollServiceImplementation implements CsvPayrollService {
 
-    private static final String CSV_HEADER = "ContractNumber,EmployeeID,FullName,Gender,BirthDate,Position,Salary";
+    // Upgraded to a strict 8-column layout mapping out the human email string parameter
+    private static final String CSV_HEADER = "ContractNumber,EmployeeID,FullName,Email,Gender,BirthDate,Position,Salary";
     private static final String COMPANY_METADATA_PREFIX = "# COMPANY_NAME: ";
 
     /**
@@ -27,7 +33,7 @@ public class CsvPayrollServiceImplementation implements CsvPayrollService {
         Objects.requireNonNull(filepath, "Filepath cannot be null.");
 
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filepath))) {
-            // Write Row 1: Explicitly imbed the workspace company metadata tag context
+            // Write Row 1: Embed the workspace company metadata tag context
             writer.write(COMPANY_METADATA_PREFIX + company.getName());
             writer.newLine();
 
@@ -38,29 +44,36 @@ public class CsvPayrollServiceImplementation implements CsvPayrollService {
             // Stream and format every single active contract entry
             for (Contract contract : company.getContracts()) {
                 String line = getString(contract);
-
                 writer.write(line);
                 writer.newLine();
             }
         } catch (IOException e) {
-            throw new RuntimeException("CSV Export failed for path: " + filepath, e);
+            throw new org.informatics.exceptions.FileRegistryException("CSV Export failed for path: " + filepath);
         }
     }
 
+    /**
+     * Translates a live contract and its nested employee details into a sanitized, comma-separated row text string.
+     *
+     * @param contract the live contract agreement entity to stringify
+     * @return the formatted plain text CSV string data line
+     */
     public String getString(Contract contract) {
         Employee emp = contract.getEmployee();
 
         // Sanitize string text parameters to escape internal comma breaking errors
         String sanitizedName = "\"" + emp.getName().replace("\"", "\"\"") + "\"";
 
-        return String.format("%d,%s,%s,%s,%s,%s,%s",
+        // Upgraded formatting signature tracking 8 parameters sequentially
+        return String.format("%d,%s,%s,%s,%s,%s,%s,%s",
                 contract.getContractNumber(),
                 emp.getId().toString(),
                 sanitizedName,
+                emp.getEmail(),
                 emp.getGender().name(),
                 emp.getBirthDate().toString(),
-                emp.getPosition().name(),
-                emp.getSalary().toString()
+                contract.getPosition().name(),
+                contract.getSalary().toString()
         );
     }
 
@@ -73,37 +86,39 @@ public class CsvPayrollServiceImplementation implements CsvPayrollService {
         Objects.requireNonNull(filepath, "Filepath cannot be null.");
 
         File file = new File(filepath);
-        // Maps to: FileRegistryException
         if (!file.exists()) {
             throw new org.informatics.exceptions.FileRegistryException("CSV Import failed. File not found: " + filepath);
         }
 
         try (BufferedReader reader = new BufferedReader(new FileReader(filepath))) {
-            // Helper A: Handles row 1 company ownership verification rules
+            // Handles row 1 company ownership verification rules
             verifyCompanyOwnershipMetadata(company.getName(), reader.readLine());
 
-            // Helper B: Handles row 2 schema structure layout validations
+            // Handles row 2 schema structure layout validations
             verifyCsvHeaderSchema(reader.readLine());
 
             // Safety clearance step before populating new data rows
             company.clearContractsRegistry();
 
-            // Helper C: Handles row parsing and roster reconstruction loop
+            // Handles row parsing and roster reconstruction loop
             processCsvDataLines(company, reader);
 
         } catch (IOException e) {
-            throw new RuntimeException("CSV Import read loop failure: " + filepath, e);
+            throw new org.informatics.exceptions.FileRegistryException("CSV Import read loop failure: " + filepath);
         }
     }
 
-    // Public because it validates a read stream state (left out of the interface)
+    /**
+     * Validates that the metadata header owner token matches the current workspace title precisely.
+     *
+     * @param currentCompanyName the title string of the active workspace profile
+     * @param metadataLine       the raw header text read off the first line of the file
+     */
     public void verifyCompanyOwnershipMetadata(String currentCompanyName, String metadataLine) {
-        // Maps to: DataCorruptionException (Line 1 is physically corrupt or missing)
         if (metadataLine == null || !metadataLine.startsWith(COMPANY_METADATA_PREFIX)) {
             throw new org.informatics.exceptions.DataCorruptionException("CSV Corruption error: Missing corporate ownership metadata header.");
         }
 
-        // Maps to: SecurityViolationException (Cross-loading files from an unauthorized competitor)
         String embeddedCompanyName = metadataLine.substring(COMPANY_METADATA_PREFIX.length()).trim();
         if (!embeddedCompanyName.equalsIgnoreCase(currentCompanyName)) {
             throw new org.informatics.exceptions.SecurityViolationException(String.format(
@@ -113,33 +128,43 @@ public class CsvPayrollServiceImplementation implements CsvPayrollService {
         }
     }
 
-    // Public because it validates a layout header token array string (left out of the interface)
+    /**
+     * Validates that the file layout column header string matches our structural 8-column layout contract.
+     *
+     * @param headerLine the layout title text read off the second line of the file
+     */
     public void verifyCsvHeaderSchema(String headerLine) {
-        // Maps to: DataCorruptionException
         if (headerLine == null || !headerLine.equals(CSV_HEADER)) {
             throw new org.informatics.exceptions.DataCorruptionException("CSV Corruption error: Invalid or missing data header schema marker.");
         }
     }
 
-    // Private because it directly mutates the company collection records data layer
+    /**
+     * Iterates over remaining lines, splitting string tokens safely and reconstructing live domain models.
+     */
     private void processCsvDataLines(Company company, BufferedReader reader) throws IOException {
         String line;
         while ((line = reader.readLine()) != null) {
             if (line.trim().isEmpty()) continue;
 
+            // Regex parsing that isolates escaped internal commas cleanly
             String[] tokens = line.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)");
-            // Maps to: DataCorruptionException
-            if (tokens.length != 7) {
+            if (tokens.length != 8) {
                 throw new org.informatics.exceptions.DataCorruptionException("CSV Data mismatch corruption error. Row token length mismatch.");
             }
 
             int contractNum = Integer.parseInt(tokens[0].trim());
             UUID empId = UUID.fromString(tokens[1].trim());
 
+            // 1. Re-hydrate the human employee data model
             Employee employee = buildEmployeeFromTokens(tokens);
             overrideEmployeeId(employee, empId);
 
-            Contract contract = new Contract(contractNum, employee);
+            // 2. Extract position and salary parameters to register the contract model
+            Position position = Position.valueOf(tokens[6].trim().toUpperCase());
+            BigDecimal salary = new BigDecimal(tokens[7].trim());
+
+            Contract contract = new Contract(contractNum, employee, position, salary);
             company.addContract(contract);
 
             if (contractNum > company.getContractCounter()) {
@@ -148,24 +173,48 @@ public class CsvPayrollServiceImplementation implements CsvPayrollService {
         }
     }
 
-
+    /**
+     * Extracts values from string arrays to allocate a fresh human Employee instance.
+     *
+     * @param tokens the parsed raw string columns array row
+     * @return a fresh, verified Employee domain instance
+     */
     public Employee buildEmployeeFromTokens(String[] tokens) {
         String cleanName = tokens[2].trim().replaceAll("^\"|\"$", "").replace("\"\"", "\"");
-        Gender gender = Gender.valueOf(tokens[3].trim().toUpperCase());
-        LocalDate birthDate = LocalDate.parse(tokens[4].trim());
-        Position position = Position.valueOf(tokens[5].trim().toUpperCase());
-        BigDecimal salary = new BigDecimal(tokens[6].trim());
+        String email = tokens[3].trim();
+        Gender gender = Gender.valueOf(tokens[4].trim().toUpperCase());
+        LocalDate birthDate = LocalDate.parse(tokens[5].trim());
 
-        return new Employee(cleanName, gender, birthDate, position, salary);
+        // We use a dummy date for construction, then inject the true historic birth date via reflection
+        Employee employee = new Employee(cleanName, email, gender, LocalDate.now().minusYears(30));
+        overrideEmployeeBirthDate(employee, birthDate);
+
+        return employee;
     }
 
+    /**
+     * Reflectively injects the unique ID token into the final field of an Employee instance.
+     */
     public void overrideEmployeeId(Employee employee, UUID targetId) {
         try {
             java.lang.reflect.Field idField = Employee.class.getDeclaredField("id");
             idField.setAccessible(true);
             idField.set(employee, targetId);
         } catch (Exception e) {
-            throw new RuntimeException("Critical reflective injection error processing data schemas", e);
+            throw new RuntimeException("Critical reflective injection error processing id fields", e);
+        }
+    }
+
+    /**
+     * Reflectively injects the historic birth date into the final field of an Employee instance.
+     */
+    public void overrideEmployeeBirthDate(Employee employee, LocalDate targetBirthDate) {
+        try {
+            java.lang.reflect.Field birthField = Employee.class.getDeclaredField("birthDate");
+            birthField.setAccessible(true);
+            birthField.set(employee, targetBirthDate);
+        } catch (Exception e) {
+            throw new RuntimeException("Critical reflective injection error processing final birth fields", e);
         }
     }
 }

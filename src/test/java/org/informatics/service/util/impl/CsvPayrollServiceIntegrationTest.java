@@ -49,9 +49,9 @@ class CsvPayrollServiceIntegrationTest {
     @Test
     void shouldExportAndImportPayrollDataPerfectly_whenStateIsProcessedThroughCSVTextStreams() {
         // given
-        // Restored your exact original name string to accurately verify quote-and-comma escaping logic
-        Employee emp = new Employee("Doe, John \"The Boss\"", Gender.MALE, LocalDate.of(1990, 5, 10), Position.SENIOR_DEVELOPER, new BigDecimal("6500.50"));
-        Contract originalContract = new Contract(105, emp);
+        Employee emp = new Employee("Doe, John \"The Boss\"", "john.boss@csvcorp.com", Gender.MALE, LocalDate.of(1990, 5, 10));
+
+        Contract originalContract = new Contract(105, emp, Position.SENIOR_DEVELOPER, new BigDecimal("6500.50"));
 
         company.addContract(originalContract);
         company.setContractCounter(105);
@@ -69,16 +69,21 @@ class CsvPayrollServiceIntegrationTest {
         assertEquals(originalContract.getContractNumber(), loadedContract.getContractNumber());
         assertEquals(emp.getId(), loadedContract.getEmployee().getId());
         assertEquals(emp.getName(), loadedContract.getEmployee().getName());
-        assertEquals(0, emp.getSalary().compareTo(loadedContract.getEmployee().getSalary()));
+        assertEquals("john.boss@csvcorp.com", loadedContract.getEmployee().getEmail());
+        assertEquals(Position.SENIOR_DEVELOPER, loadedContract.getPosition());
+
+        // Asserting against the contract compensation boundaries rather than the worker profile
+        assertEquals(0, originalContract.getSalary().compareTo(loadedContract.getSalary()));
         assertEquals(105, targetEmptyCompany.getContractCounter());
     }
 
     @Test
     void shouldThrowSecurityViolationException_whenImportingAFileBelongingToADifferentCompany() {
         // given
-        Employee emp = new Employee("Jane Smith", Gender.FEMALE, LocalDate.of(1992, 4, 4), Position.SENIOR_DEVELOPER, new BigDecimal("6000.00"));
+        Employee emp = new Employee("Jane Smith", "jane.smith@csvcorp.com", Gender.FEMALE, LocalDate.of(1992, 4, 4));
+        Contract contract = new Contract(1, emp, Position.SENIOR_DEVELOPER, new BigDecimal("6000.00"));
 
-        company.addContract(new Contract(1, emp));
+        company.addContract(contract);
 
         // Signed under original company name metadata: "CSV Testing Corp"
         csvService.exportPayrollToCsv(company, testCsvPath);
