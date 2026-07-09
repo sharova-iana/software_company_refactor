@@ -45,6 +45,7 @@ class EmployeeServiceImplementationUnitTest {
     void testHireEmployee_shouldThrowSalaryConfigurationException_whenPositionHasNoConfiguredFloor() {
         // given
         String name = "Jane Doe";
+        String email = "jane.doe@informatics.com";
         Position position = Position.UI_UX_DESIGNER;
         BigDecimal salary = new BigDecimal("3000.00");
 
@@ -53,7 +54,7 @@ class EmployeeServiceImplementationUnitTest {
 
         // when/then
         assertThrows(SalaryConfigurationException.class, () -> {
-            employeeService.hireEmployee(mockCompany, name, Gender.FEMALE, LocalDate.now().minusYears(25), position, salary);
+            employeeService.hireEmployee(mockCompany, name, email, Gender.FEMALE, LocalDate.now().minusYears(25), position, salary);
         }, "Cannot hire. No entry-level salary baseline configured for position: UI_UX_DESIGNER");
 
         Mockito.verify(mockCompany).getPositionMinimumSalaries();
@@ -63,6 +64,7 @@ class EmployeeServiceImplementationUnitTest {
     void testHireEmployee_shouldThrowInvalidSalaryException_whenSalaryIsBelowMinimumFloor() {
         // given
         String name = "Underpaid Dev";
+        String email = "underpaid@informatics.com";
         Position position = Position.SENIOR_DEVELOPER;
         BigDecimal substandardSalary = new BigDecimal("5500.00");
 
@@ -72,16 +74,17 @@ class EmployeeServiceImplementationUnitTest {
 
         // when/then
         assertThrows(InvalidSalaryException.class, () -> {
-            employeeService.hireEmployee(mockCompany, name, Gender.MALE, LocalDate.now().minusYears(35), position, substandardSalary);
+            employeeService.hireEmployee(mockCompany, name, email, Gender.MALE, LocalDate.now().minusYears(35), position, substandardSalary);
         });
 
         Mockito.verify(mockCompany).getPositionMinimumSalaries();
     }
 
     @Test
-    void testHireEmployee_shouldInstantiateEmployeeAndCallCompanyAddContract_whenArgumentsAreValid() {
+    void testHireEmployee_shouldInstantiateContractAndCallCompanyAddContract_whenArgumentsAreValid() {
         // given
         String name = "Jack Doe";
+        String email = "jack.doe@informatics.com";
         LocalDate birthDate = LocalDate.now().minusYears(30);
         BigDecimal negotiatedSalary = new BigDecimal("6500.00");
 
@@ -91,18 +94,19 @@ class EmployeeServiceImplementationUnitTest {
 
         Mockito.when(mockCompany.incrementAndGetContractCounter()).thenReturn(101);
 
-        // when
-        Employee actualEmployee = employeeService.hireEmployee(mockCompany, name, Gender.MALE, birthDate, Position.SENIOR_DEVELOPER, negotiatedSalary);
+        // when: hiring now yields the active legal Contract object back to our test layer
+        Contract actualContract = employeeService.hireEmployee(mockCompany, name, email, Gender.MALE, birthDate, Position.SENIOR_DEVELOPER, negotiatedSalary);
 
         // then
-        assertNotNull(actualEmployee);
-        assertEquals("Jack Doe", actualEmployee.getName());
+        assertNotNull(actualContract);
+        assertEquals(Position.SENIOR_DEVELOPER, actualContract.getPosition());
+        assertEquals(0, negotiatedSalary.compareTo(actualContract.getSalary()));
+        assertEquals("Jack Doe", actualContract.getEmployee().getName());
+        assertEquals("jack.doe@informatics.com", actualContract.getEmployee().getEmail());
 
-        // Verify that service issued the correct mutation command to the aggregate model
         Mockito.verify(mockCompany).incrementAndGetContractCounter();
         Mockito.verify(mockCompany).addContract(Mockito.any(Contract.class));
     }
-
     // =========================================================================
     // METHOD UNDER TEST: fireEmployee
     // =========================================================================
@@ -113,13 +117,17 @@ class EmployeeServiceImplementationUnitTest {
         UUID targetManagerId = UUID.randomUUID();
 
         Employee mockManager = Mockito.mock(Employee.class);
-        Mockito.when(mockManager.getPosition()).thenReturn(Position.MANAGER);
+        Mockito.when(mockManager.getName()).thenReturn("Stephen Manager");
+        Mockito.when(mockManager.getEmail()).thenReturn("stephen@informatics.com");
 
         Contract mockContract = Mockito.mock(Contract.class);
         Mockito.when(mockContract.getEmployee()).thenReturn(mockManager);
 
+        Mockito.when(mockContract.getPosition()).thenReturn(Position.MANAGER);
+        Mockito.when(mockContract.getContractNumber()).thenReturn(401);
+
         Team mockTeam = Mockito.mock(Team.class);
-        Mockito.when(mockTeam.getManager()).thenReturn(mockManager);
+        Mockito.when(mockTeam.getManagerContract()).thenReturn(mockContract);
 
         java.util.Set<Team> mockTeamsSet = new java.util.HashSet<>();
         mockTeamsSet.add(mockTeam);
@@ -139,20 +147,23 @@ class EmployeeServiceImplementationUnitTest {
     }
 
     @Test
-    void testFireEmployee_shouldPurgeContractAndCallTeamRemoveMember_whenEmployeeIsARegularContributor() {
+    void testFireEmployee_shouldPurgeContractAndCallTeamRemoveMemberContract_whenEmployeeIsARegularContributor() {
         // given
         UUID targetDevId = UUID.randomUUID();
 
         Employee mockDeveloper = Mockito.mock(Employee.class);
-        Mockito.when(mockDeveloper.getPosition()).thenReturn(Position.JUNIOR_DEVELOPER);
+        Mockito.when(mockDeveloper.getName()).thenReturn("John Brooks");
+        Mockito.when(mockDeveloper.getEmail()).thenReturn("john.brooks@informatics.com");
 
         Contract mockContract = Mockito.mock(Contract.class);
         Mockito.when(mockContract.getEmployee()).thenReturn(mockDeveloper);
+        Mockito.when(mockContract.getPosition()).thenReturn(Position.JUNIOR_DEVELOPER);
+        Mockito.when(mockContract.getContractNumber()).thenReturn(402);
 
         Team mockTeam = Mockito.mock(Team.class);
-        java.util.Set<Employee> mockMembersSet = new java.util.HashSet<>();
-        mockMembersSet.add(mockDeveloper);
-        Mockito.when(mockTeam.getMembers()).thenReturn(mockMembersSet);
+        java.util.Set<Contract> mockMemberContractsSet = new java.util.HashSet<>();
+        mockMemberContractsSet.add(mockContract);
+        Mockito.when(mockTeam.getMemberContracts()).thenReturn(mockMemberContractsSet);
 
         java.util.Set<Team> mockTeamsSet = new java.util.HashSet<>();
         mockTeamsSet.add(mockTeam);
@@ -168,6 +179,6 @@ class EmployeeServiceImplementationUnitTest {
 
         Mockito.verify(mockLookupService).findContractByEmployeeId(mockCompany, targetDevId);
         Mockito.verify(mockCompany).removeContract(mockContract);
-        Mockito.verify(mockTeam).removeMember(mockDeveloper);
+        Mockito.verify(mockTeam).removeMemberContract(mockContract);
     }
 }

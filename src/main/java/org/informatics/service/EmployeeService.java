@@ -1,7 +1,7 @@
 package org.informatics.service;
 
 import org.informatics.data.Company;
-import org.informatics.data.Employee;
+import org.informatics.data.Contract;
 import org.informatics.data.enums.Gender;
 import org.informatics.data.enums.Position;
 
@@ -17,30 +17,36 @@ import java.util.UUID;
 public interface EmployeeService {
 
     /**
-     * <p>Hires a new employee into the company workspace, creating their profile and
-     * generating a sequential employment contract line automatically.</p>
-     * <p>This method enforces mandatory business rules: the applicant's age must be
-     * valid, a baseline salary floor must be configured for the requested role, and
-     * the negotiated compensation must meet or exceed that floor boundary.</p>
+     * <p>Hires a new employee into the company workspace, creating their human profile
+     * and generating an associated sequential employment contract legal agreement automatically.</p>
+     * <p>This method enforces mandatory business rules:
+     * <ul>
+     *   <li>The applicant's chronological age must fall between 18 and 70 years old.</li>
+     *   <li>The communication email handle must match strict regular expression validation rules.</li>
+     *   <li>A baseline salary floor must be configured inside the company for the requested professional role.</li>
+     *   <li>The negotiated compensation scale must meet or exceed that recorded baseline floor boundary.</li>
+     * </ul>
+     * </p>
      *
      * @param company          the active {@link Company} workspace aggregate root instance where the employee will be hired
      * @param name             the full alphabet text string name profile of the employee
+     * @param email            the unique corporate communication email address handle matching standard layout templates
      * @param gender           the biological {@link Gender} enumeration designation of the employee
      * @param birthDate        the calendar {@link LocalDate} birthdate context used for compliance age calculations
-     * @param position         the active professional {@link Position} role tier configuration assigned to the worker
-     * @param negotiatedSalary the precise high-utility monetary {@link BigDecimal} numeric value scale negotiated
-     * @return the fully initialized, reconstructed {@link Employee} instance containing an auto-generated unique ID
+     * @param position         the active professional {@link Position} role tier configuration assigned to the contract
+     * @param negotiatedSalary the precise monetary {@link BigDecimal} numeric value scale negotiated under the contract
+     * @return the fully initialized, reconstructed {@link Contract} instance containing the assigned number and employee details
      * @throws org.informatics.exceptions.AgeBoundaryException         if the calculated age of the applicant is under 18 or over 70 years old
      * @throws org.informatics.exceptions.SalaryConfigurationException if the target position does not have a baseline minimum floor set up
      * @throws org.informatics.exceptions.InvalidSalaryException       if the proposed negotiated salary falls below the minimum position floor
      * @throws NullPointerException                                    if any of the provided object parameter references are null
      */
-    Employee hireEmployee(Company company, String name, Gender gender, LocalDate birthDate, Position position, BigDecimal negotiatedSalary);
+    Contract hireEmployee(Company company, String name, String email, Gender gender, LocalDate birthDate, Position position, BigDecimal negotiatedSalary);
 
     /**
      * <p>Terminates an employee contract and completely purges their active references from central records.</p>
      * <p>This operation cascades down to automatically evict the terminated worker from any active regular contributor
-     * member sets across all teams, or triggers team dissolution sequences if the employee holds a manager slot.</p>
+     * member sets across all teams, or triggers team dissolution sequences if the employee holds a manager contract slot.</p>
      *
      * @param company    the active {@link Company} workspace aggregate root containing the employment registries
      * @param employeeId the unique {@link UUID} tracking token of the employee targeted for termination
