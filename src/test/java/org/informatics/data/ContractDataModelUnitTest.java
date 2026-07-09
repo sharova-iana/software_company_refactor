@@ -1,49 +1,45 @@
 package org.informatics.data;
 
-import org.informatics.data.Contract;
-import org.informatics.data.Employee;
-import org.informatics.data.enums.Gender;
 import org.informatics.data.enums.Position;
+import org.informatics.exceptions.InvalidSalaryException;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-/**
- * Executes pure Detroit-style classicist unit tests for the Contract data model invariants.
- * Verifies key parameters, sequential boundaries, and dependency bounds.
- */
+
 class ContractDataModelUnitTest {
 
     // =========================================================================
     // METHOD UNDER TEST: Contract (Constructor)
     // =========================================================================
-
     @Test
-    void testConstructor_shouldInstantiateCorrectly_whenSequenceIsPositive() {
+    void testConstructor_shouldInstantiateCorrectly_whenArgumentsAreValid() {
         // given
-        int validContractNum = 105;
-        Employee employee = new Employee("Bob Jones", Gender.MALE, LocalDate.now().minusYears(35), Position.MANAGER, new BigDecimal("5000"));
+        Employee mockEmployee = Mockito.mock(Employee.class);
+        BigDecimal validSalary = new BigDecimal("3500.00");
 
         // when
-        Contract contract = new Contract(validContractNum, employee);
+        Contract contract = new Contract(42, mockEmployee, Position.JUNIOR_DEVELOPER, validSalary);
 
         // then
-        assertEquals(105, contract.getContractNumber());
-        assertEquals(employee, contract.getEmployee());
+        assertEquals(42, contract.getContractNumber());
+        assertEquals(mockEmployee, contract.getEmployee());
+        assertEquals(Position.JUNIOR_DEVELOPER, contract.getPosition());
+        assertEquals(0, validSalary.compareTo(contract.getSalary()));
     }
 
     @Test
-    void testConstructor_shouldThrowIllegalArgumentException_whenSequenceIsNegativeOrZero() {
+    void testConstructor_shouldThrowInvalidSalaryException_whenInitialSalaryIsNegative() {
         // given
-        int corruptZeroIndex = 0;
-        int corruptNegativeIndex = -42;
-        Employee employee = new Employee("Bob Jones", Gender.MALE, LocalDate.now().minusYears(35), Position.MANAGER, new BigDecimal("5000"));
+        Employee mockEmployee = Mockito.mock(Employee.class);
+        BigDecimal negativeSalary = new BigDecimal("-100.00");
 
         // when/then
-        assertThrows(IllegalArgumentException.class, () -> new Contract(corruptZeroIndex, employee));
-        assertThrows(IllegalArgumentException.class, () -> new Contract(corruptNegativeIndex, employee));
+        assertThrows(InvalidSalaryException.class, () ->
+                new Contract(1, mockEmployee, Position.QA_ENGINEER, negativeSalary)
+        );
     }
 }

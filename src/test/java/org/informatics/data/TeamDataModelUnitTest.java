@@ -1,21 +1,13 @@
 package org.informatics.data;
 
-import org.informatics.data.Employee;
-import org.informatics.data.Team;
-import org.informatics.data.enums.Gender;
 import org.informatics.data.enums.Position;
 import org.informatics.exceptions.PositionMismatchException;
 import org.junit.jupiter.api.Test;
-
-import java.math.BigDecimal;
-import java.time.LocalDate;
+import org.mockito.Mockito;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-/**
- * Executes pure Detroit-style classicist unit tests for the Team data model invariants.
- * Verifies manager role enforcements, collection views, and secure modification pathways.
- */
+
 class TeamDataModelUnitTest {
 
     // =========================================================================
@@ -25,26 +17,34 @@ class TeamDataModelUnitTest {
     @Test
     void testConstructor_shouldInstantiateCorrectly_whenLeaderHoldsManagerRole() {
         // given
-        Employee manager = new Employee("Jacob Black", Gender.MALE, LocalDate.now().minusYears(40), Position.MANAGER, new BigDecimal("6000"));
+        Employee mockEmployee = Mockito.mock(Employee.class);
+        Mockito.when(mockEmployee.getName()).thenReturn("Jacob Black");
+
+        Contract mockManagerContract = Mockito.mock(Contract.class);
+        Mockito.when(mockManagerContract.getPosition()).thenReturn(Position.MANAGER);
+        Mockito.when(mockManagerContract.getEmployee()).thenReturn(mockEmployee);
 
         // when
-        Team team = new Team(manager);
+        Team team = new Team(mockManagerContract);
 
         // then
         assertNotNull(team.getId());
-        assertEquals(manager, team.getManager());
-        assertTrue(team.getMembers().isEmpty(), "Fresh team instances must be initialized with an empty membership list");
+        assertEquals(mockManagerContract, team.getManagerContract());
+        assertTrue(team.getMemberContracts().isEmpty(), "Fresh corporate team structures must be initialized with an empty membership set.");
     }
 
     @Test
     void testConstructor_shouldThrowPositionMismatchException_whenLeaderIsADeveloper() {
         // given
-        Employee developer = new Employee("Jack Doe", Gender.MALE, LocalDate.now().minusYears(22), Position.JUNIOR_DEVELOPER, new BigDecimal("2500"));
+        Employee mockEmployee = Mockito.mock(Employee.class);
+        Mockito.when(mockEmployee.getName()).thenReturn("Jack Doe");
 
-        // when/then
-        assertThrows(PositionMismatchException.class, () -> new Team(developer),
-                "Constructor must protect domain invariants, blocking non-manager tiers from leading shells");
+        Contract mockDeveloperContract = Mockito.mock(Contract.class);
+        Mockito.when(mockDeveloperContract.getPosition()).thenReturn(Position.JUNIOR_DEVELOPER);
+        Mockito.when(mockDeveloperContract.getEmployee()).thenReturn(mockEmployee);
+
+        // when/then: The team aggregate shield must catch the mock role and fail fast
+        assertThrows(PositionMismatchException.class, () -> new Team(mockDeveloperContract),
+                "The constructor domain aggregate shield must reject non-manager contract roles from leading team shells.");
     }
-
-
 }
