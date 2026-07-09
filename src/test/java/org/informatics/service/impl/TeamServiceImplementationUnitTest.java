@@ -1,6 +1,7 @@
 package org.informatics.service.impl;
 
 import org.informatics.data.Company;
+import org.informatics.data.Contract;
 import org.informatics.data.Employee;
 import org.informatics.data.Team;
 import org.informatics.data.enums.Position;
@@ -43,13 +44,15 @@ class TeamServiceImplementationUnitTest {
         // given
         UUID managerId = UUID.randomUUID();
         Employee mockManager = Mockito.mock(Employee.class);
+        Mockito.when(mockManager.getName()).thenReturn("Stephen Leader");
 
-        // Stub the lookup utility to return our manager reference
-        Mockito.when(mockLookupService.findEmployeeById(mockCompany, managerId)).thenReturn(mockManager);
+        Contract mockContract = Mockito.mock(Contract.class);
+        Mockito.when(mockContract.getEmployee()).thenReturn(mockManager);
 
-        // Set up a pre-existing team led by this exact same manager to force a policy collision
+        Mockito.when(mockLookupService.findContractByEmployeeId(mockCompany, managerId)).thenReturn(mockContract);
+
         Team preExistingTeam = Mockito.mock(Team.class);
-        Mockito.when(preExistingTeam.getManager()).thenReturn(mockManager);
+        Mockito.when(preExistingTeam.getManagerContract()).thenReturn(mockContract);
 
         Set<Team> activeTeams = new HashSet<>();
         activeTeams.add(preExistingTeam);
@@ -58,9 +61,9 @@ class TeamServiceImplementationUnitTest {
         // when/then
         assertThrows(TeamAssignmentException.class, () -> {
             teamService.createTeam(mockCompany, managerId);
-        }, "Should throw an exception if the selected manager is already managing another corporate team shell");
+        }, "Should throw an exception if the selected manager contract is already managing another corporate team shell");
 
-        Mockito.verify(mockLookupService).findEmployeeById(mockCompany, managerId);
+        Mockito.verify(mockLookupService).findContractByEmployeeId(mockCompany, managerId);
         Mockito.verify(mockCompany).getTeams();
     }
 
@@ -69,12 +72,15 @@ class TeamServiceImplementationUnitTest {
         // given
         UUID managerId = UUID.randomUUID();
         Employee mockManager = Mockito.mock(Employee.class);
-        Mockito.when(mockManager.getPosition()).thenReturn(Position.MANAGER);
         Mockito.when(mockManager.getName()).thenReturn("Valid Leader");
+        Mockito.when(mockManager.getEmail()).thenReturn("leader@informatics.com");
 
-        Mockito.when(mockLookupService.findEmployeeById(mockCompany, managerId)).thenReturn(mockManager);
+        Contract mockContract = Mockito.mock(Contract.class);
+        Mockito.when(mockContract.getEmployee()).thenReturn(mockManager);
+        Mockito.when(mockContract.getPosition()).thenReturn(Position.MANAGER);
 
-        // Return an empty teams registry to clear the single-team rule check
+        Mockito.when(mockLookupService.findContractByEmployeeId(mockCompany, managerId)).thenReturn(mockContract);
+
         Set<Team> emptyTeams = new HashSet<>();
         Mockito.when(mockCompany.getTeams()).thenReturn(emptyTeams);
 
@@ -84,7 +90,7 @@ class TeamServiceImplementationUnitTest {
         // then
         assertNotNull(resultTeam, "The service orchestrator must successfully yield an instantiated team module reference");
 
-        Mockito.verify(mockLookupService).findEmployeeById(mockCompany, managerId);
+        Mockito.verify(mockLookupService).findContractByEmployeeId(mockCompany, managerId);
         Mockito.verify(mockCompany).getTeams();
         Mockito.verify(mockCompany).addTeam(Mockito.any(Team.class));
     }
@@ -101,17 +107,21 @@ class TeamServiceImplementationUnitTest {
 
         Team mockTeam = Mockito.mock(Team.class);
         Employee mockEmployee = Mockito.mock(Employee.class);
-        Mockito.when(mockEmployee.getPosition()).thenReturn(Position.MANAGER);
         Mockito.when(mockEmployee.getName()).thenReturn("Accidental Contributor");
 
+        Contract mockContract = Mockito.mock(Contract.class);
+        Mockito.when(mockContract.getEmployee()).thenReturn(mockEmployee);
+        Mockito.when(mockContract.getPosition()).thenReturn(Position.MANAGER);
+
         Mockito.when(mockLookupService.findTeamById(mockCompany, teamId)).thenReturn(mockTeam);
-        Mockito.when(mockLookupService.findEmployeeById(mockCompany, candidateId)).thenReturn(mockEmployee);
+        Mockito.when(mockLookupService.findContractByEmployeeId(mockCompany, candidateId)).thenReturn(mockContract);
 
         // when/then
         assertThrows(TeamAssignmentException.class, () -> {
             teamService.addMemberToTeam(mockCompany, teamId, candidateId);
-        }, "Should reject assignment immediately if a manager attempts to join a contributor member set");
+        }, "Should reject assignment immediately if a manager contract attempts to join a contributor member set");
     }
+
     @Test
     void testAddMemberToTeam_shouldThrowTeamAssignmentException_whenEmployeeIsAlreadyAssignedToAnotherTeam() {
         // given
@@ -120,16 +130,19 @@ class TeamServiceImplementationUnitTest {
 
         Team mockTargetTeam = Mockito.mock(Team.class);
         Employee mockEmployee = Mockito.mock(Employee.class);
-        Mockito.when(mockEmployee.getPosition()).thenReturn(Position.JUNIOR_DEVELOPER);
+        Mockito.when(mockEmployee.getName()).thenReturn("John Brooks");
+
+        Contract mockContract = Mockito.mock(Contract.class);
+        Mockito.when(mockContract.getEmployee()).thenReturn(mockEmployee);
+        Mockito.when(mockContract.getPosition()).thenReturn(Position.JUNIOR_DEVELOPER);
 
         Mockito.when(mockLookupService.findTeamById(mockCompany, teamId)).thenReturn(mockTargetTeam);
-        Mockito.when(mockLookupService.findEmployeeById(mockCompany, candidateId)).thenReturn(mockEmployee);
+        Mockito.when(mockLookupService.findContractByEmployeeId(mockCompany, candidateId)).thenReturn(mockContract);
 
-        // Create an alternative team that already encloses this employee inside its membership list view
         Team alternativeTeam = Mockito.mock(Team.class);
-        Set<Employee> alternativeMembers = new HashSet<>();
-        alternativeMembers.add(mockEmployee);
-        Mockito.when(alternativeTeam.getMembers()).thenReturn(alternativeMembers);
+        Set<Contract> alternativeMemberContracts = new HashSet<>();
+        alternativeMemberContracts.add(mockContract);
+        Mockito.when(alternativeTeam.getMemberContracts()).thenReturn(alternativeMemberContracts);
 
         Set<Team> activeCompanyTeams = new HashSet<>();
         activeCompanyTeams.add(alternativeTeam);
@@ -138,28 +151,32 @@ class TeamServiceImplementationUnitTest {
         // when/then
         assertThrows(TeamAssignmentException.class, () -> {
             teamService.addMemberToTeam(mockCompany, teamId, candidateId);
-        }, "Should reject assignment if an employee violates single-team assignment rules");
+        }, "Should reject assignment if an employee contract violates single-team assignment rules");
     }
 
     @Test
-    void testAddMemberToTeam_shouldCallTeamAddMember_whenCandidatePassesAllBusinessRules() {
+    void testAddMemberToTeam_shouldCallTeamAddMemberContract_whenCandidatePassesAllBusinessRules() {
         // given
         UUID teamId = UUID.randomUUID();
         UUID candidateId = UUID.randomUUID();
 
         Team mockTargetTeam = Mockito.mock(Team.class);
         Employee mockEmployee = Mockito.mock(Employee.class);
-        Mockito.when(mockEmployee.getPosition()).thenReturn(Position.JUNIOR_DEVELOPER);
+        Mockito.when(mockEmployee.getEmail()).thenReturn("dev@informatics.com");
+
+        Contract mockContract = Mockito.mock(Contract.class);
+        Mockito.when(mockContract.getEmployee()).thenReturn(mockEmployee);
+        Mockito.when(mockContract.getPosition()).thenReturn(Position.JUNIOR_DEVELOPER);
 
         Mockito.when(mockLookupService.findTeamById(mockCompany, teamId)).thenReturn(mockTargetTeam);
-        Mockito.when(mockLookupService.findEmployeeById(mockCompany, candidateId)).thenReturn(mockEmployee);
+        Mockito.when(mockLookupService.findContractByEmployeeId(mockCompany, candidateId)).thenReturn(mockContract);
 
         Set<Team> activeCompanyTeams = new HashSet<>();
         activeCompanyTeams.add(mockTargetTeam);
         Mockito.when(mockCompany.getTeams()).thenReturn(activeCompanyTeams);
 
-        Mockito.when(mockTargetTeam.getMembers()).thenReturn(new HashSet<>()); // Empty members means employee isn't a duplicate
-        Mockito.when(mockTargetTeam.addMember(mockEmployee)).thenReturn(true);
+        Mockito.when(mockTargetTeam.getMemberContracts()).thenReturn(new HashSet<>());
+        Mockito.when(mockTargetTeam.addMemberContract(mockContract)).thenReturn(true);
 
         // when
         boolean result = teamService.addMemberToTeam(mockCompany, teamId, candidateId);
@@ -167,11 +184,9 @@ class TeamServiceImplementationUnitTest {
         // then
         assertTrue(result, "The service orchestrator must report successful membership append validation");
 
-        // Verify the command reached our rich domain object mutator channel
-        Mockito.verify(mockTargetTeam).addMember(mockEmployee);
+        // Verify the command reached our updated contract aggregate mutator method channel
+        Mockito.verify(mockTargetTeam).addMemberContract(mockContract);
     }
-
-
     // =========================================================================
     // METHOD UNDER TEST: dissolveTeam
     // =========================================================================
@@ -182,10 +197,13 @@ class TeamServiceImplementationUnitTest {
         UUID targetTeamId = UUID.randomUUID();
 
         Employee mockLeader = Mockito.mock(Employee.class);
-        Mockito.when(mockLeader.getName()).thenReturn("Leader Profile");
+        Mockito.when(mockLeader.getName()).thenReturn("Jack Doe");
+
+        Contract mockContract = Mockito.mock(Contract.class);
+        Mockito.when(mockContract.getEmployee()).thenReturn(mockLeader);
 
         Team mockTargetTeam = Mockito.mock(Team.class);
-        Mockito.when(mockTargetTeam.getManager()).thenReturn(mockLeader);
+        Mockito.when(mockTargetTeam.getManagerContract()).thenReturn(mockContract);
 
         Mockito.when(mockLookupService.findTeamById(mockCompany, targetTeamId)).thenReturn(mockTargetTeam);
         Mockito.when(mockCompany.removeTeam(mockTargetTeam)).thenReturn(true);
@@ -210,10 +228,13 @@ class TeamServiceImplementationUnitTest {
         // given
         UUID mockId = UUID.randomUUID();
         Employee mockManager = Mockito.mock(Employee.class);
-        Mockito.when(mockManager.getPosition()).thenReturn(Position.MANAGER);
         Mockito.when(mockManager.getName()).thenReturn("Manager Object");
 
-        Mockito.when(mockLookupService.findEmployeeById(mockCompany, mockId)).thenReturn(mockManager);
+        Contract mockContract = Mockito.mock(Contract.class);
+        Mockito.when(mockContract.getEmployee()).thenReturn(mockManager);
+        Mockito.when(mockContract.getPosition()).thenReturn(Position.MANAGER);
+
+        Mockito.when(mockLookupService.findContractByEmployeeId(mockCompany, mockId)).thenReturn(mockContract);
 
         // when/then
         assertThrows(TeamAssignmentException.class, () -> {
@@ -226,10 +247,13 @@ class TeamServiceImplementationUnitTest {
         // given
         UUID targetDevId = UUID.randomUUID();
         Employee mockDeveloper = Mockito.mock(Employee.class);
-        Mockito.when(mockDeveloper.getPosition()).thenReturn(Position.JUNIOR_DEVELOPER);
         Mockito.when(mockDeveloper.getName()).thenReturn("Unassigned Dev");
 
-        Mockito.when(mockLookupService.findEmployeeById(mockCompany, targetDevId)).thenReturn(mockDeveloper);
+        Contract mockContract = Mockito.mock(Contract.class);
+        Mockito.when(mockContract.getEmployee()).thenReturn(mockDeveloper);
+        Mockito.when(mockContract.getPosition()).thenReturn(Position.JUNIOR_DEVELOPER);
+
+        Mockito.when(mockLookupService.findContractByEmployeeId(mockCompany, targetDevId)).thenReturn(mockContract);
 
         // Return an empty collection view to force the internal dynamic team search to come up empty
         Set<Team> emptyTeamsSet = new HashSet<>();
@@ -242,20 +266,24 @@ class TeamServiceImplementationUnitTest {
     }
 
     @Test
-    void testRemoveMemberFromTeam_shouldCallTeamRemoveMember_whenEmployeeIsActiveInsideATeamPool() {
+    void testRemoveMemberFromTeam_shouldCallTeamRemoveMemberContract_whenEmployeeIsActiveInsideATeamPool() {
         // given
         UUID targetDevId = UUID.randomUUID();
         Employee mockDeveloper = Mockito.mock(Employee.class);
-        Mockito.when(mockDeveloper.getPosition()).thenReturn(Position.JUNIOR_DEVELOPER);
+        Mockito.when(mockDeveloper.getEmail()).thenReturn("dev@informatics.com");
 
-        Mockito.when(mockLookupService.findEmployeeById(mockCompany, targetDevId)).thenReturn(mockDeveloper);
+        Contract mockContract = Mockito.mock(Contract.class);
+        Mockito.when(mockContract.getEmployee()).thenReturn(mockDeveloper);
+        Mockito.when(mockContract.getPosition()).thenReturn(Position.JUNIOR_DEVELOPER);
+
+        Mockito.when(mockLookupService.findContractByEmployeeId(mockCompany, targetDevId)).thenReturn(mockContract);
 
         Team mockAssignedTeam = Mockito.mock(Team.class);
-        Set<Employee> teamMembers = new HashSet<>();
-        teamMembers.add(mockDeveloper);
+        Set<Contract> teamMemberContracts = new HashSet<>();
+        teamMemberContracts.add(mockContract);
 
-        Mockito.when(mockAssignedTeam.getMembers()).thenReturn(teamMembers);
-        Mockito.when(mockAssignedTeam.removeMember(mockDeveloper)).thenReturn(true);
+        Mockito.when(mockAssignedTeam.getMemberContracts()).thenReturn(teamMemberContracts);
+        Mockito.when(mockAssignedTeam.removeMemberContract(mockContract)).thenReturn(true);
 
         Set<Team> companyTeamsList = new HashSet<>();
         companyTeamsList.add(mockAssignedTeam);
@@ -267,6 +295,6 @@ class TeamServiceImplementationUnitTest {
         // then
         assertTrue(result);
 
-        Mockito.verify(mockAssignedTeam).removeMember(mockDeveloper);
+        Mockito.verify(mockAssignedTeam).removeMemberContract(mockContract);
     }
 }
