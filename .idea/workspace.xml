@@ -4,10 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4885edbb-1a37-4f8b-ba56-c90de5d50682" name="Changes" comment="updated the persistence service integration test">
+    <list default="true" id="4885edbb-1a37-4f8b-ba56-c90de5d50682" name="Changes" comment="updated the console app">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/informatics/data/Employee.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/informatics/data/Employee.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/informatics/ui/ConsoleApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/informatics/ui/ConsoleApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/informatics/data/enums/Position.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/informatics/data/enums/Position.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -142,7 +141,7 @@
     "Gradle.TeamServiceImplementationUnitTest.testRemoveMemberFromTeam_shouldCallTeamRemoveMember_whenEmployeeIsActiveInsideATeamPool.executor": "Run",
     "Gradle.TeamServiceImplementationUnitTest.testRemoveMemberFromTeam_shouldThrowTeamAssignmentException_whenEmployeeIsNotActiveInAnyTeam.executor": "Run",
     "Gradle.TeamServiceImplementationUnitTest.testRemoveMemberFromTeam_shouldThrowTeamAssignmentException_whenTargetIdBelongsToAManager.executor": "Run",
-    "Gradle.Tests in 'SoftwareCompany.test'.executor": "Debug",
+    "Gradle.Tests in 'SoftwareCompany.test'.executor": "Run",
     "JUnit.FinanceServiceImplementationIntegrationTest.executor": "Run",
     "JUnit.FinanceServiceImplementationIntegrationTest.testSetSalaryForPosition_shouldStoreFloorInConfigurationMap_whenValueIsValid.executor": "Run",
     "ModuleVcsDetector.initialDetectionPerformed": "true",
@@ -534,11 +533,18 @@
       <option name="project" value="LOCAL" />
       <updated>1783681425222</updated>
     </task>
-    <option name="localTasksCounter" value="30" />
+    <task id="LOCAL-00030" summary="updated the console app">
+      <option name="closed" value="true" />
+      <created>1783692043067</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1783692043067</updated>
+    </task>
+    <option name="localTasksCounter" value="31" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="updated the reporting service: removed console output and only left the functionality of returning data matrixes" />
     <MESSAGE value="updated the csv handling service and the integration test for it to align with the self-protecting rich data models" />
     <MESSAGE value="added a separate persistence service to use the binary serialization utility and added the integration test for it" />
     <MESSAGE value="added java docs comments to csv service" />
@@ -563,7 +569,8 @@
     <MESSAGE value="updated the company data model to check against negative salaries for positions, updated its unit test; updated the finance service impl and tests to work with contract sets" />
     <MESSAGE value="updated the reporting service impl and its tests" />
     <MESSAGE value="updated the persistence service integration test" />
-    <option name="LAST_COMMIT_MESSAGE" value="updated the persistence service integration test" />
+    <MESSAGE value="updated the console app" />
+    <option name="LAST_COMMIT_MESSAGE" value="updated the console app" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

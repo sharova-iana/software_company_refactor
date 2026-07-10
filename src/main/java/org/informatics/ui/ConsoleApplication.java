@@ -696,15 +696,20 @@ public class ConsoleApplication {
     }
 
     /**
-     * <p>Displays a help menu listing all available corporate professional tier assignments and waits for the user
-     * to input a string matching an enum position case string.</p>
+     * <p>Displays a help menu listing all dynamically available corporate professional tier assignments
+     * and waits for the user to input a string matching an enum position case string.</p>
      * <p>This helper loops continuously until a recognized constant token is correctly identified.</p>
      *
      * @return the validated {@link Position} enum constant value matching the text selection
      */
     private Position promptPosition() {
         while (true) {
-            System.out.println("Available Roles: JUNIOR_DEVELOPER, SENIOR_DEVELOPER, QA_ENGINEER, UI_UX_DESIGNER, MANAGER");
+            java.util.StringJoiner joiner = new java.util.StringJoiner(", ");
+            for (Position pos : Position.values()) {
+                joiner.add(pos.name());
+            }
+
+            System.out.println("Available Roles: " + joiner.toString());
             System.out.print("Enter chosen position name: ");
             String processedInput = scanner.nextLine().trim().toUpperCase().replace(" ", "_");
             try {
@@ -714,6 +719,7 @@ public class ConsoleApplication {
             }
         }
     }
+
 
     /**
      * <p>Prompts the user for a corporate communication email address, trapping formatting exceptions
