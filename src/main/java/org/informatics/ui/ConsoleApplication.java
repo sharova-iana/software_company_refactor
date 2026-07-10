@@ -166,7 +166,7 @@ public class ConsoleApplication {
                     case "4" -> handleFireEmployee();
                     case "5" -> {
                         System.out.println("\n=== Active Employees Registry for " + currentCompany.getName() + " ===");
-                        String[] headers = {"Contract #", "Employee ID", "Full Name", "Gender", "Birth Date", "Position", "Salary"};
+                        String[] headers = {"Contract #", "Employee ID", "Full Name", "Email", "Gender", "Birth Date", "Position", "Salary"};
                         List<String[]> matrix = reportingService.compileEmployeeTableData(currentCompany);
                         TableFormatter.printTable(headers, matrix);
                     }
@@ -246,14 +246,6 @@ public class ConsoleApplication {
         financeService.setSalaryForPosition(currentCompany, position, salary);
         System.out.println("[+] Minimum floor for " + position + " set to " + salary);
     }
-
-    // =========================================================================
-    // METHOD WORKFLOW: handleHireEmployee
-    // =========================================================================
-
-    // =========================================================================
-    // METHOD WORKFLOW: handleHireEmployee
-    // =========================================================================
 
     // =========================================================================
     // METHOD WORKFLOW: handleHireEmployee
