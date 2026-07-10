@@ -49,7 +49,6 @@ class FinanceServiceImplementationIntegrationTest {
         assertNotNull(storedFloor, "The minimum salary map must hold a configuration for the assigned position");
         assertEquals(0, floorSalary.compareTo(storedFloor),
                 "The stored floor value must equal the assigned baseline configuration");
-
     }
 
     // =========================================================================
@@ -61,8 +60,8 @@ class FinanceServiceImplementationIntegrationTest {
         // given
         financeService.setSalaryForPosition(company, Position.SENIOR_DEVELOPER, new BigDecimal("5000.00"));
 
-        emplService.hireEmployee(company, "Joe Smith", Gender.MALE, LocalDate.now().minusYears(32), Position.SENIOR_DEVELOPER, new BigDecimal("5500.00"));
-        emplService.hireEmployee(company, "Sally Green", Gender.FEMALE, LocalDate.now().minusYears(34), Position.SENIOR_DEVELOPER, new BigDecimal("6500.00"));
+        emplService.hireEmployee(company, "Joe Smith", "joe.smith@financelabs.com", Gender.MALE, LocalDate.now().minusYears(32), Position.SENIOR_DEVELOPER, new BigDecimal("5500.00"));
+        emplService.hireEmployee(company, "Sally Green", "sally.green@financelabs.com", Gender.FEMALE, LocalDate.now().minusYears(34), Position.SENIOR_DEVELOPER, new BigDecimal("6500.00"));
 
         BigDecimal evaluationThreshold = new BigDecimal("6000.00");
 
@@ -70,7 +69,7 @@ class FinanceServiceImplementationIntegrationTest {
         long actualCount = financeService.countEmployeesWithSalaryGreaterThan(company, evaluationThreshold);
 
         // then
-        assertEquals(1, actualCount, "The calculation must only count employees whose salaries strictly exceed the threshold balance");
+        assertEquals(1, actualCount, "The calculation must only count contracts whose salaries strictly exceed the threshold balance");
     }
 
     // =========================================================================
@@ -82,8 +81,8 @@ class FinanceServiceImplementationIntegrationTest {
         // given
         financeService.setSalaryForPosition(company, Position.SENIOR_DEVELOPER, new BigDecimal("5000.00"));
 
-        emplService.hireEmployee(company, "Joe Smith", Gender.MALE, LocalDate.now().minusYears(32), Position.SENIOR_DEVELOPER, new BigDecimal("5500.00"));
-        emplService.hireEmployee(company, "Sally Green", Gender.FEMALE, LocalDate.now().minusYears(34), Position.SENIOR_DEVELOPER, new BigDecimal("6500.00"));
+        emplService.hireEmployee(company, "Joe Smith", "joe.smith@financelabs.com", Gender.MALE, LocalDate.now().minusYears(32), Position.SENIOR_DEVELOPER, new BigDecimal("5500.00"));
+        emplService.hireEmployee(company, "Sally Green", "sally.green@financelabs.com", Gender.FEMALE, LocalDate.now().minusYears(34), Position.SENIOR_DEVELOPER, new BigDecimal("6500.00"));
 
         BigDecimal expectedMean = new BigDecimal("6000.00");
 
@@ -92,5 +91,17 @@ class FinanceServiceImplementationIntegrationTest {
 
         // then
         assertEquals(0, expectedMean.compareTo(actualAverage), "Mean math verification: (5500 + 6500) / 2 must equal exactly 6000.00 scaled half-up");
+    }
+
+    @Test
+    void testCalculateAverageSalaryForPosition_shouldReturnBigDecimalZero_whenNoMatchingContractsAreActive() {
+        // given: No contracts matching the SENIOR_DEVELOPER position exist inside the company configuration container
+        financeService.setSalaryForPosition(company, Position.SENIOR_DEVELOPER, new BigDecimal("5000.00"));
+
+        // when
+        BigDecimal actualAverage = financeService.calculateAverageSalaryForPosition(company, Position.SENIOR_DEVELOPER);
+
+        // then: Enforce safe return boundaries preventing divide-by-zero math breakdowns
+        assertEquals(0, BigDecimal.ZERO.compareTo(actualAverage), "Should cleanly return BigDecimal.ZERO if no active employee contracts belong to the requested position.");
     }
 }

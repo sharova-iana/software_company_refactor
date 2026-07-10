@@ -100,16 +100,25 @@ public class Company implements Serializable {
 
     /**
      * Configures or updates the minimum entry salary floor mapped to a specific professional role tier.
+     * Following strict domain invariants, this method completely blocks negative numerical bounds.
      *
      * @param position the professional position tier targeted for configuration mapping
      * @param salary   the non-null baseline compensation floor value to register
+     * @throws org.informatics.exceptions.InvalidSalaryException if the provided salary numerical value scale is negative
      * @throws NullPointerException if either position or salary parameters are null
      */
     public void setSalaryForPosition(Position position, BigDecimal salary) {
         Objects.requireNonNull(position, "Position target cannot be null.");
         Objects.requireNonNull(salary, "Salary configuration floor reference cannot be null.");
+
+        // Domain Protection Rule
+        if (salary.compareTo(BigDecimal.ZERO) < 0) {
+            throw new org.informatics.exceptions.InvalidSalaryException("Minimum salary floor configurations cannot fall below zero.");
+        }
+
         this.positionMinimumSalaries.put(position, salary);
     }
+
 
     /**
      * Gets a read-only view of the master set containing all active employment contracts.

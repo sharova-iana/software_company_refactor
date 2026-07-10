@@ -2,11 +2,9 @@ package org.informatics.service.impl;
 
 import org.informatics.data.Company;
 import org.informatics.data.Contract;
-import org.informatics.data.Employee;
 import org.informatics.data.enums.Position;
 import org.informatics.exceptions.InvalidSalaryException;
 import org.informatics.service.FinanceService;
-import org.informatics.service.impl.FinanceServiceImplementation;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -18,9 +16,9 @@ import java.util.Set;
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
- * Executes pure, strict London-school unit tests targeting the FinanceService implementation module.
- * Following Mockist standards, every collaborator and rich data aggregate dependency is completely mocked,
- * ensuring budget configurations and mathematical averages are evaluated in absolute isolation.
+ * <p>Executes pure, strict London-school unit tests targeting the FinanceService implementation module.</p>
+ * <p>Following Mockist standards, every collaborator and rich data aggregate dependency is completely mocked,
+ * ensuring budget configurations and mathematical averages are evaluated in absolute isolation.</p>
  */
 class FinanceServiceImplementationUnitTest {
 
@@ -36,20 +34,6 @@ class FinanceServiceImplementationUnitTest {
     // =========================================================================
     // METHOD UNDER TEST: setSalaryForPosition
     // =========================================================================
-
-    @Test
-    void testSetSalaryForPosition_shouldThrowInvalidSalaryException_whenSalaryProvidedIsNegative() {
-        // given
-        Position position = Position.JUNIOR_DEVELOPER;
-        BigDecimal negativeSalary = new BigDecimal("-100.00");
-
-        // when/then: Should reject straight away
-        assertThrows(InvalidSalaryException.class, () -> {
-            financeService.setSalaryForPosition(mockCompany, position, negativeSalary);
-        }, "Minimum salary floor cannot be negative.");
-
-        Mockito.verifyNoInteractions(mockCompany);
-    }
 
     @Test
     void testSetSalaryForPosition_shouldCallCompanySetSalaryForPosition_whenSalaryIsValid() {
@@ -73,17 +57,13 @@ class FinanceServiceImplementationUnitTest {
         // given
         BigDecimal threshold = new BigDecimal("4000.00");
 
-        // Employee A: Earning above threshold
-        Employee mockEmpA = Mockito.mock(Employee.class);
-        Mockito.when(mockEmpA.getSalary()).thenReturn(new BigDecimal("5000.00"));
+        // Contract A: Earning above threshold (Resides directly on Contract now)
         Contract mockContractA = Mockito.mock(Contract.class);
-        Mockito.when(mockContractA.getEmployee()).thenReturn(mockEmpA);
+        Mockito.when(mockContractA.getSalary()).thenReturn(new BigDecimal("5000.00"));
 
-        // Employee B: Earning below threshold
-        Employee mockEmpB = Mockito.mock(Employee.class);
-        Mockito.when(mockEmpB.getSalary()).thenReturn(new BigDecimal("3000.00"));
+        // Contract B: Earning below threshold (Resides directly on Contract now)
         Contract mockContractB = Mockito.mock(Contract.class);
-        Mockito.when(mockContractB.getEmployee()).thenReturn(mockEmpB);
+        Mockito.when(mockContractB.getSalary()).thenReturn(new BigDecimal("3000.00"));
 
         Set<Contract> mockContractsSet = new HashSet<>();
         mockContractsSet.add(mockContractA);
@@ -95,7 +75,7 @@ class FinanceServiceImplementationUnitTest {
         long actualCount = financeService.countEmployeesWithSalaryGreaterThan(mockCompany, threshold);
 
         // then
-        assertEquals(1, actualCount, "Should count only the employees whose salaries strictly exceed the threshold balance");
+        assertEquals(1, actualCount, "Should count only the contracts whose salaries strictly exceed the threshold balance");
         Mockito.verify(mockCompany).getContracts();
     }
 
@@ -124,26 +104,20 @@ class FinanceServiceImplementationUnitTest {
         // given
         Position targetPosition = Position.SENIOR_DEVELOPER;
 
-        // Employee 1: Senior Developer earning 6000
-        Employee mockEmp1 = Mockito.mock(Employee.class);
-        Mockito.when(mockEmp1.getPosition()).thenReturn(Position.SENIOR_DEVELOPER);
-        Mockito.when(mockEmp1.getSalary()).thenReturn(new BigDecimal("6000.00"));
+        // Contract 1: Senior Developer earning 6000 (Position and Salary mapped directly on Contract)
         Contract mockContract1 = Mockito.mock(Contract.class);
-        Mockito.when(mockContract1.getEmployee()).thenReturn(mockEmp1);
+        Mockito.when(mockContract1.getPosition()).thenReturn(Position.SENIOR_DEVELOPER);
+        Mockito.when(mockContract1.getSalary()).thenReturn(new BigDecimal("6000.00"));
 
-        // Employee 2: Senior Developer earning 7500
-        Employee mockEmp2 = Mockito.mock(Employee.class);
-        Mockito.when(mockEmp2.getPosition()).thenReturn(Position.SENIOR_DEVELOPER);
-        Mockito.when(mockEmp2.getSalary()).thenReturn(new BigDecimal("7500.00"));
+        // Contract 2: Senior Developer earning 7500 (Position and Salary mapped directly on Contract)
         Contract mockContract2 = Mockito.mock(Contract.class);
-        Mockito.when(mockContract2.getEmployee()).thenReturn(mockEmp2);
+        Mockito.when(mockContract2.getPosition()).thenReturn(Position.SENIOR_DEVELOPER);
+        Mockito.when(mockContract2.getSalary()).thenReturn(new BigDecimal("7500.00"));
 
-        // Employee 3: QA Engineer earning 4000 (Should be ignored by the filter)
-        Employee mockEmp3 = Mockito.mock(Employee.class);
-        Mockito.when(mockEmp3.getPosition()).thenReturn(Position.QA_ENGINEER);
-        Mockito.when(mockEmp3.getSalary()).thenReturn(new BigDecimal("4000.00"));
+        // Contract 3: QA Engineer earning 4000 (Should be safely ignored by position filter stream)
         Contract mockContract3 = Mockito.mock(Contract.class);
-        Mockito.when(mockContract3.getEmployee()).thenReturn(mockEmp3);
+        Mockito.when(mockContract3.getPosition()).thenReturn(Position.QA_ENGINEER);
+        Mockito.when(mockContract3.getSalary()).thenReturn(new BigDecimal("4000.00"));
 
         Set<Contract> mockContractsSet = new HashSet<>();
         mockContractsSet.add(mockContract1);

@@ -4,12 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4885edbb-1a37-4f8b-ba56-c90de5d50682" name="Changes" comment="updated the data model tests">
+    <list default="true" id="4885edbb-1a37-4f8b-ba56-c90de5d50682" name="Changes" comment="updated the team service, its impl, and tests">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/informatics/service/TeamService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/informatics/service/TeamService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/informatics/service/impl/TeamServiceImplementation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/informatics/service/impl/TeamServiceImplementation.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/org/informatics/service/impl/TeamServiceImplementationIntegrationTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/org/informatics/service/impl/TeamServiceImplementationIntegrationTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/org/informatics/service/impl/TeamServiceImplementationUnitTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/org/informatics/service/impl/TeamServiceImplementationUnitTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/informatics/data/Company.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/informatics/data/Company.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/informatics/service/impl/FinanceServiceImplementation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/informatics/service/impl/FinanceServiceImplementation.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/org/informatics/service/impl/FinanceServiceImplementationIntegrationTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/org/informatics/service/impl/FinanceServiceImplementationIntegrationTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/org/informatics/service/impl/FinanceServiceImplementationUnitTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/org/informatics/service/impl/FinanceServiceImplementationUnitTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -504,7 +504,15 @@
       <option name="project" value="LOCAL" />
       <updated>1783617778659</updated>
     </task>
-    <option name="localTasksCounter" value="26" />
+    <task id="LOCAL-00026" summary="updated the team service, its impl, and tests">
+      <option name="closed" value="true" />
+      <created>1783621295840</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1783621295840</updated>
+    </task>
+    <option name="localTasksCounter" value="27" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -530,7 +538,8 @@
     <MESSAGE value="updated the csv-handling impl and the tests for service/util package" />
     <MESSAGE value="updated the employee service and tests for it" />
     <MESSAGE value="updated the data model tests" />
-    <option name="LAST_COMMIT_MESSAGE" value="updated the data model tests" />
+    <MESSAGE value="updated the team service, its impl, and tests" />
+    <option name="LAST_COMMIT_MESSAGE" value="updated the team service, its impl, and tests" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

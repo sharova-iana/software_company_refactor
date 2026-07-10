@@ -2,7 +2,6 @@ package org.informatics.service.impl;
 
 import org.informatics.data.Company;
 import org.informatics.data.Contract;
-import org.informatics.data.Employee;
 import org.informatics.data.enums.Position;
 import org.informatics.exceptions.InvalidSalaryException;
 import org.informatics.service.FinanceService;
@@ -15,8 +14,9 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- * Provides the concrete business logic implementation for payroll metrics, salary baselines, and financial evaluations.
- * This implementation manages data mutations for position scales and records tracking audit logs to the log stream.
+ * <p>Provides the concrete business logic implementation for payroll metrics, salary baselines, and financial evaluations.</p>
+ * <p>Following our contract-centric domain shift, this implementation queries financial terms directly off legal agreements
+ * rather than human identity descriptors.</p>
  */
 public class FinanceServiceImplementation implements FinanceService {
 
@@ -31,15 +31,8 @@ public class FinanceServiceImplementation implements FinanceService {
         Objects.requireNonNull(position, "Position cannot be null.");
         Objects.requireNonNull(salary, "Salary cannot be null.");
 
-        // Financial business validation check
-        if (salary.compareTo(BigDecimal.ZERO) < 0) {
-            throw new InvalidSalaryException("Minimum salary floor cannot be negative.");
-        }
-
-        // Telling the Company aggregate root to perform the assignment internally
         company.setSalaryForPosition(position, salary);
 
-        // Background Audit Log Entry
         LOGGER.log(Level.INFO, "Salary threshold configuration successfully updated. Position: ''{0}'', Minimum Floor Assigned: {1}",
                 new Object[]{position.name(), salary});
     }
@@ -53,9 +46,9 @@ public class FinanceServiceImplementation implements FinanceService {
         Objects.requireNonNull(company, "Company cannot be null.");
         Objects.requireNonNull(threshold, "Threshold cannot be null.");
 
+        // Refactored to traverse the contract properties layer directly
         return company.getContracts().stream()
-                .map(Contract::getEmployee)
-                .filter(employee -> employee.getSalary().compareTo(threshold) > 0)
+                .filter(contract -> contract.getSalary().compareTo(threshold) > 0)
                 .count();
     }
 
@@ -67,19 +60,20 @@ public class FinanceServiceImplementation implements FinanceService {
         Objects.requireNonNull(company, "Company cannot be null.");
         Objects.requireNonNull(position, "Position cannot be null.");
 
-        List<Employee> matchingEmployees = company.getContracts().stream()
-                .map(Contract::getEmployee)
-                .filter(emp -> emp.getPosition() == position)
+        // Refactored to isolate and filter matching active contracts instead of nested profiles
+        List<Contract> matchingContracts = company.getContracts().stream()
+                .filter(contract -> contract.getPosition() == position)
                 .toList();
 
-        if (matchingEmployees.isEmpty()) {
+        if (matchingContracts.isEmpty()) {
             return BigDecimal.ZERO;
         }
 
-        BigDecimal totalSalary = matchingEmployees.stream()
-                .map(Employee::getSalary)
+        // Sum contract salaries up directly in RAM memory streams
+        BigDecimal totalSalary = matchingContracts.stream()
+                .map(Contract::getSalary)
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
 
-        return totalSalary.divide(BigDecimal.valueOf(matchingEmployees.size()), 2, RoundingMode.HALF_UP);
+        return totalSalary.divide(BigDecimal.valueOf(matchingContracts.size()), 2, RoundingMode.HALF_UP);
     }
 }
