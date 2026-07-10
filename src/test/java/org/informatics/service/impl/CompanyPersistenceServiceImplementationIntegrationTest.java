@@ -41,7 +41,6 @@ class CompanyPersistenceServiceImplementationIntegrationTest {
             file.delete();
         }
     }
-
     // =========================================================================
     // METHOD UNDER TEST: saveWorkspace / loadWorkspace
     // =========================================================================
@@ -53,11 +52,12 @@ class CompanyPersistenceServiceImplementationIntegrationTest {
         originalCompany.setSalaryForPosition(Position.MANAGER, new BigDecimal("6000.00"));
         originalCompany.setContractCounter(1);
 
-        Employee manager = new Employee("Jack Doe", Gender.MALE, LocalDate.of(1985, 4, 12), Position.MANAGER, new BigDecimal("6500.00"));
-        Contract contract = new Contract(1, manager);
+        Employee manager = new Employee("Jack Doe", "jack.doe@informatics.com", Gender.MALE, LocalDate.of(1985, 4, 12));
+        Contract contract = new Contract(1, manager, Position.MANAGER, new BigDecimal("6500.00"));
         originalCompany.addContract(contract);
 
-        Team team = new Team(manager);
+        // Team aggregate tracks legal contract links directly now
+        Team team = new Team(contract);
         originalCompany.addTeam(team);
 
         // when
@@ -74,10 +74,16 @@ class CompanyPersistenceServiceImplementationIntegrationTest {
         Contract loadedContract = restoredCompany.getContracts().iterator().next();
         assertEquals(1, loadedContract.getContractNumber());
         assertEquals("Jack Doe", loadedContract.getEmployee().getName());
+        assertEquals("jack.doe@informatics.com", loadedContract.getEmployee().getEmail());
+        assertEquals(Position.MANAGER, loadedContract.getPosition());
+        assertEquals(0, new BigDecimal("6500.00").compareTo(loadedContract.getSalary()));
 
         // Deep verification: Verify relational company organizational structures remain active
         assertEquals(1, restoredCompany.getTeams().size());
         Team loadedTeam = restoredCompany.getTeams().iterator().next();
-        assertEquals(loadedContract.getEmployee(), loadedTeam.getManager(), "The restored team leader instance must point to the identical deserialized personnel record");
+
+        // Asserting against the contract layer to confirm deep reference identity integrity is preserved over the stream
+        assertEquals(loadedContract.getEmployee(), loadedTeam.getManagerContract().getEmployee(),
+                "The restored team leader instance must point to the identical deserialized personnel record");
     }
 }

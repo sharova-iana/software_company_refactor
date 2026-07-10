@@ -1,14 +1,10 @@
-package org.informatics.ui;
+/*package org.informatics.ui;
 
 import org.informatics.data.Company;
 import org.informatics.data.Employee;
 import org.informatics.data.Team;
 import org.informatics.data.enums.Gender;
 import org.informatics.data.enums.Position;
-import org.informatics.service.CompanyService;
-import org.informatics.service.impl.CompanyServiceImplementation;
-import org.informatics.service.util.BinarySerializationService;
-import org.informatics.service.util.impl.BinarySerializationServiceImplementation;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -85,3 +81,4 @@ public class CompanyDatabaseSeeder {
         System.out.println("[=] You can now boot ConsoleApplication and Load this workspace live.");
     }
 }
+*/
