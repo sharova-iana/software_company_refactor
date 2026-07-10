@@ -1,6 +1,7 @@
 package org.informatics.ui;
 
 import org.informatics.data.Company;
+import org.informatics.data.Contract;
 import org.informatics.data.Employee;
 import org.informatics.data.Team;
 import org.informatics.data.enums.Gender;
@@ -250,26 +251,41 @@ public class ConsoleApplication {
     // METHOD WORKFLOW: handleHireEmployee
     // =========================================================================
 
+    // =========================================================================
+    // METHOD WORKFLOW: handleHireEmployee
+    // =========================================================================
+
+    // =========================================================================
+    // METHOD WORKFLOW: handleHireEmployee
+    // =========================================================================
+
     /**
      * <p>Collects applicant credentials from the console stream, evaluates full name format validations,
      * and delegates the human resources onboarding transaction to the personnel lifecycle service.</p>
-     * <p>The rich domain layer automatically enforces chronological worker age limits (18-70 years old)
-     * and name constraints at object birth.</p>
-     *
-     * @throws IllegalArgumentException if the provided name string contains characters other than letters and single spaces
+     * <p>The rich domain layer automatically enforces chronological worker age limits (18-70 years old),
+     * communication layouts, and name constraints at object birth.</p>
      */
     private void handleHireEmployee() {
-        System.out.print("Enter employee full name: ");
-        String name = scanner.nextLine().trim();
+        String name = promptName();
+        String email = promptEmail();
 
         Gender gender = promptGender(); // Secure enum lookup loop
         LocalDate birthDate = promptLocalDate("Enter birth date (YYYY-MM-DD): "); // Secure date parse loop
         Position position = promptPosition();
         BigDecimal negotiatedSalary = promptBigDecimal("Enter negotiated salary amount: "); // Secure conversion loop
 
-        Employee hired = emplService.hireEmployee(currentCompany, name, gender, birthDate, position, negotiatedSalary);
-        System.out.println("[+] Successfully hired " + hired.getName() + " with Unique ID: " + hired.getId());
+        // Returns the active Contract document envelope wrapper
+        Contract contract = emplService.hireEmployee(
+                currentCompany, name, email, gender, birthDate, position, negotiatedSalary
+        );
+
+        System.out.println("\n[+] Onboarding transaction completed successfully!");
+        System.out.printf("    [+] Generated Contract ID: #%d%n", contract.getContractNumber());
+        System.out.printf("    [+] Assigned Worker Name:  %s%n", contract.getEmployee().getName());
+        System.out.printf("    [+] Unique Tracking Token: %s%n", contract.getEmployee().getId());
     }
+
+
 
     // =========================================================================
     // METHOD WORKFLOW: handleFireEmployee
@@ -294,10 +310,18 @@ public class ConsoleApplication {
         // 2. Output an interactive, human-readable selection panel
         System.out.println("\nSelect an active employee to terminate:");
         for (int i = 0; i < contractsList.size(); i++) {
-            var emp = contractsList.get(i).getEmployee();
+            Contract contract = contractsList.get(i);
+            Employee emp = contract.getEmployee();
+
             System.out.printf("%d. [Contract #%d] %s (%s - $%.2f)%n",
-                    (i + 1), contractsList.get(i).getContractNumber(), emp.getName(), emp.getPosition(), emp.getSalary());
+                    (i + 1),
+                    contract.getContractNumber(),
+                    emp.getName(),
+                    contract.getPosition().name(),
+                    contract.getSalary()
+            );
         }
+
 
         // 3. Reuse the custom validation prompt helper to get a safe bounded choice
         int selectionChoice = promptSelectionIndex("\nEnter employee number to terminate: ", 1, contractsList.size());
@@ -335,8 +359,7 @@ public class ConsoleApplication {
     private void handleCreateTeam() {
         // 1. Extract only the employees holding a valid manager role constant configuration
         var managersList = currentCompany.getContracts().stream()
-                .map(org.informatics.data.Contract::getEmployee)
-                .filter(emp -> emp.getPosition() == Position.MANAGER)
+                .filter(c -> c.getPosition() == Position.MANAGER)
                 .toList();
 
         if (managersList.isEmpty()) {
@@ -346,11 +369,11 @@ public class ConsoleApplication {
 
         System.out.println("\nSelect an eligible manager to lead the new team:");
         for (int i = 0; i < managersList.size(); i++) {
-            System.out.printf("%d. %s%n", (i + 1), managersList.get(i).getName());
+            System.out.printf("%d. %s%n", (i + 1), managersList.get(i).getEmployee().getName());
         }
 
         int selectionChoice = promptSelectionIndex("\nEnter manager number to appoint: ", 1, managersList.size());
-        UUID managerId = managersList.get(selectionChoice - 1).getId();
+        UUID managerId = managersList.get(selectionChoice - 1).getEmployee().getId();
 
         org.informatics.data.Team createdTeam = teamService.createTeam(currentCompany, managerId);
         System.out.println("[+] New team established successfully under ID: " + createdTeam.getId());
@@ -375,15 +398,14 @@ public class ConsoleApplication {
 
         System.out.println("\nSelect target team shell:");
         for (int i = 0; i < teamsList.size(); i++) {
-            System.out.printf("%d. Team led by Manager: %s%n", (i + 1), teamsList.get(i).getManager().getName());
+            System.out.printf("%d. Team led by Manager: %s%n", (i + 1), teamsList.get(i).getManagerContract().getEmployee().getName());
         }
         int teamSelection = promptSelectionIndex("Enter team number: ", 1, teamsList.size());
         UUID teamId = teamsList.get(teamSelection - 1).getId();
 
         // Phase 2: Select the Candidate Employee Contributor
         var eligibleStaffList = currentCompany.getContracts().stream()
-                .map(org.informatics.data.Contract::getEmployee)
-                .filter(emp -> emp.getPosition() != Position.MANAGER) // Managers cannot be team contributors
+                .filter(c -> c.getPosition() != Position.MANAGER) // Managers cannot be team contributors
                 .toList();
 
         if (eligibleStaffList.isEmpty()) {
@@ -393,11 +415,11 @@ public class ConsoleApplication {
 
         System.out.println("\nSelect a candidate employee to assign:");
         for (int i = 0; i < eligibleStaffList.size(); i++) {
-            var emp = eligibleStaffList.get(i);
-            System.out.printf("%d. %s (%s)%n", (i + 1), emp.getName(), emp.getPosition());
+            var contract = eligibleStaffList.get(i);
+            System.out.printf("%d. %s (%s)%n", (i + 1), contract.getEmployee().getName(), contract.getPosition());
         }
         int employeeSelection = promptSelectionIndex("Enter employee number: ", 1, eligibleStaffList.size());
-        UUID employeeId = eligibleStaffList.get(employeeSelection - 1).getId();
+        UUID employeeId = eligibleStaffList.get(employeeSelection - 1).getEmployee().getId();
 
         // Phase 3: Delegate the mapped background tokens down to the backend core service
         teamService.addMemberToTeam(currentCompany, teamId, employeeId);
@@ -421,7 +443,7 @@ public class ConsoleApplication {
 
         System.out.println("\nSelect a team to dissolve permanently:");
         for (int i = 0; i < teamsList.size(); i++) {
-            System.out.printf("%d. Team managed by: %s%n", (i + 1), teamsList.get(i).getManager().getName());
+            System.out.printf("%d. Team managed by: %s%n", (i + 1), teamsList.get(i).getManagerContract().getEmployee().getName());
         }
 
         int selectionChoice = promptSelectionIndex("\nEnter team number to dissolve: ", 1, teamsList.size());
@@ -442,7 +464,7 @@ public class ConsoleApplication {
     private void handleRemoveMemberFromTeam() {
         // Collect all employees currently embedded inside active team member structures
         var assignedMembersList = currentCompany.getTeams().stream()
-                .flatMap(team -> team.getMembers().stream())
+                .flatMap(team -> team.getMemberContracts().stream())
                 .distinct()
                 .toList();
 
@@ -453,12 +475,12 @@ public class ConsoleApplication {
 
         System.out.println("\nSelect an active member contributor to evict from their team assignment:");
         for (int i = 0; i < assignedMembersList.size(); i++) {
-            var emp = assignedMembersList.get(i);
-            System.out.printf("%d. %s (%s)%n", (i + 1), emp.getName(), emp.getPosition());
+            var contract = assignedMembersList.get(i);
+            System.out.printf("%d. %s (%s)%n", (i + 1), contract.getEmployee().getName(), contract.getPosition());
         }
 
         int selectionChoice = promptSelectionIndex("\nEnter contributor number to evict: ", 1, assignedMembersList.size());
-        UUID employeeId = assignedMembersList.get(selectionChoice - 1).getId();
+        UUID employeeId = assignedMembersList.get(selectionChoice - 1).getEmployee().getId();
 
         teamService.removeMemberFromTeam(currentCompany, employeeId);
         System.out.println("[+] Contributor member evicted from the team set.");
@@ -599,6 +621,25 @@ public class ConsoleApplication {
     // =========================================================================
 
     /**
+     * <p>Prompts the user for an employee full name, trapping validation issues
+     * and looping continuously until a clean string within the 2-100 character boundary is supplied.</p>
+     *
+     * @return a verified, structurally sound employee name string
+     */
+    private String promptName() {
+        while (true) {
+            System.out.print("Enter employee full name: ");
+            String input = scanner.nextLine().trim();
+
+            if (org.informatics.data.Employee.isValidName(input)) {
+                return input;
+            }
+
+            System.out.println("[!] Invalid name format. Employee names must be between 2 and 100 characters long.");
+        }
+    }
+
+    /**
      * <p>Prompts the user for a numeric currency amount, trapping parsing exceptions
      * and looping continuously until a valid numerical layout is supplied.</p>
      *
@@ -674,6 +715,24 @@ public class ConsoleApplication {
         }
     }
 
+    /**
+     * <p>Prompts the user for a corporate communication email address, trapping formatting exceptions
+     * and looping continuously until a structurally sound, regex-compliant template is supplied.</p>
+     *
+     * @return a verified, structurally sound lowercase email address string
+     */
+    private String promptEmail() {
+        while (true) {
+            System.out.print("Enter corporate email address: ");
+            String input = scanner.nextLine().trim();
+
+            if (Employee.isValidEmail(input)) {
+                return input.toLowerCase();
+            }
+
+            System.out.println("[!] Email format corruption. Please type a valid corporate address layout (e.g., worker@company.com).");
+        }
+    }
 
 
     // =========================================================================
@@ -756,5 +815,4 @@ public class ConsoleApplication {
                 persistenceService, registryService, csvPayrollService).start();
     }
 }
-
 

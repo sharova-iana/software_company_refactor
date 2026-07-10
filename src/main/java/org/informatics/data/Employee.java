@@ -122,7 +122,7 @@ public class Employee implements Serializable {
         Objects.requireNonNull(name, "Name cannot be null.");
         String trimmedName = name.trim();
 
-        if (trimmedName.length() < 2 || trimmedName.length() > 100) {
+        if (!isValidName(name) ){
             throw new IllegalArgumentException("Invalid name format. Employee names must be between 2 and 100 characters long.");
         }
         this.name = trimmedName;
@@ -147,7 +147,7 @@ public class Employee implements Serializable {
         Objects.requireNonNull(email, "Email cannot be null.");
         String processedEmail = email.trim().toLowerCase();
 
-        if (!EMAIL_PATTERN.matcher(processedEmail).matches()) {
+        if (!isValidEmail(email)) {
             throw new IllegalArgumentException("Invalid email format syntax. Please enter a valid corporate email structure (e.g., worker@company.com).");
         }
         this.email = processedEmail;
@@ -170,6 +170,31 @@ public class Employee implements Serializable {
     public void setGender(Gender gender) {
         this.gender = Objects.requireNonNull(gender, "Gender cannot be null.");
     }
+
+    /**
+     * <p>Evaluates whether a raw string name conforms precisely to the system character length rules.</p>
+     *
+     * @param name the raw text string to evaluate
+     * @return {@code true} if the trimmed length is between 2 and 100 characters inclusive; {@code false} otherwise
+     */
+    public static boolean isValidName(String name) {
+        if (name == null) return false;
+        String trimmed = name.trim();
+        return trimmed.length() >= 2 && trimmed.length() <= 100;
+    }
+
+
+    /**
+     * <p>Evaluates whether a raw string handle conforms precisely to the system email validation rules.</p>
+     *
+     * @param email the raw text string to evaluate
+     * @return {@code true} if the syntax matches standard template rules; {@code false} otherwise
+     */
+    public static boolean isValidEmail(String email) {
+        if (email == null) return false;
+        return EMAIL_PATTERN.matcher(email.trim().toLowerCase()).matches();
+    }
+
 
     @Override
     public boolean equals(Object o) {
