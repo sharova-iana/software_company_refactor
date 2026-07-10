@@ -23,8 +23,9 @@ import java.util.UUID;
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
- * Executes isolated London-school unit tests targeting the ReportingService matrix compilers.
- * Verifies relational stream traversals, sequence sorting, and matrix layout configurations in RAM.
+ * Executes pure, strict London-school unit tests targeting the ReportingService implementation module.
+ * Following Mockist standards, every domain entity is completely mocked to verify tabular data frame
+ * extractions in absolute structural isolation.
  */
 class ReportingServiceImplementationUnitTest {
 
@@ -42,40 +43,40 @@ class ReportingServiceImplementationUnitTest {
     // =========================================================================
 
     @Test
-    void testCompileEmployeeTableData_shouldReturnSortedStringMatrix_whenActiveContractsExist() {
+    void testCompileEmployeeTableData_shouldReturnFormattedMatrixRows_whenContractsAreActive() {
         // given
-        UUID targetId = UUID.fromString("00000000-0000-0000-0000-000000000001");
-        Employee mockEmp = Mockito.mock(Employee.class);
-        Mockito.when(mockEmp.getId()).thenReturn(targetId);
-        Mockito.when(mockEmp.getName()).thenReturn("John Doe");
-        Mockito.when(mockEmp.getGender()).thenReturn(Gender.MALE);
-        Mockito.when(mockEmp.getBirthDate()).thenReturn(LocalDate.of(1990, 5, 10));
-        Mockito.when(mockEmp.getPosition()).thenReturn(Position.SENIOR_DEVELOPER);
-        Mockito.when(mockEmp.getSalary()).thenReturn(new BigDecimal("6500.50"));
+        UUID empId = UUID.randomUUID();
+        Employee mockEmployee = Mockito.mock(Employee.class);
+        Mockito.when(mockEmployee.getId()).thenReturn(empId);
+        Mockito.when(mockEmployee.getName()).thenReturn("John Brooks");
+        Mockito.when(mockEmployee.getGender()).thenReturn(Gender.MALE);
+        Mockito.when(mockEmployee.getBirthDate()).thenReturn(LocalDate.of(1992, 4, 15));
 
         Contract mockContract = Mockito.mock(Contract.class);
-        Mockito.when(mockContract.getContractNumber()).thenReturn(105);
-        Mockito.when(mockContract.getEmployee()).thenReturn(mockEmp);
+        Mockito.when(mockContract.getContractNumber()).thenReturn(101);
+        Mockito.when(mockContract.getEmployee()).thenReturn(mockEmployee);
+        Mockito.when(mockContract.getPosition()).thenReturn(Position.SENIOR_DEVELOPER);
+        Mockito.when(mockContract.getSalary()).thenReturn(new BigDecimal("6500.00"));
 
-        Set<Contract> contracts = new HashSet<>();
-        contracts.add(mockContract);
-        Mockito.when(mockCompany.getContracts()).thenReturn(contracts);
+        Set<Contract> mockContractsSet = new HashSet<>();
+        mockContractsSet.add(mockContract);
+        Mockito.when(mockCompany.getContracts()).thenReturn(mockContractsSet);
 
         // when
-        List<String[]> matrix = reportingService.compileEmployeeTableData(mockCompany);
+        List<String[]> dataMatrix = reportingService.compileEmployeeTableData(mockCompany);
 
         // then
-        assertNotNull(matrix, "The matrix compile operation output must never be null");
-        assertEquals(1, matrix.size(), "The matrix row count must match the total contract records size");
-
-        String[] row = matrix.get(0);
-        assertEquals("105", row[0], "Column 0 must represent the stringified contract index reference");
-        assertEquals("00000000-0000-0000-0000-000000000001", row[1]);
-        assertEquals("John Doe", row[2]);
+        assertEquals(1, dataMatrix.size());
+        String[] row = dataMatrix.get(0);
+        assertEquals("101", row[0]);
+        assertEquals(empId.toString(), row[1]);
+        assertEquals("John Brooks", row[2]);
         assertEquals("MALE", row[3]);
-        assertEquals("1990-05-10", row[4]);
+        assertEquals("1992-04-15", row[4]);
         assertEquals("SENIOR_DEVELOPER", row[5]);
-        assertEquals("6500.50", row[6], "Column 6 must map the salary value formatted to exactly two decimal slots");
+        assertEquals("6500.00", row[6]);
+
+        Mockito.verify(mockCompany).getContracts();
     }
 
     // =========================================================================
@@ -83,34 +84,54 @@ class ReportingServiceImplementationUnitTest {
     // =========================================================================
 
     @Test
-    void testCompileTeamTableData_shouldReturnStructuredNestedMatrixBlocks_whenTeamsExist() {
+    void testCompileTeamTableData_shouldReturnGroupedRowBlocks_whenTeamsExist() {
         // given
-        Employee mockManager = Mockito.mock(Employee.class);
-        Mockito.when(mockManager.getName()).thenReturn("Robert Miller");
-        Mockito.when(mockManager.getPosition()).thenReturn(Position.MANAGER);
+        UUID teamId = UUID.randomUUID();
+
+        // Leader setup via Contract mock
+        Employee mockLeader = Mockito.mock(Employee.class);
+        Mockito.when(mockLeader.getName()).thenReturn("Alice Manager");
+        Contract mockLeaderContract = Mockito.mock(Contract.class);
+        Mockito.when(mockLeaderContract.getEmployee()).thenReturn(mockLeader);
+        Mockito.when(mockLeaderContract.getPosition()).thenReturn(Position.MANAGER);
+
+        // Contributor setup via Contract mock
+        Employee mockContributor = Mockito.mock(Employee.class);
+        Mockito.when(mockContributor.getName()).thenReturn("Bob Developer");
+        Contract mockMemberContract = Mockito.mock(Contract.class);
+        Mockito.when(mockMemberContract.getEmployee()).thenReturn(mockContributor);
+        Mockito.when(mockMemberContract.getPosition()).thenReturn(Position.JUNIOR_DEVELOPER);
 
         Team mockTeam = Mockito.mock(Team.class);
-        Mockito.when(mockTeam.getId()).thenReturn(UUID.fromString("00000000-0000-0000-0000-000000000010"));
-        Mockito.when(mockTeam.getManager()).thenReturn(mockManager);
+        Mockito.when(mockTeam.getId()).thenReturn(teamId);
+        Mockito.when(mockTeam.getManagerContract()).thenReturn(mockLeaderContract);
 
-        // Simulating an empty team contributor list view to evaluate spacing buffers
-        Mockito.when(mockTeam.getMembers()).thenReturn(new HashSet<>());
+        Set<Contract> memberContractsSet = new HashSet<>();
+        memberContractsSet.add(mockMemberContract);
+        Mockito.when(mockTeam.getMemberContracts()).thenReturn(memberContractsSet);
 
-        Set<Team> teams = new HashSet<>();
-        teams.add(mockTeam);
-        Mockito.when(mockCompany.getTeams()).thenReturn(teams);
+        Set<Team> mockTeamsSet = new HashSet<>();
+        mockTeamsSet.add(mockTeam);
+        Mockito.when(mockCompany.getTeams()).thenReturn(mockTeamsSet);
 
         // when
-        List<String[]> matrix = reportingService.compileTeamTableData(mockCompany);
+        List<String[]> teamMatrix = reportingService.compileTeamTableData(mockCompany);
 
-        // then: Each team block records exactly 3 display rows (Leader, Spacer placeholder, Empty buffer)
-        assertEquals(3, matrix.size());
+        // then
+        // Expects exactly 3 rows: Row 0 (Leader details), Row 1 (Member details), Row 2 (Spacer gap layout)
+        assertEquals(3, teamMatrix.size());
 
-        assertEquals("00000000-0000-0000-0000-000000000010", matrix.get(0)[0]);
-        assertEquals("LEADER: Robert Miller", matrix.get(0)[1]);
+        String[] leaderRow = teamMatrix.get(0);
+        assertEquals(teamId.toString(), leaderRow[0]);
+        assertEquals("LEADER: Alice Manager", leaderRow[1]);
+        assertEquals("MANAGER", leaderRow[2]);
 
-        assertEquals("", matrix.get(1)[0]);
-        assertEquals("  (No regular member contributors assigned yet)", matrix.get(1)[1]);
+        String[] memberRow = teamMatrix.get(1);
+        assertEquals("", memberRow[0]);
+        assertEquals("  - Bob Developer", memberRow[1]);
+        assertEquals("JUNIOR_DEVELOPER", memberRow[2]);
+
+        Mockito.verify(mockCompany).getTeams();
     }
 
     // =========================================================================
@@ -118,18 +139,21 @@ class ReportingServiceImplementationUnitTest {
     // =========================================================================
 
     @Test
-    void testCompileBaseSalariesTableData_shouldReturnFlatMatrixRows_whenConfigurationsExist() {
+    void testCompileBaseSalariesTableData_shouldReturnMapPairs_whenFloorsAreConfigured() {
         // given
-        Map<Position, BigDecimal> positionMinimumSalaries = new LinkedHashMap<>();
-        positionMinimumSalaries.put(Position.JUNIOR_DEVELOPER, new BigDecimal("2000.00"));
-        Mockito.when(mockCompany.getPositionMinimumSalaries()).thenReturn(positionMinimumSalaries);
+        Map<Position, BigDecimal> mockSalariesMap = new LinkedHashMap<>();
+        mockSalariesMap.put(Position.QA_ENGINEER, new BigDecimal("3200.50"));
+        Mockito.when(mockCompany.getPositionMinimumSalaries()).thenReturn(mockSalariesMap);
 
         // when
-        List<String[]> matrix = reportingService.compileBaseSalariesTableData(mockCompany);
+        List<String[]> salaryMatrix = reportingService.compileBaseSalariesTableData(mockCompany);
 
         // then
-        assertEquals(1, matrix.size());
-        assertEquals("JUNIOR_DEVELOPER", matrix.get(0)[0]);
-        assertEquals("2000.00", matrix.get(0)[1]);
+        assertEquals(1, salaryMatrix.size());
+        String[] row = salaryMatrix.get(0);
+        assertEquals("QA_ENGINEER", row[0]);
+        assertEquals("3200.50", row[1]);
+
+        Mockito.verify(mockCompany).getPositionMinimumSalaries();
     }
 }

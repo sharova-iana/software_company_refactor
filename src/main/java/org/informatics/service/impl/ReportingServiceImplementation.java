@@ -11,9 +11,9 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- * Implementation responsible for querying registries and compiling presentation data.
- * Following pure Query track guidelines, this service performs non-mutating operations
- * with zero hardware console stream side effects.
+ * <p>Implementation responsible for querying registries and compiling presentation data frames.</p>
+ * <p>Following pure Query track guidelines of CQRS, this service performs non-mutating operations
+ * with zero hardware console stream side effects.</p>
  */
 public class ReportingServiceImplementation implements ReportingService {
 
@@ -29,14 +29,15 @@ public class ReportingServiceImplementation implements ReportingService {
                 .sorted(Comparator.comparingInt(Contract::getContractNumber))
                 .forEach(contract -> {
                     Employee emp = contract.getEmployee();
+                    // Positions and salaries are now collected directly from the active legal agreement layout
                     dataRows.add(new String[]{
                             String.valueOf(contract.getContractNumber()),
                             emp.getId().toString(),
                             emp.getName(),
                             emp.getGender().name(),
                             emp.getBirthDate().toString(),
-                            emp.getPosition().name(),
-                            String.format("%.2f", emp.getSalary())
+                            contract.getPosition().name(),
+                            String.format("%.2f", contract.getSalary())
                     });
                 });
         return dataRows;
@@ -51,19 +52,21 @@ public class ReportingServiceImplementation implements ReportingService {
         List<String[]> dataRows = new ArrayList<>();
 
         company.getTeams().forEach(team -> {
+            Contract managerContract = team.getManagerContract();
             dataRows.add(new String[]{
                     team.getId().toString(),
-                    "LEADER: " + team.getManager().getName(),
-                    team.getManager().getPosition().name()
+                    "LEADER: " + managerContract.getEmployee().getName(),
+                    managerContract.getPosition().name()
             });
 
-            if (team.getMembers().isEmpty()) {
+            // Iterating over the contract-centric team membership sets
+            if (team.getMemberContracts().isEmpty()) {
                 dataRows.add(new String[]{"", "  (No regular member contributors assigned yet)", ""});
             } else {
-                team.getMembers().forEach(member -> dataRows.add(new String[]{
+                team.getMemberContracts().forEach(memberContract -> dataRows.add(new String[]{
                         "",
-                        "  - " + member.getName(),
-                        member.getPosition().name()
+                        "  - " + memberContract.getEmployee().getName(),
+                        memberContract.getPosition().name()
                 }));
             }
             dataRows.add(new String[]{"", "", ""});

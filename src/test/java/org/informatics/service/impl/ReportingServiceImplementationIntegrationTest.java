@@ -41,11 +41,14 @@ class ReportingServiceImplementationIntegrationTest {
         company.setSalaryForPosition(Position.SENIOR_DEVELOPER, new BigDecimal("5000.00"));
         company.setSalaryForPosition(Position.JUNIOR_DEVELOPER, new BigDecimal("2000.00"));
 
-        Employee emp1 = new Employee("Alice Smith", Gender.FEMALE, LocalDate.now().minusYears(30), Position.SENIOR_DEVELOPER, new BigDecimal("5500.00"));
-        Employee emp2 = new Employee("Bob Jones", Gender.MALE, LocalDate.now().minusYears(24), Position.JUNIOR_DEVELOPER, new BigDecimal("2500.00"));
+        Employee emp1 = new Employee("Alice Smith", "alice.smith@informatics.com", Gender.FEMALE, LocalDate.now().minusYears(30));
+        Employee emp2 = new Employee("Bob Jones", "bob.jones@informatics.com", Gender.MALE, LocalDate.now().minusYears(24));
 
-        company.addContract(new Contract(102, emp2));
-        company.addContract(new Contract(101, emp1));
+        Contract contract1 = new Contract(101, emp1, Position.SENIOR_DEVELOPER, new BigDecimal("5500.00"));
+        Contract contract2 = new Contract(102, emp2, Position.JUNIOR_DEVELOPER, new BigDecimal("2500.00"));
+
+        company.addContract(contract2);
+        company.addContract(contract1);
 
         // when
         List<String[]> matrix = reportingService.compileEmployeeTableData(company);
@@ -68,7 +71,6 @@ class ReportingServiceImplementationIntegrationTest {
         assertEquals("JUNIOR_DEVELOPER", row2[5]);
         assertEquals("2500.00", row2[6]);
     }
-
     // =========================================================================
     // METHOD UNDER TEST: compileTeamTableData
     // =========================================================================
@@ -79,14 +81,18 @@ class ReportingServiceImplementationIntegrationTest {
         company.setSalaryForPosition(Position.MANAGER, new BigDecimal("6000.00"));
         company.setSalaryForPosition(Position.JUNIOR_DEVELOPER, new BigDecimal("2000.00"));
 
-        Employee manager = new Employee("Charles Green", Gender.MALE, LocalDate.now().minusYears(42), Position.MANAGER, new BigDecimal("6500.00"));
-        Employee developer = new Employee("David Vance", Gender.MALE, LocalDate.now().minusYears(26), Position.JUNIOR_DEVELOPER, new BigDecimal("2800.00"));
+        Employee manager = new Employee("Charles Green", "charles.green@informatics.com", Gender.MALE, LocalDate.now().minusYears(42));
+        Employee developer = new Employee("David Vance", "david.vance@informatics.com", Gender.MALE, LocalDate.now().minusYears(26));
 
-        company.addContract(new Contract(1, manager));
-        company.addContract(new Contract(2, developer));
+        Contract managerContract = new Contract(1, manager, Position.MANAGER, new BigDecimal("6500.00"));
+        Contract devContract = new Contract(2, developer, Position.JUNIOR_DEVELOPER, new BigDecimal("2800.00"));
 
-        Team team = new Team(manager);
-        team.addMember(developer);
+        company.addContract(managerContract);
+        company.addContract(devContract);
+
+        // Team aggregate is born from and tracks active Contract wrappers
+        Team team = new Team(managerContract);
+        team.addMemberContract(devContract);
         company.addTeam(team);
 
         // when
