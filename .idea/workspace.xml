@@ -4,8 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4885edbb-1a37-4f8b-ba56-c90de5d50682" name="Changes" comment="updated table formatter for the case when rows are empty">
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/informatics/ui/DataSeeder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/informatics/ui/DataSeeder.java" afterDir="false" />
+    <list default="true" id="4885edbb-1a37-4f8b-ba56-c90de5d50682" name="Changes" comment="updated the data seeder">
+      <change beforePath="$PROJECT_DIR$/informatics_system.log.0" beforeDir="false" afterPath="$PROJECT_DIR$/informatics_system.log.0" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/informatics/ui/ConsoleApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/informatics/ui/ConsoleApplication.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -191,7 +192,7 @@
       <command value="gradle javadoc --add-options -Xdoclint:none " />
     </option>
   </component>
-  <component name="RunManager" selected="Application.DataSeeder">
+  <component name="RunManager" selected="Application.ConsoleApplication">
     <configuration name="ConsoleApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="org.informatics.ui.ConsoleApplication" />
       <module name="InformaticsEnterpriseSystem.main" />
@@ -592,11 +593,18 @@
       <option name="project" value="LOCAL" />
       <updated>1783788160752</updated>
     </task>
-    <option name="localTasksCounter" value="35" />
+    <task id="LOCAL-00035" summary="updated the data seeder">
+      <option name="closed" value="true" />
+      <created>1783790893046</created>
+      <option name="number" value="00035" />
+      <option name="presentableId" value="LOCAL-00035" />
+      <option name="project" value="LOCAL" />
+      <updated>1783790893046</updated>
+    </task>
+    <option name="localTasksCounter" value="36" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="added the integration tests for the lookup and the core business services" />
     <MESSAGE value="added the integration and unit tests for the reporting service" />
     <MESSAGE value="added a unit test for an index-parsing helper in the console app and updated the app itself, including java docs comments" />
     <MESSAGE value="added exception logging to the app" />
@@ -621,7 +629,8 @@
     <MESSAGE value="added a data seeder" />
     <MESSAGE value="updated the reporting service method for compiling employee data to include the email and adjusted the tests accordingly" />
     <MESSAGE value="updated table formatter for the case when rows are empty" />
-    <option name="LAST_COMMIT_MESSAGE" value="updated table formatter for the case when rows are empty" />
+    <MESSAGE value="updated the data seeder" />
+    <option name="LAST_COMMIT_MESSAGE" value="updated the data seeder" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

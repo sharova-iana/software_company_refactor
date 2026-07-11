@@ -242,7 +242,7 @@ public class ConsoleApplication {
         System.out.println("14. [LOAD BINARY] Load Workspace State from .SER File");
         System.out.println("15. [EXPORT CSV] Export Active Payroll Sheet to Excel CSV");
         System.out.println("16. [IMPORT CSV] Load Active Payroll Sheet from Excel CSV");
-        System.out.println("17. [CLOSE LOGOUT] Close Workspace & Switch Company"); // 🟢 New Option Block Added Here
+        System.out.println("17. [CLOSE LOGOUT] Close Workspace & Switch Company");
         System.out.println("0.  Exit System Portal");
         System.out.println("=================================================");
     }
