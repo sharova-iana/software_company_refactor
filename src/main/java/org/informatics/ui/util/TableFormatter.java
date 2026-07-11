@@ -66,15 +66,19 @@ public class TableFormatter {
      */
     private static void printTableDataRows(List<String[]> rows, int[] columnWidths, int headerCount) {
         if (rows.isEmpty()) {
-            String[] emptyMessageRow = new String[headerCount];
-            emptyMessageRow[0] = "(No active data records populated)";
-            printRow(emptyMessageRow, columnWidths);
+            // Create a clean row where every single column matches its header width
+            String[] emptyRow = new String[headerCount];
+            for (int i = 0; i < headerCount; i++) {
+                emptyRow[i] = "-"; // Short primitive string ensures columnWidths stay exactly matching header lengths
+            }
+            printRow(emptyRow, columnWidths);
         } else {
             for (String[] row : rows) {
                 printRow(row, columnWidths);
             }
         }
     }
+
 
     /**
      * Formats and outputs a single row line to the text console stream with padded gaps.
@@ -92,4 +96,3 @@ public class TableFormatter {
         System.out.println(rowBuilder.toString());
     }
 }
-

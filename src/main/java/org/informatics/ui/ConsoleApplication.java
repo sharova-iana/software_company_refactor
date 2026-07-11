@@ -130,77 +130,91 @@ public class ConsoleApplication {
      * around the initialization track, giving the user infinite chances to resolve
      * name validations or database loading errors without dropping out of the terminal.</p>
      */
+
     public void start() {
-        boolean workspaceInitialized = false;
-
-        // Resilient Startup Track Loop: Keeps looping until a valid company workspace is active
-        while (!workspaceInitialized) {
-            try {
-                initializeWorkspaceState();
-                workspaceInitialized = true; // Flips to true only if no aggregate exceptions are thrown above
-            } catch (Exception e) {
-                LOGGER.log(java.util.logging.Level.WARNING, "Workspace boot phase initialization failed. Reason: {0}", e.getMessage());
-                System.out.println("\n[!] STARTUP INITIALIZATION FAILED: " + e.getMessage());
-                System.out.println("[!] Please try again to configure a valid state.\n");
-            }
-        }
-
-        System.out.println("\n*** Welcome to " + currentCompany.getName() + " Management Portal ***");
         boolean running = true;
 
+        // Outer Master Loop: Keeps the program alive during complete workspace switches
         while (running) {
-            displayMenu();
-            System.out.print("\nEnter your choice (1-16 or 0 to exit): ");
-            String choice = scanner.nextLine().trim();
+            boolean workspaceInitialized = false;
 
-            try {
-                switch (choice) {
-                    case "1" -> handleSetSalaryFloor();
-                    case "2" -> {
-                        System.out.println("\n=== Base Salaries Configuration Table for " + currentCompany.getName() + " ===");
-                        String[] headers = {"Corporate Position Tier Constant", "Configured Minimum Base Floor Salary"};
-                        List<String[]> matrix = reportingService.compileBaseSalariesTableData(currentCompany);
-                        TableFormatter.printTable(headers, matrix);
-                    }
-                    case "3" -> handleHireEmployee();
-                    case "4" -> handleFireEmployee();
-                    case "5" -> {
-                        System.out.println("\n=== Active Employees Registry for " + currentCompany.getName() + " ===");
-                        String[] headers = {"Contract #", "Employee ID", "Full Name", "Email", "Gender", "Birth Date", "Position", "Salary"};
-                        List<String[]> matrix = reportingService.compileEmployeeTableData(currentCompany);
-                        TableFormatter.printTable(headers, matrix);
-                    }
-                    case "6" -> handleCountEmployeesAboveThreshold();
-                    case "7" -> handleCreateTeam();
-                    case "8" -> handleAddMemberToTeam();
-                    case "9" -> handleDissolveTeam();
-                    case "10" -> handleRemoveMemberFromTeam();
-                    case "11" -> {
-                        System.out.println("\n=== Corporate Teams Directory for " + currentCompany.getName() + " ===");
-                        String[] headers = {"Team Identifier Token", "Assigned Leader / Contributor Pool Track", "Professional Role Tier"};
-                        List<String[]> matrix = reportingService.compileTeamTableData(currentCompany);
-                        TableFormatter.printTable(headers, matrix);
-                    }
-                    case "12" -> handleCalculateAverageSalary();
-                    case "13" -> handleSaveData();
-                    case "14" -> handleLoadData();
-                    case "15" -> handleExportCsv();
-                    case "16" -> handleImportCsv();
-                    case "0" -> {
-                        running = false;
-                        System.out.println("Exiting application portal. Goodbye!");
-                    }
-                    default -> System.out.println("[!] Invalid selection. Choose an option from 0 to 16.");
+            // Resilient Startup Track Loop: Keeps looping until a valid company workspace is active
+            while (!workspaceInitialized) {
+                try {
+                    initializeWorkspaceState();
+                    workspaceInitialized = true; // Flips to true only if no aggregate exceptions are thrown above
+                } catch (Exception e) {
+                    LOGGER.log(java.util.logging.Level.WARNING, "Workspace boot phase initialization failed. Reason: {0}", e.getMessage());
+                    System.out.println("\n[!] STARTUP INITIALIZATION FAILED: " + e.getMessage());
+                    System.out.println("[!] Please try again to configure a valid state.\n");
                 }
-            } catch (Exception e) {
-                // 1. Technical Audit Log: Record the full detailed error trace to the system stream
-                LOGGER.log(java.util.logging.Level.WARNING, "Presentation operational exception caught during menu choice routing. Reason: {0}", e.getMessage());
+            }
 
-                // 2. User Notification: Print a clean, sanitized warning block onto the active terminal monitor screen
-                System.out.println("\n[!] Business Rule Violation or Error: " + e.getMessage());
+            System.out.println("\n*** Welcome to " + currentCompany.getName() + " Management Portal ***");
+            boolean inWorkspace = true;
+
+            // Inner Operational Loop: Drives choices within the active loaded company
+            while (inWorkspace) {
+                displayMenu();
+                System.out.print("\nEnter your choice (1-17 or 0 to exit): ");
+                String choice = scanner.nextLine().trim();
+
+                try {
+                    switch (choice) {
+                        case "1" -> handleSetSalaryFloor();
+                        case "2" -> {
+                            System.out.println("\n=== Base Salaries Configuration Table for " + currentCompany.getName() + " ===");
+                            String[] headers = {"Corporate Position Tier Constant", "Configured Minimum Base Floor Salary"};
+                            List<String[]> matrix = reportingService.compileBaseSalariesTableData(currentCompany);
+                            TableFormatter.printTable(headers, matrix);
+                        }
+                        case "3" -> handleHireEmployee();
+                        case "4" -> handleFireEmployee();
+                        case "5" -> {
+                            System.out.println("\n=== Active Employees Registry for " + currentCompany.getName() + " ===");
+                            String[] headers = {"Contract #", "Employee ID", "Full Name", "Email", "Gender", "Birth Date", "Position", "Salary"};
+                            List<String[]> matrix = reportingService.compileEmployeeTableData(currentCompany);
+                            TableFormatter.printTable(headers, matrix);
+                        }
+                        case "6" -> handleCountEmployeesAboveThreshold();
+                        case "7" -> handleCreateTeam();
+                        case "8" -> handleAddMemberToTeam();
+                        case "9" -> handleDissolveTeam();
+                        case "10" -> handleRemoveMemberFromTeam();
+                        case "11" -> {
+                            System.out.println("\n=== Corporate Teams Directory for " + currentCompany.getName() + " ===");
+                            String[] headers = {"Team Identifier Token", "Assigned Leader / Contributor Pool Track", "Professional Role Tier"};
+                            List<String[]> matrix = reportingService.compileTeamTableData(currentCompany);
+                            TableFormatter.printTable(headers, matrix);
+                        }
+                        case "12" -> handleCalculateAverageSalary();
+                        case "13" -> handleSaveData();
+                        case "14" -> handleLoadData();
+                        case "15" -> handleExportCsv();
+                        case "16" -> handleImportCsv();
+                        case "17" -> {
+                            handleCloseAndSwitchWorkspace();
+                            inWorkspace = false; // Breaks the inner loop to drop back into the initial welcome prompt
+                        }
+                        case "0" -> {
+                            inWorkspace = false;
+                            running = false; // Kills both nested tracking frameworks to safely close the JVM process
+                            System.out.println("Exiting application portal. Goodbye!");
+                        }
+                        default -> System.out.println("[!] Invalid selection. Choose an option from 0 to 17.");
+                    }
+
+                } catch (Exception e) {
+                    // 1. Technical Audit Log: Record the full detailed error trace to the system stream
+                    LOGGER.log(java.util.logging.Level.WARNING, "Presentation operational exception caught during menu choice routing. Reason: {0}", e.getMessage());
+
+                    // 2. User Notification: Print a clean, sanitized warning block onto the active terminal monitor screen
+                    System.out.println("\n[!] Business Rule Violation or Error: " + e.getMessage());
+                }
             }
         }
     }
+
 
     /**
      * <p>Outputs the standard, text-aligned dashboard options panel to the terminal console stream.</p>
@@ -228,9 +242,11 @@ public class ConsoleApplication {
         System.out.println("14. [LOAD BINARY] Load Workspace State from .SER File");
         System.out.println("15. [EXPORT CSV] Export Active Payroll Sheet to Excel CSV");
         System.out.println("16. [IMPORT CSV] Load Active Payroll Sheet from Excel CSV");
+        System.out.println("17. [CLOSE LOGOUT] Close Workspace & Switch Company"); // 🟢 New Option Block Added Here
         System.out.println("0.  Exit System Portal");
         System.out.println("=================================================");
     }
+
     // =========================================================================
     // METHOD WORKFLOW: handleSetSalaryFloor
     // =========================================================================
@@ -607,6 +623,29 @@ public class ConsoleApplication {
         csvPayrollService.importPayrollFromCsv(currentCompany, targetCsvFilename);
         System.out.println("[+] Text records successfully read and populated into the active contracts ledger!");
     }
+
+    // =========================================================================
+    // METHOD WORKFLOW: handleCloseAndSwitchWorkspace
+    // =========================================================================
+
+    /**
+     * <p>Safely closes down the active company session container, resetting internal operational
+     * workspace memory pointers to null, and looping the execution track right back to the
+     * initialization welcome selection screens.</p>
+     */
+    private void handleCloseAndSwitchWorkspace() {
+        System.out.print("\n[?] Would you like to save your active workspace states to the file repository first? (Y/N): ");
+        String saveConfirmationInput = scanner.nextLine().trim().toUpperCase();
+
+        if (saveConfirmationInput.startsWith("Y")) {
+            handleSaveData();
+        }
+
+        System.out.println("[*] Flushing active operational memory matrices... Closing session context.");
+
+        this.currentCompany = null;
+    }
+
 
     // =========================================================================
     // DEFENSIVE PRESENTATION INPUT SCANNING UTILITIES

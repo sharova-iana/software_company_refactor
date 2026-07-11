@@ -4,16 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4885edbb-1a37-4f8b-ba56-c90de5d50682" name="Changes" comment="added a data seeder">
-      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle.kts" afterDir="false" />
+    <list default="true" id="4885edbb-1a37-4f8b-ba56-c90de5d50682" name="Changes" comment="updated the reporting service method for compiling employee data to include the email and adjusted the tests accordingly">
       <change beforePath="$PROJECT_DIR$/informatics_system.log.0" beforeDir="false" afterPath="$PROJECT_DIR$/informatics_system.log.0" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/informatics/service/EmployeeService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/informatics/service/EmployeeService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/informatics/service/impl/ReportingServiceImplementation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/informatics/service/impl/ReportingServiceImplementation.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/org/informatics/service/impl/ReportingServiceImplementationIntegrationTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/org/informatics/service/impl/ReportingServiceImplementationIntegrationTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/org/informatics/service/impl/ReportingServiceImplementationUnitTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/org/informatics/service/impl/ReportingServiceImplementationUnitTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/informatics/ui/ConsoleApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/informatics/ui/ConsoleApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/informatics/ui/util/TableFormatter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/informatics/ui/util/TableFormatter.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -171,6 +165,7 @@
     "Gradle.TeamServiceImplementationUnitTest.testRemoveMemberFromTeam_shouldCallTeamRemoveMember_whenEmployeeIsActiveInsideATeamPool.executor": "Run",
     "Gradle.TeamServiceImplementationUnitTest.testRemoveMemberFromTeam_shouldThrowTeamAssignmentException_whenEmployeeIsNotActiveInAnyTeam.executor": "Run",
     "Gradle.TeamServiceImplementationUnitTest.testRemoveMemberFromTeam_shouldThrowTeamAssignmentException_whenTargetIdBelongsToAManager.executor": "Run",
+    "Gradle.Tests in 'InformaticsEnterpriseSystem.test'.executor": "Run",
     "Gradle.Tests in 'SoftwareCompany.test'.executor": "Run",
     "JUnit.FinanceServiceImplementationIntegrationTest.executor": "Run",
     "JUnit.FinanceServiceImplementationIntegrationTest.testSetSalaryForPosition_shouldStoreFloorInConfigurationMap_whenValueIsValid.executor": "Run",
@@ -197,7 +192,20 @@
       <command value="gradle javadoc --add-options -Xdoclint:none " />
     </option>
   </component>
-  <component name="RunManager" selected="Gradle.ReportingServiceImplementationIntegrationTest.testCompileEmployeeTableData_shouldReturnOrderedMatrixRows_whenContractsAreActive">
+  <component name="RunManager" selected="Gradle.Tests in 'InformaticsEnterpriseSystem.test'">
+    <configuration name="ConsoleApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="org.informatics.ui.ConsoleApplication" />
+      <module name="InformaticsEnterpriseSystem.main" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="org.informatics.ui.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="ReportingServiceImplementationIntegrationTest.testCompileEmployeeTableData_shouldReturnOrderedMatrixRows_whenContractsAreActive" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
@@ -252,58 +260,6 @@
       <GradleCoverageDisabled>false</GradleCoverageDisabled>
       <method v="2" />
     </configuration>
-    <configuration name="SoftwareCompany - refactor [javadoc --add-options -Xdoclint:none]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
-      <ExternalSystemSettings>
-        <option name="executionName" />
-        <option name="externalProjectPath" value="$PROJECT_DIR$" />
-        <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" value="" />
-        <option name="taskDescriptions">
-          <list />
-        </option>
-        <option name="taskNames">
-          <list>
-            <option value="javadoc" />
-            <option value="--add-options" />
-            <option value="-Xdoclint:none" />
-          </list>
-        </option>
-        <option name="vmOptions" />
-      </ExternalSystemSettings>
-      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
-      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
-      <ExternalSystemDebugDisabled>false</ExternalSystemDebugDisabled>
-      <DebugAllEnabled>false</DebugAllEnabled>
-      <RunAsTest>false</RunAsTest>
-      <GradleProfilingDisabled>false</GradleProfilingDisabled>
-      <GradleCoverageDisabled>false</GradleCoverageDisabled>
-      <method v="2" />
-    </configuration>
-    <configuration name="SoftwareCompany [clean]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
-      <ExternalSystemSettings>
-        <option name="executionName" />
-        <option name="externalProjectPath" value="$PROJECT_DIR$" />
-        <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" />
-        <option name="taskDescriptions">
-          <list />
-        </option>
-        <option name="taskNames">
-          <list>
-            <option value="clean" />
-          </list>
-        </option>
-        <option name="vmOptions" />
-      </ExternalSystemSettings>
-      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
-      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
-      <ExternalSystemDebugDisabled>false</ExternalSystemDebugDisabled>
-      <DebugAllEnabled>false</DebugAllEnabled>
-      <RunAsTest>false</RunAsTest>
-      <GradleProfilingDisabled>false</GradleProfilingDisabled>
-      <GradleCoverageDisabled>false</GradleCoverageDisabled>
-      <method v="2" />
-    </configuration>
     <configuration name="SoftwareCompany [javadoc]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
@@ -329,13 +285,38 @@
       <GradleCoverageDisabled>false</GradleCoverageDisabled>
       <method v="2" />
     </configuration>
+    <configuration name="Tests in 'InformaticsEnterpriseSystem.test'" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":test" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <ExternalSystemDebugDisabled>false</ExternalSystemDebugDisabled>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>true</RunAsTest>
+      <GradleProfilingDisabled>false</GradleProfilingDisabled>
+      <GradleCoverageDisabled>false</GradleCoverageDisabled>
+      <method v="2" />
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Gradle.Tests in 'InformaticsEnterpriseSystem.test'" />
+        <item itemvalue="Application.ConsoleApplication" />
         <item itemvalue="Gradle.ReportingServiceImplementationIntegrationTest.testCompileEmployeeTableData_shouldReturnOrderedMatrixRows_whenContractsAreActive" />
         <item itemvalue="Gradle.ReportingServiceImplementationUnitTest.testCompileEmployeeTableData_shouldReturnFormattedMatrixRows_whenContractsAreActive" />
         <item itemvalue="Gradle.SoftwareCompany [javadoc]" />
-        <item itemvalue="Gradle.SoftwareCompany [clean]" />
-        <item itemvalue="Gradle.SoftwareCompany - refactor [javadoc --add-options -Xdoclint:none]" />
       </list>
     </recent_temporary>
   </component>
@@ -610,11 +591,18 @@
       <option name="project" value="LOCAL" />
       <updated>1783702363767</updated>
     </task>
-    <option name="localTasksCounter" value="33" />
+    <task id="LOCAL-00033" summary="updated the reporting service method for compiling employee data to include the email and adjusted the tests accordingly">
+      <option name="closed" value="true" />
+      <created>1783767895542</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1783767895543</updated>
+    </task>
+    <option name="localTasksCounter" value="34" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="added java docs comments to csv service" />
     <MESSAGE value="added java docs comments to file registry service, tests for its impl, and a test for the bin serialization utility" />
     <MESSAGE value="added the integration tests for the lookup and the core business services" />
     <MESSAGE value="added the integration and unit tests for the reporting service" />
@@ -639,7 +627,8 @@
     <MESSAGE value="updated the console app" />
     <MESSAGE value="expanded the position enum" />
     <MESSAGE value="added a data seeder" />
-    <option name="LAST_COMMIT_MESSAGE" value="added a data seeder" />
+    <MESSAGE value="updated the reporting service method for compiling employee data to include the email and adjusted the tests accordingly" />
+    <option name="LAST_COMMIT_MESSAGE" value="updated the reporting service method for compiling employee data to include the email and adjusted the tests accordingly" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
