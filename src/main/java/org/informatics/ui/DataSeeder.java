@@ -11,158 +11,145 @@ import org.informatics.service.util.impl.BinarySerializationServiceImplementatio
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
- * Production infrastructure data seeder responsible for generating a large-scale,
- * realistic corporate sandbox database tracking all 9 positions and multiple teams.
+ * Production-grade deterministic data seeder. Maps structural company configurations,
+ * enforces realistic salary floors, and populates multi-team environments with absolute consistency.
  */
 public class DataSeeder {
 
     public static void main(String[] args) {
-        System.out.println("[*] Initializing large-scale corporate data seeding track...");
+        System.out.println("[*] Initializing strict deterministic enterprise data seeding track...");
         BinarySerializationService serializationService = new BinarySerializationServiceImplementation();
 
         try {
             // =========================================================================
-            // COMPANY 1: Vanguard Enterprise Solutions
+            // COMPANY 1: Vanguard Enterprise Solutions (Standard Baseline Market Rate)
             // =========================================================================
-            System.out.println("[*] Generating database for 'Vanguard Enterprise Solutions'...");
+            System.out.println("[*] Provisioning 'Vanguard Enterprise Solutions'...");
             Company vanguard = new Company("Vanguard Enterprise Solutions");
-            configurePositionFloors(vanguard, new BigDecimal("2500.00"), new BigDecimal("3500.00"), new BigDecimal("5500.00"));
+            applyRealisticSalaryFloors(vanguard, new BigDecimal("1.00")); // Baseline scale
 
-            String[] names1 = {
-                    "David Miller", "Sarah Jenkins", "James Harrison", "Emily Taylor", "Robert Chen",
-                    "Jessica Jones", "Michael Chang", "Amanda Ross", "William Vance", "Elizabeth Fox",
-                    "Thomas Wright", "Ashley Cooper", "Christopher Lee", "Megan Brooks", "Brian Kelly"
-            };
-            String[] domains1 = { "vanguard.com", "vanguard-solutions.net" };
+            // Establish 2 Distinct Managers and team contributor personnel
+            Employee mgrA = new Employee("David Miller", "david.miller@vanguard.com", Gender.MALE, LocalDate.of(1980, 3, 15));
+            Employee mgrB = new Employee("Sarah Jenkins", "sarah.jenkins@vanguard.com", Gender.FEMALE, LocalDate.of(1983, 7, 22));
+            Employee devSr = new Employee("James Harrison", "james.harrison@vanguard.com", Gender.MALE, LocalDate.of(1988, 11, 5));
+            Employee devJr = new Employee("Emily Taylor", "emily.taylor@vanguard.com", Gender.FEMALE, LocalDate.of(1995, 1, 19));
+            Employee qaEng = new Employee("Robert Chen", "robert.chen@vanguard.com", Gender.MALE, LocalDate.of(1992, 5, 14));
+            Employee designer = new Employee("Jessica Jones", "jessica.jones@vanguard.com", Gender.FEMALE, LocalDate.of(1994, 9, 8));
+            Employee helpDesk = new Employee("Michael Chang", "michael.chang@vanguard.com", Gender.MALE, LocalDate.of(1998, 12, 1));
+            Employee sysAdmin = new Employee("Amanda Ross", "amanda.ross@vanguard.com", Gender.FEMALE, LocalDate.of(1990, 4, 30));
+            Employee dbSpec = new Employee("William Vance", "william.vance@vanguard.com", Gender.MALE, LocalDate.of(1987, 8, 25));
+            Employee webDev = new Employee("Elizabeth Fox", "elizabeth.fox@vanguard.com", Gender.FEMALE, LocalDate.of(1996, 2, 10));
 
-            List<Contract> vanguardContracts = seedWorkforceRoster(vanguard, names1, domains1);
+            // Wrap explicitly into legally valid contracts (Salaries safely above Vanguard's floors)
+            Contract vC1 = new Contract(vanguard.incrementAndGetContractCounter(), mgrA, Position.MANAGER, new BigDecimal("7500.00"));
+            Contract vC2 = new Contract(vanguard.incrementAndGetContractCounter(), mgrB, Position.MANAGER, new BigDecimal("7800.00"));
+            Contract vC3 = new Contract(vanguard.incrementAndGetContractCounter(), devSr, Position.SENIOR_DEVELOPER, new BigDecimal("6200.00"));
+            Contract vC4 = new Contract(vanguard.incrementAndGetContractCounter(), devJr, Position.JUNIOR_DEVELOPER, new BigDecimal("3400.00"));
+            Contract vC5 = new Contract(vanguard.incrementAndGetContractCounter(), qaEng, Position.QA_ENGINEER, new BigDecimal("4100.00"));
+            Contract vC6 = new Contract(vanguard.incrementAndGetContractCounter(), designer, Position.UI_UX_DESIGNER, new BigDecimal("4300.00"));
+            Contract vC7 = new Contract(vanguard.incrementAndGetContractCounter(), helpDesk, Position.HELP_DESK, new BigDecimal("3100.00"));
+            Contract vC8 = new Contract(vanguard.incrementAndGetContractCounter(), sysAdmin, Position.SYSTEM_ADMINISTRATOR, new BigDecimal("5200.00"));
+            Contract vC9 = new Contract(vanguard.incrementAndGetContractCounter(), dbSpec, Position.DATABASE_SPECIALIST, new BigDecimal("5400.00"));
+            Contract vC10 = new Contract(vanguard.incrementAndGetContractCounter(), webDev, Position.WEB_DEVELOPER, new BigDecimal("3800.00"));
 
-            // Establish separate corporate teams under different manager contracts
-            List<Contract> managersVanguard = filterContractsByPosition(vanguardContracts, Position.MANAGER);
-            List<Contract> staffVanguard = filterContractsByOppositePosition(vanguardContracts, Position.MANAGER);
+            vanguard.addContract(vC1); vanguard.addContract(vC2); vanguard.addContract(vC3);
+            vanguard.addContract(vC4); vanguard.addContract(vC5); vanguard.addContract(vC6);
+            vanguard.addContract(vC7); vanguard.addContract(vC8); vanguard.addContract(vC9);
+            vanguard.addContract(vC10);
 
-            if (managersVanguard.size() >= 2) {
-                // Team Alpha
-                Team teamAlpha = new Team(managersVanguard.get(0));
-                for (int i = 0; i < staffVanguard.size() / 2; i++) {
-                    teamAlpha.addMemberContract(staffVanguard.get(i));
-                }
-                vanguard.addTeam(teamAlpha);
+            // Structure Multi-Team Frameworks cleanly with zero logic checks
+            Team vanguardTeam1 = new Team(vC1); // Led by David Miller
+            vanguardTeam1.addMemberContract(vC3);
+            vanguardTeam1.addMemberContract(vC4);
+            vanguardTeam1.addMemberContract(vC5);
+            vanguardTeam1.addMemberContract(vC7);
+            vanguard.addTeam(vanguardTeam1);
 
-                // Team Beta
-                Team teamBeta = new Team(managersVanguard.get(1));
-                for (int i = staffVanguard.size() / 2; i < staffVanguard.size(); i++) {
-                    teamBeta.addMemberContract(staffVanguard.get(i));
-                }
-                vanguard.addTeam(teamBeta);
-            }
+            Team vanguardTeam2 = new Team(vC2); // Led by Sarah Jenkins
+            vanguardTeam2.addMemberContract(vC6);
+            vanguardTeam2.addMemberContract(vC8);
+            vanguardTeam2.addMemberContract(vC9);
+            vanguardTeam2.addMemberContract(vC10);
+            vanguard.addTeam(vanguardTeam2);
 
             serializationService.serialize("company_db_vanguard_enterprise_solutions.ser", vanguard);
             System.out.println("[+] Generated: 'company_db_vanguard_enterprise_solutions.ser'");
-
             // =========================================================================
-            // COMPANY 2: Meridian Global Technologies
+            // COMPANY 2: Meridian Global Technologies (Premium High-Tier Market Rate)
             // =========================================================================
-            System.out.println("[*] Generating database for 'Meridian Global Technologies'...");
+            System.out.println("[*] Provisioning 'Meridian Global Technologies'...");
             Company meridian = new Company("Meridian Global Technologies");
-            configurePositionFloors(meridian, new BigDecimal("2800.00"), new BigDecimal("4000.00"), new BigDecimal("6000.00"));
+            applyRealisticSalaryFloors(meridian, new BigDecimal("1.15")); // 15% higher salary floor baseline scale!
 
-            String[] names2 = {
-                    "John Saunders", "Rebecca Foster", "Daniel Reynolds", "Patricia Martinez", "Kevin Bradley",
-                    "Laura Cunningham", "Matthew Henderson", "Rachel Sullivan", "Andrew Knight", "Nicole Patterson",
-                    "Timothy Stevens", "Christine Myers", "George Higgins", "Barbara Graham", "Jeffrey Hayes"
-            };
-            String[] domains2 = { "meridian-global.com", "meridian-tech.org" };
+            Employee mrgC = new Employee("Thomas Wright", "thomas.wright@meridian.com", Gender.MALE, LocalDate.of(1978, 1, 12));
+            Employee mrgD = new Employee("Ashley Cooper", "ashley.cooper@meridian.com", Gender.FEMALE, LocalDate.of(1982, 6, 11));
+            Employee mDevSr = new Employee("Christopher Lee", "christopher.lee@meridian.com", Gender.MALE, LocalDate.of(1985, 10, 4));
+            Employee mDevJr = new Employee("Megan Brooks", "megan.brooks@meridian.com", Gender.FEMALE, LocalDate.of(1994, 2, 28));
+            Employee mQaEng = new Employee("Brian Kelly", "brian.kelly@meridian.com", Gender.MALE, LocalDate.of(1991, 4, 17));
+            Employee mDesigner = new Employee("Rebecca Foster", "rebecca.foster@meridian.com", Gender.FEMALE, LocalDate.of(1993, 8, 22));
+            Employee mHelpDesk = new Employee("Daniel Reynolds", "daniel.reynolds@meridian.com", Gender.MALE, LocalDate.of(1997, 11, 3));
+            Employee mSysAdmin = new Employee("Patricia Martinez", "patricia.martinez@meridian.com", Gender.FEMALE, LocalDate.of(1989, 3, 14));
+            Employee mDbSpec = new Employee("Kevin Bradley", "kevin.bradley@meridian.com", Gender.MALE, LocalDate.of(1986, 7, 19));
+            Employee mWebDev = new Employee("Laura Cunningham", "laura.cunningham@meridian.com", Gender.FEMALE, LocalDate.of(1995, 5, 26));
 
-            List<Contract> meridianContracts = seedWorkforceRoster(meridian, names2, domains2);
+            // Wrap explicitly into legally valid contracts (Salaries safely above Meridian's premium floors)
+            Contract mC1 = new Contract(meridian.incrementAndGetContractCounter(), mrgC, Position.MANAGER, new BigDecimal("8800.00"));
+            Contract mC2 = new Contract(meridian.incrementAndGetContractCounter(), mrgD, Position.MANAGER, new BigDecimal("9100.00"));
+            Contract mC3 = new Contract(meridian.incrementAndGetContractCounter(), mDevSr, Position.SENIOR_DEVELOPER, new BigDecimal("7200.00"));
+            Contract mC4 = new Contract(meridian.incrementAndGetContractCounter(), mDevJr, Position.JUNIOR_DEVELOPER, new BigDecimal("3900.00"));
+            Contract mC5 = new Contract(meridian.incrementAndGetContractCounter(), mQaEng, Position.QA_ENGINEER, new BigDecimal("4800.00"));
+            Contract mC6 = new Contract(meridian.incrementAndGetContractCounter(), mDesigner, Position.UI_UX_DESIGNER, new BigDecimal("5100.00"));
+            Contract mC7 = new Contract(meridian.incrementAndGetContractCounter(), mHelpDesk, Position.HELP_DESK, new BigDecimal("3600.00"));
+            Contract mC8 = new Contract(meridian.incrementAndGetContractCounter(), mSysAdmin, Position.SYSTEM_ADMINISTRATOR, new BigDecimal("6100.00"));
+            Contract mC9 = new Contract(meridian.incrementAndGetContractCounter(), mDbSpec, Position.DATABASE_SPECIALIST, new BigDecimal("6300.00"));
+            Contract mC10 = new Contract(meridian.incrementAndGetContractCounter(), mWebDev, Position.WEB_DEVELOPER, new BigDecimal("4400.00"));
 
-            List<Contract> managersMeridian = filterContractsByPosition(meridianContracts, Position.MANAGER);
-            List<Contract> staffMeridian = filterContractsByOppositePosition(meridianContracts, Position.MANAGER);
+            meridian.addContract(mC1); meridian.addContract(mC2); meridian.addContract(mC3);
+            meridian.addContract(mC4); meridian.addContract(mC5); meridian.addContract(mC6);
+            meridian.addContract(mC7); meridian.addContract(mC8); meridian.addContract(mC9);
+            meridian.addContract(mC10);
 
-            if (managersMeridian.size() >= 2) {
-                // Operations Team
-                Team opsTeam = new Team(managersMeridian.get(0));
-                for (int i = 0; i < staffMeridian.size() / 2; i++) {
-                    opsTeam.addMemberContract(staffMeridian.get(i));
-                }
-                meridian.addTeam(opsTeam);
+            Team meridianTeam1 = new Team(mC1); // Led by Thomas Wright
+            meridianTeam1.addMemberContract(mC3);
+            meridianTeam1.addMemberContract(mC4);
+            meridianTeam1.addMemberContract(mC5);
+            meridianTeam1.addMemberContract(mC7);
+            meridian.addTeam(meridianTeam1);
 
-                // Innovation Team
-                Team innovationTeam = new Team(managersMeridian.get(1));
-                for (int i = staffMeridian.size() / 2; i < staffMeridian.size(); i++) {
-                    innovationTeam.addMemberContract(staffMeridian.get(i));
-                }
-                meridian.addTeam(innovationTeam);
-            }
+            Team meridianTeam2 = new Team(mC2); // Led by Ashley Cooper
+            meridianTeam2.addMemberContract(mC6);
+            meridianTeam2.addMemberContract(mC8);
+            meridianTeam2.addMemberContract(mC9);
+            meridianTeam2.addMemberContract(mC10);
+            meridian.addTeam(meridianTeam2);
 
             serializationService.serialize("company_db_meridian_global_technologies.ser", meridian);
             System.out.println("[+] Generated: 'company_db_meridian_global_technologies.ser'");
 
-            System.out.println("\n[+] Large-scale data environments successfully populated and active!");
+            System.out.println("\n[+] Large-scale deterministic environment seeding complete.");
 
         } catch (Exception e) {
-            System.err.println("[!] Critical error executing binary stream data generation loops:");
+            System.err.println("[!] Seeder execution failure:");
             e.printStackTrace();
         }
     }
 
     /**
-     * Loops through an array of regular English names and maps them evenly across all 
-     * 9 corporate positions, guaranteeing at least one employee sits in each role bucket.
+     * Multiplier-Driven Corporate Salary Configuration.
+     * Enforces market-realistic baseline salary floors scaled by a company-specific factor.
+     * Scale: HELP_DESK < JUNIOR < WEB < QA <= DESIGNER < SYS_ADMIN < DB_SPEC < SENIOR_DEV < MANAGER
      */
-    private static List<Contract> seedWorkforceRoster(Company company, String[] names, String[] domains) {
-        List<Contract> createdContracts = new ArrayList<>();
-        Position[] allPositions = Position.values();
-
-        for (int i = 0; i < names.length; i++) {
-            String name = names[i];
-            // Cycle through all positions evenly to eliminate empty role tracking blocks
-            Position position = allPositions[i % allPositions.length];
-
-            // Build a clean corporate lowercase email string
-            String cleanEmail = name.toLowerCase().replace(" ", ".") + "@" + domains[i % domains.length];
-            Gender gender = (i % 2 == 0) ? Gender.MALE : Gender.FEMALE;
-
-            // Stagger ages chronologically between 25 and 55 years old
-            LocalDate birthDate = LocalDate.now().minusYears(25 + (i * 2 % 30));
-
-            Employee employee = new Employee(name, cleanEmail, gender, birthDate);
-
-            // Extract the minimum floor scale and negotiate an amount safely above it
-            BigDecimal minFloor = company.getPositionMinimumSalaries().get(position);
-            BigDecimal negotiatedSalary = minFloor.add(new BigDecimal(200 + (i * 150)));
-
-            Contract contract = new Contract(company.incrementAndGetContractCounter(), employee, position, negotiatedSalary);
-            company.addContract(contract);
-            createdContracts.add(contract);
-        }
-        return createdContracts;
-    }
-
-    /**
-     * Loops through and registers baseline minimum entry salary parameters across all 9 roles.
-     */
-    private static void configurePositionFloors(Company company, BigDecimal juniorFloor, BigDecimal seniorFloor, BigDecimal managementFloor) {
-        for (Position pos : Position.values()) {
-            if (pos == Position.MANAGER || pos == Position.DATABASE_SPECIALIST) {
-                company.setSalaryForPosition(pos, managementFloor);
-            } else if (pos == Position.SENIOR_DEVELOPER || pos == Position.SYSTEM_ADMINISTRATOR) {
-                company.setSalaryForPosition(pos, seniorFloor);
-            } else {
-                company.setSalaryForPosition(pos, juniorFloor);
-            }
-        }
-    }
-
-    private static List<Contract> filterContractsByPosition(List<Contract> list, Position target) {
-        return list.stream().filter(c -> c.getPosition() == target).toList();
-    }
-
-    private static List<Contract> filterContractsByOppositePosition(List<Contract> list, Position target) {
-        return list.stream().filter(c -> c.getPosition() != target).toList();
+    private static void applyRealisticSalaryFloors(Company company, BigDecimal baseMultiplier) {
+        company.setSalaryForPosition(Position.HELP_DESK, new BigDecimal("3000.00").multiply(baseMultiplier));
+        company.setSalaryForPosition(Position.JUNIOR_DEVELOPER, new BigDecimal("3200.00").multiply(baseMultiplier));
+        company.setSalaryForPosition(Position.WEB_DEVELOPER, new BigDecimal("3500.00").multiply(baseMultiplier));
+        company.setSalaryForPosition(Position.QA_ENGINEER, new BigDecimal("4000.00").multiply(baseMultiplier));
+        company.setSalaryForPosition(Position.UI_UX_DESIGNER, new BigDecimal("4200.00").multiply(baseMultiplier));
+        company.setSalaryForPosition(Position.SYSTEM_ADMINISTRATOR, new BigDecimal("5000.00").multiply(baseMultiplier));
+        company.setSalaryForPosition(Position.DATABASE_SPECIALIST, new BigDecimal("5200.00").multiply(baseMultiplier));
+        company.setSalaryForPosition(Position.SENIOR_DEVELOPER, new BigDecimal("6000.00").multiply(baseMultiplier));
+        company.setSalaryForPosition(Position.MANAGER, new BigDecimal("7000.00").multiply(baseMultiplier));
     }
 }
