@@ -49,6 +49,7 @@ class ReportingServiceImplementationUnitTest {
         Employee mockEmployee = Mockito.mock(Employee.class);
         Mockito.when(mockEmployee.getId()).thenReturn(empId);
         Mockito.when(mockEmployee.getName()).thenReturn("John Brooks");
+        Mockito.when(mockEmployee.getEmail()).thenReturn("john.brooks@informatics.com");
         Mockito.when(mockEmployee.getGender()).thenReturn(Gender.MALE);
         Mockito.when(mockEmployee.getBirthDate()).thenReturn(LocalDate.of(1992, 4, 15));
 
@@ -68,16 +69,21 @@ class ReportingServiceImplementationUnitTest {
         // then
         assertEquals(1, dataMatrix.size());
         String[] row = dataMatrix.get(0);
+
+        assertEquals(8, row.length, "The output string matrix row must hold exactly 8 distinct structural column blocks.");
+
         assertEquals("101", row[0]);
         assertEquals(empId.toString(), row[1]);
         assertEquals("John Brooks", row[2]);
-        assertEquals("MALE", row[3]);
-        assertEquals("1992-04-15", row[4]);
-        assertEquals("SENIOR_DEVELOPER", row[5]);
-        assertEquals("6500.00", row[6]);
+        assertEquals("john.brooks@informatics.com", row[3]);
+        assertEquals("MALE", row[4]);
+        assertEquals("1992-04-15", row[5]);
+        assertEquals("SENIOR_DEVELOPER", row[6]);
+        assertEquals("6500.00", row[7]);
 
         Mockito.verify(mockCompany).getContracts();
     }
+
 
     // =========================================================================
     // METHOD UNDER TEST: compileTeamTableData

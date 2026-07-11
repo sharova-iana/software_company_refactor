@@ -59,18 +59,23 @@ class ReportingServiceImplementationIntegrationTest {
 
         // Row 1 must be Contract #101 due to sequential sorting invariants
         String[] row1 = matrix.get(0);
+        assertEquals(8, row1.length, "Row footprint must accurately track exactly 8 columns.");
         assertEquals("101", row1[0]);
         assertEquals("Alice Smith", row1[2]);
-        assertEquals("SENIOR_DEVELOPER", row1[5]);
-        assertEquals("5500.00", row1[6]);
+        assertEquals("alice.smith@informatics.com", row1[3]);
+        assertEquals("SENIOR_DEVELOPER", row1[6]);
+        assertEquals("5500.00", row1[7]);
 
         // Row 2 must be Contract #102
         String[] row2 = matrix.get(1);
+        assertEquals(8, row2.length, "Row footprint must accurately track exactly 8 columns.");
         assertEquals("102", row2[0]);
         assertEquals("Bob Jones", row2[2]);
-        assertEquals("JUNIOR_DEVELOPER", row2[5]);
-        assertEquals("2500.00", row2[6]);
+        assertEquals("bob.jones@informatics.com", row2[3]);
+        assertEquals("JUNIOR_DEVELOPER", row2[6]);
+        assertEquals("2500.00", row2[7]);
     }
+
     // =========================================================================
     // METHOD UNDER TEST: compileTeamTableData
     // =========================================================================

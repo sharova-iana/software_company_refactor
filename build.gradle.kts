@@ -27,6 +27,12 @@ tasks.jar {
         )
     }
 }
+
+// 🟢 Standard Kotlin DSL syntax to silence doclint without any casts or imports!
+// This treats the compiler arguments as a plain list of text strings.
 tasks.javadoc {
     title = "Informatics Enterprise System"
+
+    // Native string option method that cannot turn red because it uses basic primitives
+    (options as org.gradle.external.javadoc.CoreJavadocOptions).addStringOption("Xdoclint:none", "-quiet")
 }

@@ -4,10 +4,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4885edbb-1a37-4f8b-ba56-c90de5d50682" name="Changes" comment="expanded the position enum">
+    <list default="true" id="4885edbb-1a37-4f8b-ba56-c90de5d50682" name="Changes" comment="added a data seeder">
+      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/informatics/ui/CompanyDatabaseSeeder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/informatics/ui/DataSeeder.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/informatics/ui/ConsoleApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/informatics/ui/ConsoleApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle.kts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/informatics_system.log.0" beforeDir="false" afterPath="$PROJECT_DIR$/informatics_system.log.0" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/informatics/service/EmployeeService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/informatics/service/EmployeeService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/informatics/service/impl/ReportingServiceImplementation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/informatics/service/impl/ReportingServiceImplementation.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/org/informatics/service/impl/ReportingServiceImplementationIntegrationTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/org/informatics/service/impl/ReportingServiceImplementationIntegrationTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/org/informatics/service/impl/ReportingServiceImplementationUnitTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/org/informatics/service/impl/ReportingServiceImplementationUnitTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -43,6 +49,12 @@
                 <item name="Tasks" type="e4a08cd1:TasksNode" />
                 <item name="build" type="c8890929:TasksNode$1" />
               </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="InformaticsEnterpriseSystem" type="f1a62948:ProjectNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+                <item name="documentation" type="c8890929:TasksNode$1" />
+              </path>
             </expand>
             <select />
           </tree_state>
@@ -74,7 +86,7 @@
     "accountId": "808db504-1c23-4921-a54d-819c0ee20749"
   }
 }]]></component>
-  <component name="GradleScriptDefinitionsStorage" workingDir="$PROJECT_DIR$" gradleHome="C:\Users\User\.gradle\wrapper\dists\gradle-9.0.0-bin\d6wjpkvcgsg3oed0qlfss3wgl\gradle-9.0.0" javaHome="C:\Users\User\.jdks\openjdk-25.0.2" gradleVersion="9.0.0" />
+  <component name="GradleScriptDefinitionsStorage" workingDir="$PROJECT_DIR$" gradleHome="C:\Users\User\.gradle\wrapper\dists\gradle-9.0.0-bin\d6wjpkvcgsg3oed0qlfss3wgl\gradle-9.0.0" javaHome="C:\Users\User\.jdks\corretto-21.0.10" gradleVersion="9.0.0" />
   <component name="ProjectColorInfo">{
   &quot;customColor&quot;: &quot;&quot;,
   &quot;associatedIndex&quot;: 7
@@ -133,8 +145,13 @@
     "Gradle.ReportingServiceImplementationIntegrationTest.testCompileEmployeeTableData_shouldReturnOrderedMatrixRows_whenContractsAreActive.executor": "Run",
     "Gradle.ReportingServiceImplementationIntegrationTest.testCompileTeamTableData_shouldReturnGroupedRowsWithContributors_whenTeamsAreActive.executor": "Run",
     "Gradle.ReportingServiceImplementationUnitTest.testCompileBaseSalariesTableData_shouldReturnFlatMatrixRows_whenConfigurationsExist.executor": "Run",
+    "Gradle.ReportingServiceImplementationUnitTest.testCompileEmployeeTableData_shouldReturnFormattedMatrixRows_whenContractsAreActive.executor": "Run",
     "Gradle.ReportingServiceImplementationUnitTest.testCompileEmployeeTableData_shouldReturnSortedStringMatrix_whenActiveContractsExist.executor": "Run",
     "Gradle.ReportingServiceImplementationUnitTest.testCompileTeamTableData_shouldReturnStructuredNestedMatrixBlocks_whenTeamsExist.executor": "Run",
+    "Gradle.SoftwareCompany - refactor [:org.informatics.ui.ConsoleApplication.main()].executor": "Run",
+    "Gradle.SoftwareCompany - refactor [:org.informatics.ui.DataSeeder.main()].executor": "Run",
+    "Gradle.SoftwareCompany - refactor [jar].executor": "Run",
+    "Gradle.SoftwareCompany - refactor [javadoc --add-options -Xdoclint:none].executor": "Run",
     "Gradle.SoftwareCompany - refactor [testClasses].executor": "Run",
     "Gradle.SoftwareCompany [:org.informatics.ui.ConsoleApplication.main()].executor": "Run",
     "Gradle.SoftwareCompany [clean].executor": "Run",
@@ -167,7 +184,7 @@
     "project.structure.last.edited": "SDKs",
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "project.propVCSSupport.DirectoryMappings"
+    "settings.editor.selected.configurable": "reference.settingsdialog.project.gradle"
   }
 }]]></component>
   <component name="RecentsManager">
@@ -175,19 +192,80 @@
       <recent name="C:\nbu\year2_spring_sem\java\code\SoftwareCompany\src\test\java\org\informatics" />
     </key>
   </component>
-  <component name="RunManager" selected="Gradle.Tests in 'SoftwareCompany.test'">
-    <configuration name="SoftwareCompany - refactor [testClasses]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+  <component name="RunAnythingCache">
+    <option name="myCommands">
+      <command value="gradle javadoc --add-options -Xdoclint:none " />
+    </option>
+  </component>
+  <component name="RunManager" selected="Gradle.ReportingServiceImplementationIntegrationTest.testCompileEmployeeTableData_shouldReturnOrderedMatrixRows_whenContractsAreActive">
+    <configuration name="ReportingServiceImplementationIntegrationTest.testCompileEmployeeTableData_shouldReturnOrderedMatrixRows_whenContractsAreActive" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
         <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" />
+        <option name="scriptParameters" value="" />
         <option name="taskDescriptions">
           <list />
         </option>
         <option name="taskNames">
           <list>
-            <option value="testClasses" />
+            <option value=":test" />
+            <option value="--tests" />
+            <option value="&quot;org.informatics.service.impl.ReportingServiceImplementationIntegrationTest.testCompileEmployeeTableData_shouldReturnOrderedMatrixRows_whenContractsAreActive&quot;" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <ExternalSystemDebugDisabled>false</ExternalSystemDebugDisabled>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>true</RunAsTest>
+      <GradleProfilingDisabled>false</GradleProfilingDisabled>
+      <GradleCoverageDisabled>false</GradleCoverageDisabled>
+      <method v="2" />
+    </configuration>
+    <configuration name="ReportingServiceImplementationUnitTest.testCompileEmployeeTableData_shouldReturnFormattedMatrixRows_whenContractsAreActive" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":test" />
+            <option value="--tests" />
+            <option value="&quot;org.informatics.service.impl.ReportingServiceImplementationUnitTest.testCompileEmployeeTableData_shouldReturnFormattedMatrixRows_whenContractsAreActive&quot;" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <ExternalSystemDebugDisabled>false</ExternalSystemDebugDisabled>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>true</RunAsTest>
+      <GradleProfilingDisabled>false</GradleProfilingDisabled>
+      <GradleCoverageDisabled>false</GradleCoverageDisabled>
+      <method v="2" />
+    </configuration>
+    <configuration name="SoftwareCompany - refactor [javadoc --add-options -Xdoclint:none]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="javadoc" />
+            <option value="--add-options" />
+            <option value="-Xdoclint:none" />
           </list>
         </option>
         <option name="vmOptions" />
@@ -226,31 +304,6 @@
       <GradleCoverageDisabled>false</GradleCoverageDisabled>
       <method v="2" />
     </configuration>
-    <configuration name="SoftwareCompany [jar]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
-      <ExternalSystemSettings>
-        <option name="executionName" />
-        <option name="externalProjectPath" value="$PROJECT_DIR$" />
-        <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" />
-        <option name="taskDescriptions">
-          <list />
-        </option>
-        <option name="taskNames">
-          <list>
-            <option value="jar" />
-          </list>
-        </option>
-        <option name="vmOptions" />
-      </ExternalSystemSettings>
-      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
-      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
-      <ExternalSystemDebugDisabled>false</ExternalSystemDebugDisabled>
-      <DebugAllEnabled>false</DebugAllEnabled>
-      <RunAsTest>false</RunAsTest>
-      <GradleProfilingDisabled>false</GradleProfilingDisabled>
-      <GradleCoverageDisabled>false</GradleCoverageDisabled>
-      <method v="2" />
-    </configuration>
     <configuration name="SoftwareCompany [javadoc]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
@@ -276,38 +329,13 @@
       <GradleCoverageDisabled>false</GradleCoverageDisabled>
       <method v="2" />
     </configuration>
-    <configuration name="Tests in 'SoftwareCompany.test'" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
-      <ExternalSystemSettings>
-        <option name="executionName" />
-        <option name="externalProjectPath" value="$PROJECT_DIR$" />
-        <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" value="" />
-        <option name="taskDescriptions">
-          <list />
-        </option>
-        <option name="taskNames">
-          <list>
-            <option value=":test" />
-          </list>
-        </option>
-        <option name="vmOptions" />
-      </ExternalSystemSettings>
-      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
-      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
-      <ExternalSystemDebugDisabled>false</ExternalSystemDebugDisabled>
-      <DebugAllEnabled>false</DebugAllEnabled>
-      <RunAsTest>true</RunAsTest>
-      <GradleProfilingDisabled>false</GradleProfilingDisabled>
-      <GradleCoverageDisabled>false</GradleCoverageDisabled>
-      <method v="2" />
-    </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Gradle.Tests in 'SoftwareCompany.test'" />
-        <item itemvalue="Gradle.SoftwareCompany - refactor [testClasses]" />
-        <item itemvalue="Gradle.SoftwareCompany [clean]" />
+        <item itemvalue="Gradle.ReportingServiceImplementationIntegrationTest.testCompileEmployeeTableData_shouldReturnOrderedMatrixRows_whenContractsAreActive" />
+        <item itemvalue="Gradle.ReportingServiceImplementationUnitTest.testCompileEmployeeTableData_shouldReturnFormattedMatrixRows_whenContractsAreActive" />
         <item itemvalue="Gradle.SoftwareCompany [javadoc]" />
-        <item itemvalue="Gradle.SoftwareCompany [jar]" />
+        <item itemvalue="Gradle.SoftwareCompany [clean]" />
+        <item itemvalue="Gradle.SoftwareCompany - refactor [javadoc --add-options -Xdoclint:none]" />
       </list>
     </recent_temporary>
   </component>
@@ -574,11 +602,18 @@
       <option name="project" value="LOCAL" />
       <updated>1783699968897</updated>
     </task>
-    <option name="localTasksCounter" value="32" />
+    <task id="LOCAL-00032" summary="added a data seeder">
+      <option name="closed" value="true" />
+      <created>1783702363767</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1783702363767</updated>
+    </task>
+    <option name="localTasksCounter" value="33" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="added a separate persistence service to use the binary serialization utility and added the integration test for it" />
     <MESSAGE value="added java docs comments to csv service" />
     <MESSAGE value="added java docs comments to file registry service, tests for its impl, and a test for the bin serialization utility" />
     <MESSAGE value="added the integration tests for the lookup and the core business services" />
@@ -603,7 +638,8 @@
     <MESSAGE value="updated the persistence service integration test" />
     <MESSAGE value="updated the console app" />
     <MESSAGE value="expanded the position enum" />
-    <option name="LAST_COMMIT_MESSAGE" value="expanded the position enum" />
+    <MESSAGE value="added a data seeder" />
+    <option name="LAST_COMMIT_MESSAGE" value="added a data seeder" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

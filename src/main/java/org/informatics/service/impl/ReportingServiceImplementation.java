@@ -34,6 +34,7 @@ public class ReportingServiceImplementation implements ReportingService {
                             String.valueOf(contract.getContractNumber()),
                             emp.getId().toString(),
                             emp.getName(),
+                            emp.getEmail(),
                             emp.getGender().name(),
                             emp.getBirthDate().toString(),
                             contract.getPosition().name(),
