@@ -124,7 +124,7 @@ class FileRegistryServiceImplementationIntegrationTest {
     void testGenerateFilename_shouldSanitizeSpecialCharactersToUnderscoresAndAppendExtension() {
         // given
         String inputCompanyName = "Informatics Core, LLC v2.0!";
-        String expectedFilename = "company_db_management_informatics_core__llc_v2_0__.ser";
+        String expectedFilename = "company_db_management_informatics_core__llc_v2_0_.ser";
         // Note: Due to regex replacement [^a-zA-Z0-9], commas, spaces, periods, and symbols translate to continuous underscores
 
         // when

@@ -6,7 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="4885edbb-1a37-4f8b-ba56-c90de5d50682" name="Changes" comment="updated the data seeder">
       <change beforePath="$PROJECT_DIR$/informatics_system.log.0" beforeDir="false" afterPath="$PROJECT_DIR$/informatics_system.log.0" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/informatics/ui/ConsoleApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/informatics/ui/ConsoleApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/org/informatics/service/registry/impl/FileRegistryServiceImplementationIntegrationTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/org/informatics/service/registry/impl/FileRegistryServiceImplementationIntegrationTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -146,6 +146,7 @@
     "Gradle.SoftwareCompany - refactor [clean].executor": "Run",
     "Gradle.SoftwareCompany - refactor [jar].executor": "Run",
     "Gradle.SoftwareCompany - refactor [javadoc --add-options -Xdoclint:none].executor": "Run",
+    "Gradle.SoftwareCompany - refactor [javadoc].executor": "Run",
     "Gradle.SoftwareCompany - refactor [testClasses].executor": "Run",
     "Gradle.SoftwareCompany [:org.informatics.ui.ConsoleApplication.main()].executor": "Run",
     "Gradle.SoftwareCompany [clean].executor": "Run",
@@ -192,20 +193,7 @@
       <command value="gradle javadoc --add-options -Xdoclint:none " />
     </option>
   </component>
-  <component name="RunManager" selected="Application.ConsoleApplication">
-    <configuration name="ConsoleApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="org.informatics.ui.ConsoleApplication" />
-      <module name="InformaticsEnterpriseSystem.main" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="org.informatics.ui.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
+  <component name="RunManager" selected="Gradle.FileRegistryServiceImplementationIntegrationTest.testGenerateFilename_shouldSanitizeSpecialCharactersToUnderscoresAndAppendExtension">
     <configuration name="DataSeeder" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="org.informatics.ui.DataSeeder" />
       <module name="InformaticsEnterpriseSystem.main" />
@@ -219,7 +207,7 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="EmployeeServiceImplementationIntegrationTest.testHireEmployee_shouldRegisterContractAndInitializeState_whenArgumentsAreValid" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration name="FileRegistryServiceImplementationIntegrationTest.testGenerateFilename_shouldSanitizeSpecialCharactersToUnderscoresAndAppendExtension" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
@@ -232,7 +220,7 @@
           <list>
             <option value=":test" />
             <option value="--tests" />
-            <option value="&quot;org.informatics.service.impl.EmployeeServiceImplementationIntegrationTest.testHireEmployee_shouldRegisterContractAndInitializeState_whenArgumentsAreValid&quot;" />
+            <option value="&quot;org.informatics.service.registry.impl.FileRegistryServiceImplementationIntegrationTest.testGenerateFilename_shouldSanitizeSpecialCharactersToUnderscoresAndAppendExtension&quot;" />
           </list>
         </option>
         <option name="vmOptions" />
@@ -271,38 +259,63 @@
       <GradleCoverageDisabled>false</GradleCoverageDisabled>
       <method v="2" />
     </configuration>
-    <configuration name="Tests in 'InformaticsEnterpriseSystem.test'" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration name="SoftwareCompany - refactor [jar]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
         <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" value="" />
+        <option name="scriptParameters" />
         <option name="taskDescriptions">
           <list />
         </option>
         <option name="taskNames">
           <list>
-            <option value=":test" />
+            <option value="jar" />
           </list>
         </option>
         <option name="vmOptions" />
       </ExternalSystemSettings>
-      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
       <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
       <ExternalSystemDebugDisabled>false</ExternalSystemDebugDisabled>
       <DebugAllEnabled>false</DebugAllEnabled>
-      <RunAsTest>true</RunAsTest>
+      <RunAsTest>false</RunAsTest>
+      <GradleProfilingDisabled>false</GradleProfilingDisabled>
+      <GradleCoverageDisabled>false</GradleCoverageDisabled>
+      <method v="2" />
+    </configuration>
+    <configuration name="SoftwareCompany - refactor [javadoc]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="javadoc" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <ExternalSystemDebugDisabled>false</ExternalSystemDebugDisabled>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>false</RunAsTest>
       <GradleProfilingDisabled>false</GradleProfilingDisabled>
       <GradleCoverageDisabled>false</GradleCoverageDisabled>
       <method v="2" />
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.DataSeeder" />
-        <item itemvalue="Gradle.Tests in 'InformaticsEnterpriseSystem.test'" />
+        <item itemvalue="Gradle.FileRegistryServiceImplementationIntegrationTest.testGenerateFilename_shouldSanitizeSpecialCharactersToUnderscoresAndAppendExtension" />
+        <item itemvalue="Gradle.SoftwareCompany - refactor [javadoc]" />
+        <item itemvalue="Gradle.SoftwareCompany - refactor [jar]" />
         <item itemvalue="Gradle.SoftwareCompany - refactor [clean]" />
-        <item itemvalue="Gradle.EmployeeServiceImplementationIntegrationTest.testHireEmployee_shouldRegisterContractAndInitializeState_whenArgumentsAreValid" />
-        <item itemvalue="Application.ConsoleApplication" />
+        <item itemvalue="Application.DataSeeder" />
       </list>
     </recent_temporary>
   </component>
@@ -601,7 +614,15 @@
       <option name="project" value="LOCAL" />
       <updated>1783790893046</updated>
     </task>
-    <option name="localTasksCounter" value="36" />
+    <task id="LOCAL-00036" summary="updated the data seeder">
+      <option name="closed" value="true" />
+      <created>1783791283433</created>
+      <option name="number" value="00036" />
+      <option name="presentableId" value="LOCAL-00036" />
+      <option name="project" value="LOCAL" />
+      <updated>1783791283433</updated>
+    </task>
+    <option name="localTasksCounter" value="37" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
