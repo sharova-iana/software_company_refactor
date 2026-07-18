@@ -154,11 +154,9 @@ public class CsvPayrollServiceImplementation implements CsvPayrollService {
             }
 
             int contractNum = Integer.parseInt(tokens[0].trim());
-            UUID empId = UUID.fromString(tokens[1].trim());
 
-            // 1. Re-hydrate the human employee data model
+            // 1. Re-hydrate the human employee model using our clean parameters natively in a single step
             Employee employee = buildEmployeeFromTokens(tokens);
-            overrideEmployeeId(employee, empId);
 
             // 2. Extract position and salary parameters to register the contract model
             Position position = Position.valueOf(tokens[6].trim().toUpperCase());
@@ -174,47 +172,19 @@ public class CsvPayrollServiceImplementation implements CsvPayrollService {
     }
 
     /**
-     * Extracts values from string arrays to allocate a fresh human Employee instance.
+     * Extracts values from string arrays to allocate a fresh, compile-checked Employee instance.
      *
-     * @param tokens the parsed raw string columns array row
+     * @param tokens       the parsed raw string columns array row
      * @return a fresh, verified Employee domain instance
      */
     public Employee buildEmployeeFromTokens(String[] tokens) {
+        UUID empId = UUID.fromString(tokens[1].trim());
         String cleanName = tokens[2].trim().replaceAll("^\"|\"$", "").replace("\"\"", "\"");
         String email = tokens[3].trim();
         Gender gender = Gender.valueOf(tokens[4].trim().toUpperCase());
         LocalDate birthDate = LocalDate.parse(tokens[5].trim());
 
-        // We use a dummy date for construction, then inject the true historic birth date via reflection
-        Employee employee = new Employee(cleanName, email, gender, LocalDate.now().minusYears(30));
-        overrideEmployeeBirthDate(employee, birthDate);
-
-        return employee;
-    }
-
-    /**
-     * Reflectively injects the unique ID token into the final field of an Employee instance.
-     */
-    public void overrideEmployeeId(Employee employee, UUID targetId) {
-        try {
-            java.lang.reflect.Field idField = Employee.class.getDeclaredField("id");
-            idField.setAccessible(true);
-            idField.set(employee, targetId);
-        } catch (Exception e) {
-            throw new RuntimeException("Critical reflective injection error processing id fields", e);
-        }
-    }
-
-    /**
-     * Reflectively injects the historic birth date into the final field of an Employee instance.
-     */
-    public void overrideEmployeeBirthDate(Employee employee, LocalDate targetBirthDate) {
-        try {
-            java.lang.reflect.Field birthField = Employee.class.getDeclaredField("birthDate");
-            birthField.setAccessible(true);
-            birthField.set(employee, targetBirthDate);
-        } catch (Exception e) {
-            throw new RuntimeException("Critical reflective injection error processing final birth fields", e);
-        }
+        // Safe compile-checked instantiation line replacing reflection backdoors completely
+        return new Employee(empId, cleanName, email, gender, birthDate);
     }
 }

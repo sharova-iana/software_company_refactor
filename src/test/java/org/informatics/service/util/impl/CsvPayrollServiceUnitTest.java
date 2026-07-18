@@ -77,8 +77,7 @@ class CsvPayrollServiceUnitTest {
 
     @Test
     void testBuildEmployeeFromTokens_shouldInstantiateCorrectEmployee_whenTokensAreValid() {
-        // given
-        // token row string structure matching the fresh 8-column contract format rules
+        // given: Token row string structure matching the fresh 8-column contract format rules
         String[] mockTokens = {
                 "105",
                 "da3e218b-82f1-419b-bc39-a9a797f1f1d1",
@@ -95,52 +94,14 @@ class CsvPayrollServiceUnitTest {
 
         // then
         assertNotNull(actualEmployee, "Helper must successfully return a concrete Employee instance reference");
+
+        assertEquals("da3e218b-82f1-419b-bc39-a9a797f1f1d1", actualEmployee.getId().toString(),
+                "Should correctly assign the historical id string value matching raw input text.");
+
         assertEquals("Miller, David", actualEmployee.getName(), "Should clean out the CSV wrapping escape double quotes");
         assertEquals("david.miller@informatics.com", actualEmployee.getEmail(), "Should map the human communications profile string parameter");
         assertEquals(Gender.MALE, actualEmployee.getGender());
-        assertEquals(LocalDate.of(1989, 11, 23), actualEmployee.getBirthDate(), "The reflective injection utility must successfully overwrite final birthdays");
-    }
-
-    // =========================================================================
-    // METHOD UNDER TEST: overrideEmployeeId
-    // =========================================================================
-
-    @Test
-    void testOverrideEmployeeId_shouldInjectHistoricalUUID_usingReflection() {
-        // given
-        UUID targetHistoricalId = UUID.randomUUID();
-        // Updated employee construction mapping out human parameters exclusively
-        Employee employee = new Employee("Jane Doe", "jane.doe@informatics.com", Gender.FEMALE, LocalDate.of(1994, 2, 14));
-
-        // Assure that our constructor initially assigned a completely different random UUID
-        assertNotEquals(targetHistoricalId, employee.getId());
-
-        // when
-        csvServiceImpl.overrideEmployeeId(employee, targetHistoricalId);
-
-        // then
-        assertEquals(targetHistoricalId, employee.getId(), "Reflection helper must successfully overwrite the final ID with our target UUID");
-    }
-
-    // =========================================================================
-    // METHOD UNDER TEST: overrideEmployeeBirthDate
-    // =========================================================================
-
-    @Test
-    void testOverrideEmployeeBirthDate_shouldInjectHistoricalDate_usingReflection() {
-        // given
-        LocalDate targetHistoricalDate = LocalDate.of(1985, 4, 12);
-
-        Employee employee = new Employee("Jane Doe", "jane.doe@informatics.com", Gender.FEMALE, LocalDate.of(1994, 2, 14));
-
-        // Ensure the initial birthDate is completely different before testing the reflection injection
-        assertNotEquals(targetHistoricalDate, employee.getBirthDate(), "The test setup birthDate must differ from our target injection date.");
-
-        // when
-        csvServiceImpl.overrideEmployeeBirthDate(employee, targetHistoricalDate);
-
-        // then
-        assertEquals(targetHistoricalDate, employee.getBirthDate(), "The reflection utility must successfully force overwrite the final birthDate field.");
+        assertEquals(LocalDate.of(1989, 11, 23), actualEmployee.getBirthDate(), "The birthdate should be assigned correctly");
     }
 
 

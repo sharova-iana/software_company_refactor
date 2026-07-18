@@ -56,33 +56,71 @@ public class Employee implements Serializable {
     private Gender gender;
 
     /**
-     * <p>Constructs a new Employee identity instance and executes self-validation guard checks.</p>
-     * <p>A unique {@link UUID} tracking token is automatically generated and assigned upon creation.</p>
+     * Constructs a new Employee identity instance and executes self-validation guard checks.
+     * <p>
+     * A unique {@link UUID} tracking token is automatically generated and assigned upon creation.
+     * </p>
      *
      * @param name      the full name of the employee (2 to 100 characters)
      * @param email     the unique communication email address matching standard format rules
      * @param gender    the biological gender enumeration value of the employee
      * @param birthDate the unchangeable birth date of the employee (enforcing ages 18 to 70 inclusive)
      * @throws IllegalArgumentException if the name length or email format violates layout bounds
-     * @throws AgeBoundaryException    if the calculated chronological age is under 18 or over 70
+     * @throws AgeBoundaryException     if the calculated chronological age is under 18 or over 70
      * @throws NullPointerException     if any of the mandatory parameter references are null
      */
     public Employee(String name, String email, Gender gender, LocalDate birthDate) {
         this.id = UUID.randomUUID();
         this.gender = Objects.requireNonNull(gender, "Gender cannot be null.");
+        this.birthDate = this.validateAndExtractBirthDate(birthDate);
 
-        // Validate immutable birth date directly at constructor entry point
+        this.setName(name);
+        this.setEmail(email);
+    }
+
+    /**
+     * Data-restoration constructor supporting safe domain restoration from external files.
+     * <p>
+     * This constructor is explicitly dedicated to infrastructure storage layers to preserve original identity
+     * tokens and historical biographical markers while strictly enforcing age invariants.
+     * </p>
+     *
+     * @param historicalId the original unique identifier token recovered from storage; cannot be null
+     * @param name         the full name of the employee; cannot be null or violate length bounds
+     * @param email        the corporate email address; cannot be null or violate format syntax
+     * @param gender       the biological gender enumeration value; cannot be null
+     * @param birthDate    the unchangeable birth date of the employee (enforcing ages 18 to 70 inclusive)
+     * @throws IllegalArgumentException if the name length or email format violates layout bounds
+     * @throws AgeBoundaryException     if the calculated chronological age is under 18 or over 70
+     * @throws NullPointerException     if any of the mandatory parameter references are null
+     */
+    public Employee(UUID historicalId, String name, String email, Gender gender, LocalDate birthDate) {
+        this.id = Objects.requireNonNull(historicalId, "Historical UUID tracking token cannot be null.");
+        this.gender = Objects.requireNonNull(gender, "Gender cannot be null.");
+        this.birthDate = this.validateAndExtractBirthDate(birthDate);
+
+        this.setName(name);
+        this.setEmail(email);
+    }
+
+    // --- PRIVATE DOMAIN INVARIANT GUARD ---
+
+    /**
+     * Centralized validator checking chronological age boundaries before finalizing final field allocation.
+     *
+     * @param birthDate the incoming birth date to check
+     * @return the verified non-null LocalDate object instance
+     * @throws NullPointerException  if the provided birth date is null
+     * @throws AgeBoundaryException if the calculated age drops under 18 or breaches 70 years
+     */
+    private LocalDate validateAndExtractBirthDate(LocalDate birthDate) {
         Objects.requireNonNull(birthDate, "Birth date cannot be null.");
         int age = Period.between(birthDate, LocalDate.now()).getYears();
         if (age < 18 || age > 70) {
             throw new AgeBoundaryException(String.format(
                     "Hiring rejected. Age must be between 18 and 70. Provided birth date results in age: %d.", age));
         }
-        this.birthDate = birthDate;
-
-        // Delegate remaining mutable parameter validations securely to the setters
-        this.setName(name);
-        this.setEmail(email);
+        return birthDate;
     }
 
     /**
